@@ -12,12 +12,6 @@ export default function SideMenu() {
       .getSectors()
       .then((result) => setsSectors(result.data.data));
   });
-  
-  const getAllSectors = sectors.map((sector, index) => ({
-    key: index,
-    text: sector.sectorName,
-    value: sector.sectorId
-  }))
 
   return (
     <Menu vertical style= {{marginTop:"2em"}}>

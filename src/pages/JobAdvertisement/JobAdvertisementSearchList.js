@@ -1,11 +1,12 @@
 import React from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Container, Grid } from 'semantic-ui-react'
 import SideMenu from '../../layouts/Dashboard/SideMenu'
 import JobAdvertisement from '../../layouts/Dashboard/JobAdvertisement'
 import '../../App.css';
 
 export default function JobAdvertisementSearchList() {
   return (
+    <Container>
     <div className="App">
          <Grid>
           <Grid.Row>
@@ -13,10 +14,11 @@ export default function JobAdvertisementSearchList() {
               <SideMenu/>
             </Grid.Column>
                 <Grid.Column width={12}>
-                  <JobAdvertisement/>
+                <JobAdvertisement/>
                 </Grid.Column>
           </Grid.Row>
         </Grid>
     </div>
+    </Container>
   )
 }

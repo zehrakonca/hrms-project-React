@@ -1,6 +1,5 @@
 import React from 'react'
 import {Grid, Header, Icon,} from 'semantic-ui-react'
-import SideMenu from './SideMenu'
 import JobAdvertisement from './JobAdvertisement'
 import Count from './Count'
 
@@ -9,9 +8,8 @@ export default function Dashboard() {
       <div>
         <Grid>
           <Grid.Row>
-            {/* <Grid.Column width={4}>
-              <SideMenu/>
-            </Grid.Column> */}
+            <Grid.Column width={4}>
+            </Grid.Column>
                 <Grid.Column width={16}>
                   <Header as='h3'>
                     <Icon name='braille' />

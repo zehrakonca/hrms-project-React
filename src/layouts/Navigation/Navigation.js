@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import { Menu, Icon, Container } from 'semantic-ui-react'
 import SignedOut from '../Dashboard/SignedOut'
 import SignedIn from '../Dashboard/SignedIn'
+import {NavLink,Link} from 'react-router-dom';
+
 
 export default function Navigation() {
   const [isAuthenticated, setIsAuthenticated] = useState(true)
@@ -14,23 +16,29 @@ export default function Navigation() {
     setIsAuthenticated(true)
   }
 
+  const navLinkStyles = ({isActive})=> {
+    return {
+      fontWeight: isActive? 'bold' : 'normal',
+      background: isActive? 'darkorange':'transparent',
+    }
+  }
+
   return (
     <div>
-        <Menu secondary size='large' inverted color='orange' stackable >
+        <Menu secondary size='large' inverted color='orange' stackable active >
             <Container>
     <Menu.Item>
         <Icon name='handshake outline' size='big' />
-        ihopefindjob
-        
+        <Link to="/home" >ihopefindjob</Link>
     </Menu.Item>
-    <Menu.Item active>
-   Home
-    </Menu.Item>
-    <Menu.Item>
-        Job Advertisements
+    <Menu.Item >
+    <NavLink to="/home" style={navLinkStyles}>Home</NavLink>
     </Menu.Item>
     <Menu.Item>
-        Articles
+      <NavLink to="/jobAdvertisementSearchList"style={navLinkStyles}>Job Advertisements</NavLink>
+    </Menu.Item>
+    <Menu.Item>
+      <NavLink to="/advertisementPost" style={navLinkStyles}>Advertisement post</NavLink>
     </Menu.Item>
     <Menu.Item>
        

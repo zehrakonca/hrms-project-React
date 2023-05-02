@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Container, Divider, Grid, Header, Icon, Image, Item, Label, Search, Segment,Card } from 'semantic-ui-react';
 import bannerPicture from '../../img/meeting2.jpg';
-import user from '../../img/avatar.png';
+import 'semantic-ui-css/semantic.min.css'
+import UserCount from "../Dashboard/UserCount";
 
 const HomepageHeading = ({ mobile }) => (
     // <Container text>
@@ -138,6 +139,7 @@ export default function Information() {
           </Grid.Row>
           </Grid>
           </Segment>
+          <UserCount/>
   </Container>
     </div>
   )
