@@ -26,7 +26,7 @@ export default class JobService{
         return axios.put(`http://localhost:8080/api/jobs/update`, job);
     }
 
-    deleteProgramInfo(id){
+    deleteJob(id){
         return axios.delete(`http://localhost:8080/api/jobs/delete?id=${id}`);
     }
 }

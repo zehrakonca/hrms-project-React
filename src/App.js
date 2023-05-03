@@ -7,6 +7,10 @@ import Navigation from './layouts/Navigation/Navigation';
 import Footer from './layouts/Footer/Footer';
 import JobAdvertisementDetail from './pages/JobAdvertisement/JobAdvertisementDetail';
 import JobAdvertisementPost from './pages/JobAdvertisement/JobAdvertisementPost';
+import SectorList from './pages/Sector/SectorList';
+import Dashboard from './layouts/Dashboard/Dashboard';
+import SiteMap from './layouts/Dashboard/SiteMap';
+import JobList from './pages/Job/JobList';
 
 function App() {
   return (
@@ -20,6 +24,10 @@ function App() {
     <Route path="/jobAdvertisementSearchList" element={<JobAdvertisementSearchList />} />
       <Route path='/advertisement/:id'/>
     <Route path="/advertisementPost" element={<JobAdvertisementPost/>}/>
+    <Route path='/sectorList' element={<SectorList/>} />
+    <Route path='/dashboard' element={<Dashboard/>}/>
+    <Route path='/sitemap' element={<SiteMap/>} />
+    <Route path='/jobList' element={<JobList/>}/>
     </Routes>
     <Footer/>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Divider, Grid, Header, Icon, Image, Item, Label, Search, Segment,Card } from 'semantic-ui-react';
+import { Button, Container, Divider, Grid, Header, Icon, Image, Search, Segment} from 'semantic-ui-react';
 import bannerPicture from '../../img/meeting2.jpg';
 import 'semantic-ui-css/semantic.min.css'
 import UserCount from "../Dashboard/UserCount";

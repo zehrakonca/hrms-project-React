@@ -41,6 +41,9 @@ export default function Navigation() {
       <NavLink to="/advertisementPost" style={navLinkStyles}>Advertisement post</NavLink>
     </Menu.Item>
     <Menu.Item>
+      <NavLink to="/sitemap" style={navLinkStyles}>siteMap</NavLink>
+    </Menu.Item>
+    <Menu.Item>
        
     </Menu.Item>
     <Menu.Item as='a'>

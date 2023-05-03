@@ -2,17 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { Header, Segment, Icon, Grid, Button, GridColumn, Divider, Card, List,Container } from 'semantic-ui-react';
 import JobAdvertisementService from '../../services/jobAdvertisementService';
+import EmployerService from '../../services/employerService';
 
 export default function JobAdvertisementDetail() {
 
   let { id } = useParams();
   const [jobAdvertisement, setJobAdvertisement] = useState([]);
+  const [employer, setEmployer] = useState([]);
 
   useEffect(() => {
       let jobAdvertisementService = new JobAdvertisementService();
       jobAdvertisementService.getByAdvertisementId(id).then((result => setJobAdvertisement(result.data.data))
       )
   }, [id]);
+
+  useEffect(() => {
+    let employerService = new EmployerService();
+    employerService.getById(id).then((result => setEmployer(result.data.data))
+    )
+    
+}, [id]);
+  
 
   return (
     <div style={{margin:'1em'}}>
@@ -50,7 +60,7 @@ export default function JobAdvertisementDetail() {
                         </Header>
                         <Divider clearing />
                         <p>
-                            companyDescription(eklenecek)
+                            {employer.companyDescription}
                         </p>
                         <Header as='h2' floated='left'>Job description</Header>
                         <Divider clearing />
@@ -66,15 +76,15 @@ export default function JobAdvertisementDetail() {
                                     <List size="large">
                                         <List.Item>
                                             <List.Icon name="sign language" />
-                                            <List.Content>experience: experience (eklenecek)</List.Content>
+                                            <List.Content>experience: {jobAdvertisement.experienceName}</List.Content>
                                         </List.Item>
                                         <List.Item>
                                             <List.Icon name="compass outline" />
-                                            <List.Content>military status: militarystatu(eklenecek)</List.Content>
+                                            <List.Content>military status: {jobAdvertisement.militaryStatuName}</List.Content>
                                         </List.Item>
                                         <List.Item>
                                             <List.Icon name="chess king" />
-                                            <List.Content>education level: education level(eklenecek)</List.Content>
+                                            <List.Content>education level: {jobAdvertisement.educationTypeName}</List.Content>
                                         </List.Item>
                                     </List>
                                 </Segment>
@@ -91,7 +101,7 @@ export default function JobAdvertisementDetail() {
                                         </List.Item>
                                         <List.Item>
                                             <List.Icon name="pencil alternate" />
-                                            <List.Content>position level : positionlevelName(eklenecek)</List.Content>
+                                            <List.Content>position level : {jobAdvertisement.positionLevelName}</List.Content>
                                         </List.Item>
                                         <List.Item>
                                             <List.Icon name="map signs" />

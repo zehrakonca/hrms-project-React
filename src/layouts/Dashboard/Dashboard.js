@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, Header, Icon,} from 'semantic-ui-react'
 import JobAdvertisement from './JobAdvertisement'
-import Count from './Count'
+import UserCount from './../Dashboard/UserCount'
 
 export default function Dashboard() {
     return (
@@ -16,7 +16,7 @@ export default function Dashboard() {
                       <Header.Content>today's new</Header.Content>
                       </Header>
                   <JobAdvertisement/>
-                  <Count/>
+                  <UserCount/>
                 </Grid.Column>
           </Grid.Row>
         </Grid>
