@@ -19,6 +19,6 @@ export default class FacultyExperience{
     }
 
     deleteFaculty(id){
-        return axios.delete(`http://localhost:8080/api/highSchoolTypes/delete?id=${id}`);
+        return axios.delete(`http://localhost:8080/api/faculties/delete?id=${id}`);
     }
 }

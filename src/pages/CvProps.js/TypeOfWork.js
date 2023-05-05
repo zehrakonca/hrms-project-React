@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import SectorService from '../../services/sectorService';
+import WorkTypeService from '../../services/workTypeService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
 
-function SectorList() {
+function TypeOfWork() {
 
-  const [sectors, setSectors] = useState([]);
+  const [typeOfWorks, setTypeOfWorks] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let sectorService = new SectorService();
+  let workTypeService = new WorkTypeService();
 
   useEffect(() => {
-    let sectorService = new SectorService();
+    let workTypeService = new WorkTypeService();
 
-    sectorService.getSectors().then((result => setSectors(result.data.data)))
+    workTypeService.getAllWorkType().then((result => setTypeOfWorks(result.data.data)))
   }, []);
 
   const initialValues = {
-    sector: "",
+    typeName: "",
   };
 
   const validationSchema = Yup.object({
-    sector: Yup.string().required("required field"),
+    typeName: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    sectorService.addSector(values);
+    workTypeService.addWorkType(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
@@ -36,9 +36,9 @@ function SectorList() {
   };
 
   const handleDelete = async (id) => {
-    let sectorService = new SectorService();
+    let workTypeService = new WorkTypeService();
     console.log(id);
-    sectorService.deleteSector(id);
+    workTypeService.deleteWorkType(id);
     handleModal(true);
   }
 
@@ -70,11 +70,11 @@ function SectorList() {
               </Table.Header>
 
               <Table.Body>
-                {sectors.map((sector) => (
+                {typeOfWorks.map((typeOfWork) => (
                   <Table.Row>
-                    <Table.Cell>{sector.sector}</Table.Cell>
+                    <Table.Cell>{typeOfWork.typeName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="orange" onClick={() => handleDelete(sector.id)}>
+                      <Button icon basic color="orange" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -86,17 +86,17 @@ function SectorList() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='archive' />  Add Sector
+                <Icon name='world' />  Add type OfWork
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='sector'
-                    placeholder='please enter sector...'
-                    onChange={(event, data) => handleChange("sector", data.value)}
-                    value={formik.values.sector}
+                    name='typeName'
+                    placeholder='please enter typeOfWork...'
+                    onChange={(event, data) => handleChange("typeName", data.value)}
+                    value={formik.values.typeName}
                   />
-                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.errors.sector} /><br /></span>}
+                  {formik.errors.typeName && formik.touched.typeName && <span><Label basic pointing color="orange" content={formik.errors.typeName} /><br /></span>}
                   <Button color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
@@ -109,4 +109,4 @@ function SectorList() {
   )
 }
 
-export default SectorList;
+export default TypeOfWork;

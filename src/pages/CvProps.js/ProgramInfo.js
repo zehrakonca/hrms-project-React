@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import SectorService from '../../services/sectorService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
+import ProgramInfoService from '../../services/programInfoService'
 
-function SectorList() {
+function ProgramInfo() {
 
-  const [sectors, setSectors] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let sectorService = new SectorService();
+  let programInfoService = new ProgramInfoService();
 
   useEffect(() => {
-    let sectorService = new SectorService();
+    let programInfoService = new ProgramInfoService();
 
-    sectorService.getSectors().then((result => setSectors(result.data.data)))
+    programInfoService.getAllProgramInfo().then((result => setPrograms(result.data.data)))
   }, []);
 
   const initialValues = {
-    sector: "",
+    program: "",
   };
 
   const validationSchema = Yup.object({
-    sector: Yup.string().required("required field"),
+    program: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    sectorService.addSector(values);
+    programInfoService.addProgramInfo(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
@@ -36,9 +36,9 @@ function SectorList() {
   };
 
   const handleDelete = async (id) => {
-    let sectorService = new SectorService();
+    let programInfoService = new ProgramInfoService();
     console.log(id);
-    sectorService.deleteSector(id);
+    programInfoService.deleteProgramInfo(id);
     handleModal(true);
   }
 
@@ -70,11 +70,14 @@ function SectorList() {
               </Table.Header>
 
               <Table.Body>
-                {sectors.map((sector) => (
+                {programs.map((program) => (
                   <Table.Row>
-                    <Table.Cell>{sector.sector}</Table.Cell>
+                    <Table.Cell>{program.program}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="orange" onClick={() => handleDelete(sector.id)}>
+                    <Button icon basic color="orange">
+                        <Icon name='pencil' />
+                      </Button>
+                      <Button icon basic color="orange" onClick={() => handleDelete(program.programIds)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -86,17 +89,17 @@ function SectorList() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='archive' />  Add Sector
+                <Icon name='book' />  Add program info
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='sector'
-                    placeholder='please enter sector...'
-                    onChange={(event, data) => handleChange("sector", data.value)}
-                    value={formik.values.sector}
+                    name='positionLevel'
+                    placeholder='please enter program info...'
+                    onChange={(event, data) => handleChange("program", data.value)}
+                    value={formik.values.program}
                   />
-                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.errors.sector} /><br /></span>}
+                  {formik.errors.program && formik.touched.program && <span><Label basic pointing color="orange" content={formik.errors.program} /><br /></span>}
                   <Button color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
@@ -109,4 +112,4 @@ function SectorList() {
   )
 }
 
-export default SectorList;
+export default ProgramInfo;

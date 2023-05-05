@@ -14,11 +14,11 @@ export default class LanguageService{
         return axios.post(`http://localhost:8080/api/languages/add`,language);
     }
 
-    updateProgramInfo(language){
+    updateLanguage(language){
         return axios.put(`http://localhost:8080/api/languages/update`, language);
     }
 
-    deleteProgramInfo(id){
+    deleteLanguage(id){
         return axios.delete(`http://localhost:8080/api/languages/delete/{id}?id=${id}`);
     }
 }

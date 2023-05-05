@@ -78,7 +78,7 @@ function JobList() {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Input name='job' placeholder='please enter job name...' value={formValueJob.jobName} onChange={handleInput} />
                                     <Form.Select name='sectorId' placeholder='select sector' value={formValueJob.sectorId} onChange={e => setSectors(e.target.value)}>
-                                        <option>{sector.sector}</option>
+                                        {/* <option>{sector.sector}</option> */}
                                     </Form.Select>
 
                                     <Button color="orange" onClick={handleSubmit} type='submit'>Submit</Button>

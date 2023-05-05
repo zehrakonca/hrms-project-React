@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import SectorService from '../../services/sectorService';
+import UniversityService from '../../services/universityService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
 
-function SectorList() {
+function University() {
 
-  const [sectors, setSectors] = useState([]);
+  const [universities, setUniversities] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let sectorService = new SectorService();
+  let universityService = new UniversityService();
 
   useEffect(() => {
-    let sectorService = new SectorService();
+    let universityService = new UniversityService();
 
-    sectorService.getSectors().then((result => setSectors(result.data.data)))
+    universityService.getUniversity().then((result => setUniversities(result.data.data)))
   }, []);
 
   const initialValues = {
-    sector: "",
+    university: "",
   };
 
   const validationSchema = Yup.object({
-    sector: Yup.string().required("required field"),
+    university: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    sectorService.addSector(values);
+    universityService.addUniversity(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
@@ -36,9 +36,9 @@ function SectorList() {
   };
 
   const handleDelete = async (id) => {
-    let sectorService = new SectorService();
+    let universityService = new UniversityService();
     console.log(id);
-    sectorService.deleteSector(id);
+    universityService.deleteUniversity(id);
     handleModal(true);
   }
 
@@ -70,11 +70,11 @@ function SectorList() {
               </Table.Header>
 
               <Table.Body>
-                {sectors.map((sector) => (
+                {universities.map((university) => (
                   <Table.Row>
-                    <Table.Cell>{sector.sector}</Table.Cell>
+                    <Table.Cell>{university.universityName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="orange" onClick={() => handleDelete(sector.id)}>
+                      <Button icon basic color="orange" onClick={() => handleDelete(university.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -86,17 +86,17 @@ function SectorList() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='archive' />  Add Sector
+                <Icon name='graduation' />  Add university
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='sector'
-                    placeholder='please enter sector...'
-                    onChange={(event, data) => handleChange("sector", data.value)}
-                    value={formik.values.sector}
+                    name='university'
+                    placeholder='please enter university...'
+                    onChange={(event, data) => handleChange("university", data.value)}
+                    value={formik.values.university}
                   />
-                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.errors.sector} /><br /></span>}
+                  {formik.errors.university && formik.touched.university && <span><Label basic pointing color="orange" content={formik.errors.university} /><br /></span>}
                   <Button color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
@@ -109,4 +109,4 @@ function SectorList() {
   )
 }
 
-export default SectorList;
+export default University;
