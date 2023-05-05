@@ -18,6 +18,9 @@ import ProgramInfo from './pages/CvProps.js/ProgramInfo';
 import MilitaryStatu from './pages/CvProps.js/MilitaryStatu';
 import University from './pages/CvProps.js/University';
 import TypeOfWork from './pages/CvProps.js/TypeOfWork'
+import HighSchoolType from './pages/CvProps.js/HighSchoolType'
+import City from './pages/CvProps.js/City'
+import JobSeeker from './pages/CvProps.js/JobSeeker'
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
     <Route path='/militaryStatuInfo' element={<MilitaryStatu/>}/>
     <Route path='/universityList' element={<University/>}/>
     <Route path='/typeOfWork' element={<TypeOfWork/>}/>
+    <Route path='/highSchoolTypeList' element={<HighSchoolType/>}/>
+    <Route path='/cityList' element={<City/>}/>
+    <Route path='/jobSeekerSignUp' element={<JobSeeker/>}/>
     </Routes>
     <Footer/>
     </div>

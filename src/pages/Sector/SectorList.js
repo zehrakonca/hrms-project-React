@@ -33,6 +33,7 @@ function SectorList() {
     setTimeout(() => {
       resetForm();
     }, 100);
+    refreshPage();
   };
 
   const handleDelete = async (id) => {
@@ -40,6 +41,7 @@ function SectorList() {
     console.log(id);
     sectorService.deleteSector(id);
     handleModal(true);
+    refreshPage();
   }
 
   const formik = useFormik({
@@ -56,6 +58,9 @@ function SectorList() {
     formik.setFieldValue(fieldName, value);
   };
 
+  function refreshPage() {
+    window.location.reload();
+  }
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>

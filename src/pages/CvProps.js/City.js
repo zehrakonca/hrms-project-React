@@ -1,49 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import WorkTypeService from '../../services/workTypeService';
+import CityService from '../../services/cityService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
 
-function TypeOfWork() {
+function City() {
 
-  const [typeOfWorks, setTypeOfWorks] = useState([]);
+  const [cities, setCities] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let workTypeService = new WorkTypeService();
+  let cityService = new CityService();
 
   useEffect(() => {
-    let workTypeService = new WorkTypeService();
+    let cityService = new CityService();
 
-    workTypeService.getAllWorkType().then((result => setTypeOfWorks(result.data.data)))
+    cityService.getAllCity().then((result => setCities(result.data.data)))
   }, []);
 
   const initialValues = {
-    typeOfWork: "",
+    cityName: "",
   };
 
   const validationSchema = Yup.object({
-    typeOfWork: Yup.string().required("required field"),
+    cityName: Yup.string().required("required field"),
   });
-
-  function refreshPage() {
-    window.location.reload();
-  }
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    workTypeService.addWorkType(values);
+    cityService.addCity(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
+    refreshPage();
   };
 
   const handleDelete = async (id) => {
-    let workTypeService = new WorkTypeService();
+    let cityService = new CityService();
     console.log(id);
-    workTypeService.deleteWorkType(id);
+    cityService.deleteCity(id);
     handleModal(true);
+    refreshPage();
   }
 
   const formik = useFormik({
@@ -60,6 +58,9 @@ function TypeOfWork() {
     formik.setFieldValue(fieldName, value);
   };
 
+  function refreshPage() {
+    window.location.reload();
+  }
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -74,11 +75,11 @@ function TypeOfWork() {
               </Table.Header>
 
               <Table.Body>
-                {typeOfWorks.map((typeOfWork) => (
+                {cities.map((cityName) => (
                   <Table.Row>
-                    <Table.Cell>{typeOfWork.typeOfWork}</Table.Cell>
+                    <Table.Cell>{cityName.cityName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="orange" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
+                      <Button icon basic color="orange" onClick={() => handleDelete(cityName.cityId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -90,18 +91,18 @@ function TypeOfWork() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='world' />  Add type OfWork
+                <Icon name='map pin' />  Add city
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='typeOfWork'
-                    placeholder='please enter typeOfWork...'
-                    onChange={(event, data) => handleChange("typeOfWork", data.value)}
-                    value={formik.values.typeOfWork}
+                    name='cityName'
+                    placeholder='please enter city...'
+                    onChange={(event, data) => handleChange("cityName", data.value)}
+                    value={formik.values.cityName}
                   />
-                  {formik.errors.typeOfWork && formik.touched.typeOfWork && <span><Label basic pointing color="orange" content={formik.errors.typeOfWork} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add" onClick={refreshPage}>Submit</Button>
+                  {formik.errors.cityName && formik.touched.cityName && <span><Label basic pointing color="orange" content={formik.errors.cityName} /><br /></span>}
+                  <Button color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -113,4 +114,4 @@ function TypeOfWork() {
   )
 }
 
-export default TypeOfWork;
+export default City;

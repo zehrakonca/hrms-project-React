@@ -2,6 +2,8 @@ import React from "react";
 import { Modal, Header, Icon } from "semantic-ui-react";
 
 export default function MessageModal({ onClose, onOpen, open, content }) {
+
+  
   return (
     <Modal
       basic
