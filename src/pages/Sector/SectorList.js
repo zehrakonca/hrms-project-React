@@ -102,7 +102,7 @@ function SectorList() {
                     value={formik.values.sector}
                   />
                   {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.errors.sector} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  <Button inverted color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

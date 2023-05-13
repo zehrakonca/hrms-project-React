@@ -21,6 +21,7 @@ import TypeOfWork from './pages/CvProps.js/TypeOfWork'
 import HighSchoolType from './pages/CvProps.js/HighSchoolType'
 import City from './pages/CvProps.js/City'
 import JobSeeker from './pages/CvProps.js/JobSeeker'
+import Employer from './pages/Employer/Employer'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
     <Route path='/highSchoolTypeList' element={<HighSchoolType/>}/>
     <Route path='/cityList' element={<City/>}/>
     <Route path='/jobSeekerSignUp' element={<JobSeeker/>}/>
+    <Route path='/employer' element={<Employer/>}/>
     </Routes>
     <Footer/>
     </div>

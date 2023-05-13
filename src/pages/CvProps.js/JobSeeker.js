@@ -28,7 +28,7 @@ function JobSeeker() {
         telephone: Yup.string().required("required field"),
         email: Yup.string().required("required field"),
         nationalIdentity: Yup.string().required("required field"),
-        date: Yup.string().required("required field"),
+        date: Yup.string().required("required field. only year(for example:1996)"),
         password: Yup.string().required("required field"),
         passwordRep: Yup.string().required("required field"),
     });
@@ -142,11 +142,11 @@ function JobSeeker() {
                                 />
                                 {formik.errors.date && formik.touched.date && <span><Label basic pointing color="orange" content={formik.errors.date} /><br /><br /></span>}
                                 <Form.Checkbox label='I agree to the Terms and Conditions' />
-                                <Button color="orange">Sign Up</Button>
+                                <Button color="orange" type='submit'>Sign Up</Button>
                             </Form>
                         </Formik>
                     </Grid.Column>
-                    <Grid.Column width={8}>
+                    <Grid.Column width={8} only="large screen">
                         <Image src={meeting} centered></Image>
                     </Grid.Column>
                 </Grid>

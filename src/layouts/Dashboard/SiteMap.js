@@ -112,6 +112,13 @@ export default function SiteMap() {
               </List.Header>
             </List.Content>
           </List.Item>
+           <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/employer">Employer sign up</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
         </List>
       </Segment>
     </Container>

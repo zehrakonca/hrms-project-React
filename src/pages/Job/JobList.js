@@ -1,45 +1,75 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { Button, Container, Form, Grid, Header, Icon, Message, Segment, Table } from 'semantic-ui-react';
+import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
 import JobService from '../../services/jobService';
 import SectorService from '../../services/sectorService';
+import { Formik, useFormik } from 'formik';
+import * as Yup from "yup";
+import MessageModal from '../../layouts/Dashboard/MessageModal';
 
 function JobList() {
 
     const [jobs, setJobs] = useState([]);
     const [sectors, setSectors] = useState([]);
-    const [formValueJob, setFormValueJob] = useState({ job: '', sectorId: '' });
+    const [open, setOpen] = useState(false);
+
+    let jobService = new JobService();
+    let sectorService = new SectorService();
 
     useEffect(() => {
-        let jobService = new JobService();
-        jobService.getAllJob().then((result => setJobs(result.data.data)))
-    }, []);
+        jobService.getAllJob().then((result) => setJobs(result.data.data));
+        sectorService.getSectors().then((result) => setSectors(result.data.data));
+    });
 
-    const handleInput = (e) => {
-        const { name, value } = e.target;
-        setFormValueJob({ ...formValueJob, [name]: value });
-    }
+    const sectorOptions = sectors.map((sector) => ({
+        key: sector.id,
+        text: sector.sector,
+        value: sector,
+    }));
 
-    const getSector = (e) => {
-        let sectorService = new SectorService();
-        sectorService.getSectors().then((result => setSectors(result.data.data)))
-    }
+    const initialValues = {
+        jobName: "",
+        sector: "",
+    };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const allInputValue = { sector: formValueJob.sectorId, jobName: formValueJob.job };
-        let jobService = new JobService();
-        jobService.addJob(allInputValue);
-        jobService.getAllJob();
-        console.log(allInputValue);
-    }
+    const validationSchema = Yup.object({
+        jobName: Yup.string().required("required field"),
+        sector: Yup.object().required("required field"),
+    });
+
+
+    // function refreshPage() {
+    //     window.location.reload();
+    // }
+
+    const onSubmit = (values, { resetForm }) => {
+        console.log(values);
+        jobService.addJob(values);
+        handleModal(true);
+        setTimeout(() => {
+            resetForm();
+        }, 100);
+    };
 
     const handleDelete = async (id) => {
         let jobService = new JobService();
         console.log(id);
         jobService.deleteJob(id);
-        jobService.getSectors();
     }
 
+    const handleModal = (value) => {
+        setOpen(value);
+    };
+
+    const handleChange = (fieldName, value) => {
+        formik.setFieldValue(fieldName, value);
+    };
+
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema: validationSchema,
+        onSubmit: onSubmit,
+    });
 
     return (
         <Container style={{ margin: "1em" }}>
@@ -75,18 +105,34 @@ function JobList() {
                                 <Header as='h3' dividing>
                                     <Icon name='archive' />  Add Job
                                 </Header>
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Input name='job' placeholder='please enter job name...' value={formValueJob.jobName} onChange={handleInput} />
-                                    <Form.Select name='sectorId' placeholder='select sector' value={formValueJob.sectorId} onChange={e => setSectors(e.target.value)}>
-                                        {/* <option>{sector.sector}</option> */}
-                                    </Form.Select>
-
-                                    <Button color="orange" onClick={handleSubmit} type='submit'>Submit</Button>
-                                </Form>
+                                <Formik>
+                                    <Form dividing onSubmit={formik.handleSubmit} style={{ margin: "0.5em" }}>
+                                        <Form.Input
+                                            name='jobName'
+                                            placeholder='please enter job name...'
+                                            onChange={(event, data) => handleChange("jobName", data.value)}
+                                            value={formik.values.jobName}
+                                        />
+                                        {formik.errors.jobName && formik.touched.jobName && <span><Label basic pointing color="orange" content={formik.errors.jobName} /><br /></span>}
+                                        <Form.Select
+                                            name="sector"
+                                            label='Sector'
+                                            placeholder="select sector."
+                                            options={sectorOptions}
+                                            onChange={(event, data) => handleChange("sector", data.value)}
+                                            value={formik.values.sector.sectorId}
+                                        >
+                                        </Form.Select>
+                                        {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.dirtyerrors.sector} /><br /></span>}
+                                        <Button inverted color="orange" type="submit">Submit</Button>
+                                    </Form>
+                                   
+                                </Formik>
                             </Segment>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                <MessageModal onClose={() => handleModal(false)} onOpen={() => handleModal(true)} open={open} content="changes are saved." />
             </Segment>
         </Container>
     )
