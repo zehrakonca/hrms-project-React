@@ -33,6 +33,7 @@ function ProgramInfo() {
     setTimeout(() => {
       resetForm();
     }, 100);
+    refreshPage()
   };
 
   const handleDelete = async (id) => {
@@ -40,6 +41,7 @@ function ProgramInfo() {
     console.log(id);
     programInfoService.deleteProgramInfo(id);
     handleModal(true);
+    refreshPage()
   }
 
   const formik = useFormik({
@@ -55,6 +57,10 @@ function ProgramInfo() {
   const handleChange = (fieldName, value) => {
     formik.setFieldValue(fieldName, value);
   };
+
+  function refreshPage() {
+        window.location.reload();
+    }
 
   return (
     <Container style={{ margin: "1em" }}>
@@ -74,10 +80,10 @@ function ProgramInfo() {
                   <Table.Row>
                     <Table.Cell>{program.program}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon basic color="orange">
+                    <Button icon inverted color="orange">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon basic color="orange" onClick={() => handleDelete(program.programIds)}>
+                      <Button icon inverted color="orange" onClick={() => handleDelete(program.programId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>

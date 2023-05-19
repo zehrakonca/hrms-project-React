@@ -1,47 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
+import WorkTypeService from '../../services/workTypeService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
-import HighSchoolTypeService from '../../services/highSchoolTypeService';
 
-function HighSchoolType() {
+function TypeOfWork() {
 
-  const [highSchoolTypes, setHighSchools] = useState([]);
+  const [typeOfWorks, setTypeOfWorks] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let highSchoolTypeService = new HighSchoolTypeService();
+  let workTypeService = new WorkTypeService();
 
   useEffect(() => {
-    let highSchoolTypeService = new HighSchoolTypeService();
+    let workTypeService = new WorkTypeService();
 
-    highSchoolTypeService.getAllHighSchoolType().then((result => setHighSchools(result.data.data)))
+    workTypeService.getAllWorkType().then((result => setTypeOfWorks(result.data.data)))
   }, []);
 
   const initialValues = {
-    highSchoolType: "",
+    typeOfWork: "",
   };
 
   const validationSchema = Yup.object({
-    highSchoolType: Yup.string().required("required field"),
+    typeOfWork: Yup.string().required("required field"),
   });
+
+  function refreshPage() {
+    window.location.reload();
+  }
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    highSchoolTypeService.addHighSchoolType(values);
+    workTypeService.addWorkType(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
-    refreshPage();
+    refreshPage()
   };
 
   const handleDelete = async (id) => {
-    let highSchoolTypeService = new HighSchoolTypeService();
+    let workTypeService = new WorkTypeService();
     console.log(id);
-    highSchoolTypeService.deleteHighSchoolType(id);
+    workTypeService.deleteWorkType(id);
     handleModal(true);
-    refreshPage();
+    refreshPage()
   }
 
   const formik = useFormik({
@@ -58,9 +62,6 @@ function HighSchoolType() {
     formik.setFieldValue(fieldName, value);
   };
 
-  function refreshPage() {
-    window.location.reload();
-  }
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -75,11 +76,14 @@ function HighSchoolType() {
               </Table.Header>
 
               <Table.Body>
-                {highSchoolTypes.map((highSchoolType) => (
+                {typeOfWorks.map((typeOfWork) => (
                   <Table.Row>
-                    <Table.Cell>{highSchoolType.highSchoolType}</Table.Cell>
+                    <Table.Cell>{typeOfWork.typeOfWork}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="orange" onClick={() => handleDelete(highSchoolType.id)}>
+                      <Button icon inverted color="orange">
+                        <Icon name='pencil' />
+                      </Button>
+                      <Button icon inverted color="orange" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -91,18 +95,18 @@ function HighSchoolType() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='graduation cap' />  Add high School Type
+                <Icon name='world' />  Add type OfWork
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='highSchoolType'
-                    placeholder='please enter highSchoolType...'
-                    onChange={(event, data) => handleChange("highSchoolType", data.value)}
-                    value={formik.values.highSchoolType}
+                    name='typeOfWork'
+                    placeholder='please enter typeOfWork...'
+                    onChange={(event, data) => handleChange("typeOfWork", data.value)}
+                    value={formik.values.typeOfWork}
                   />
-                  {formik.errors.highSchoolType && formik.touched.highSchoolType && <span><Label basic pointing color="orange" content={formik.errors.highSchoolType} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.typeOfWork && formik.touched.typeOfWork && <span><Label basic pointing color="orange" content={formik.errors.typeOfWork} /><br /></span>}
+                  <Button color="orange" type="submit" content="Add" onClick={refreshPage}>Submit</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -114,4 +118,4 @@ function HighSchoolType() {
   )
 }
 
-export default HighSchoolType;
+export default TypeOfWork;

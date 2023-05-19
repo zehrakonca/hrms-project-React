@@ -19,7 +19,8 @@ function JobList() {
     useEffect(() => {
         jobService.getAllJob().then((result) => setJobs(result.data.data));
         sectorService.getSectors().then((result) => setSectors(result.data.data));
-    });
+    }, []);
+    //* useEffect örneği Yoksa her an tetiklenir. useEffect(()=>{},[]);
 
     const sectorOptions = sectors.map((sector) => ({
         key: sector.id,
@@ -38,23 +39,27 @@ function JobList() {
     });
 
 
-    // function refreshPage() {
-    //     window.location.reload();
-    // }
+    function refreshPage() {
+        window.location.reload();
+    }
 
     const onSubmit = (values, { resetForm }) => {
         console.log(values);
-        jobService.addJob(values);
+        jobService.addJob({ 
+            jobName: values.jobName, 
+            sectorId: Number(values.sector.id) });
         handleModal(true);
         setTimeout(() => {
             resetForm();
         }, 100);
+        refreshPage();
     };
 
     const handleDelete = async (id) => {
         let jobService = new JobService();
         console.log(id);
         jobService.deleteJob(id);
+        refreshPage();
     }
 
     const handleModal = (value) => {
@@ -77,24 +82,27 @@ function JobList() {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={8}>
-                            <Table singleLine>
+                            <Table celled striped>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell>Job Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Sector</Table.HeaderCell>
-                                        <Table.HeaderCell></Table.HeaderCell>
+                                        <Table.HeaderCell>Job</Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'>Sector</Table.HeaderCell>
+
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
                                     {jobs.map((job) => (
-                                        <Table.Row>
-                                            <Table.HeaderCell>{job.job}</Table.HeaderCell>
-                                            <Table.HeaderCell>{job.sectorName}</Table.HeaderCell>
-                                            <Table.HeaderCell textAlign='right'>
-                                                <Button icon basic color="orange" onClick={() => handleDelete(job.id)}>
+                                        <Table.Row style={{ margin: "1em" }}>
+                                            <Table.Cell>{job.job}</Table.Cell>
+                                            <Table.Cell>{job.sectorName}</Table.Cell>
+                                            <Table.Cell textAlign='center'>
+                                                <Button icon inverted color="orange">
+                                                    <Icon name='pencil' />
+                                                </Button>
+                                                <Button icon inverted color="orange" onClick={() => handleDelete(job.id)}>
                                                     <Icon name='cancel' />
                                                 </Button>
-                                            </Table.HeaderCell>
+                                            </Table.Cell>
                                         </Table.Row>
                                     ))}
                                 </Table.Body>
@@ -121,12 +129,11 @@ function JobList() {
                                             options={sectorOptions}
                                             onChange={(event, data) => handleChange("sector", data.value)}
                                             value={formik.values.sector.sectorId}
-                                        >
-                                        </Form.Select>
+                                        />
                                         {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.dirtyerrors.sector} /><br /></span>}
                                         <Button inverted color="orange" type="submit">Submit</Button>
                                     </Form>
-                                   
+
                                 </Formik>
                             </Segment>
                         </Grid.Column>

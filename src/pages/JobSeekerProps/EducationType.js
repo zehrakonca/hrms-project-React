@@ -1,45 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import LanguageService from '../../services/languageService'
+import EducationTypeService from '../../services/educationTypeService'
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
-import MessageModal from '../../layouts/Dashboard/MessageModal';
 
-function Language() {
+function EducationType() {
 
-    const [languages, setLanguages] = useState([]);
+    const [educationTypes, setEducationTypes] = useState([]);
     const [open, setOpen] = useState(false);
 
-    let languageService = new LanguageService();
+    let educationTypeService = new EducationTypeService();
 
     useEffect(() => {
-        let languageService = new LanguageService();
+        let educationTypeService = new EducationTypeService();
 
-        languageService.getAllLanguage().then((result => setLanguages(result.data.data)))
+        educationTypeService.getAllEducationType().then((result => setEducationTypes(result.data.data)))
     }, []);
 
     const initialValues = {
-        language: "",
+        educationType: "",
     };
 
     const validationSchema = Yup.object({
-        language: Yup.string().required("Required Field"),
+        educationType: Yup.string().required("Required Field"),
     });
 
     const onSubmit = (values, { resetForm }) => {
         console.log(values);
-        languageService.addLanguage(values);
+        educationTypeService.addEducationType(values);
         handleModal(true);
         setTimeout(() => {
             resetForm();
         }, 100);
+       refreshPage()
     };
 
     const handleDelete = async (id) => {
-        let languageService = new LanguageService();
         console.log(id);
-        languageService.deleteLanguage(id);
+        educationTypeService.deleteEducationType(id);
         handleModal(true);
+        refreshPage()
     }
 
     const formik = useFormik({
@@ -56,8 +56,12 @@ function Language() {
         formik.setFieldValue(fieldName, value);
     };
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
     return (
-        <Container style={{ margin: '1em' }}>
+        <Container style={{ margin: '1em', marginBottom:"25em" }}>
             <Container style={{ margin: "1em" }}>
                 <Grid>
                     <Grid.Row>
@@ -65,20 +69,20 @@ function Language() {
                             <Table singleLine>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell>Name</Table.HeaderCell>
+                                        <Table.HeaderCell>Education Type</Table.HeaderCell>
                                         <Table.HeaderCell></Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 
                                 <Table.Body>
-                                    {languages.map((language) => (
+                                    {educationTypes.map((educationType) => (
                                         <Table.Row>
-                                            <Table.Cell>{language.language}</Table.Cell>
+                                            <Table.Cell>{educationType.educationTypeName}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon basic color="orange">
+                                                <Button icon inverted color="orange">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon basic color="orange" onClick={() => handleDelete(language.languageId)}>
+                                                <Button icon inverted color="orange" onClick={() => handleDelete(educationType.educationTypeId)}>
                                                     <Icon name='cancel' />
                                                 </Button>
                                             </Table.Cell>
@@ -90,27 +94,26 @@ function Language() {
                         <Grid.Column width={8}>
                             <Segment>
                                 <Header as='h3' dividing>
-                                    <Icon name='hand lizard outline' />  Add Language
+                                    <Icon name='graduation cap' />  Add Education Type
                                 </Header>
                                 <Formik>
                                     <Form onSubmit={formik.handleSubmit}>
                                         <Form.Input
-                                            name='language'
+                                            name='educationType'
                                             placeholder='please enter language...'
-                                            onChange={(event, data) => handleChange("language", data.value)}
-                                            value={formik.values.language}
+                                            onChange={(event, data) => handleChange("educationType", data.value)}
+                                            value={formik.values.educationType}
                                         />
-                                        {formik.errors.language && formik.touched.language && <span><Label basic pointing color="orange" content={formik.errors.language} /><br /></span>}
-                                        <Button color="orange" type="submit" content="Add">Submit</Button>
+                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing color="orange" content={formik.errors.educationType} /><br /></span>}
+                                        <Button inverted color="orange" type="submit" content="Add">Submit</Button>
                                     </Form>
                                 </Formik>
                             </Segment>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <MessageModal onClose={() => handleModal(false)} onOpen={() => handleModal(true)} open={open} content="changes are saved." />
             </Container>
         </Container>
     )
 }
-export default Language;
+export default EducationType;

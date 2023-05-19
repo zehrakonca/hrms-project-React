@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, Header, Icon,} from 'semantic-ui-react'
-import JobAdvertisement from './JobAdvertisement'
 import UserCount from './../Dashboard/UserCount'
+import JobAdvertisement from '../../pages/JobAdvertisement/JobAdvertisement'
 
 export default function Dashboard() {
     return (

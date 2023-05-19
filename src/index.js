@@ -4,9 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
-import Information from './layouts/Dashboard/Information';
-import JobAdvertisement from './layouts/Dashboard/JobAdvertisement';
-import JobAdvertisementSearchList from './pages/JobAdvertisement/JobAdvertisementSearchList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

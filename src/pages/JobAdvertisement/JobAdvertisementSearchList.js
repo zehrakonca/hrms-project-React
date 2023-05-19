@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Grid } from 'semantic-ui-react'
 import SideMenu from '../../layouts/Dashboard/SideMenu'
-import JobAdvertisement from '../../layouts/Dashboard/JobAdvertisement'
 import '../../App.css';
+import JobAdvertisement from './JobAdvertisement';
 
 export default function JobAdvertisementSearchList() {
   return (

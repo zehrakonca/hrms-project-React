@@ -119,6 +119,69 @@ export default function SiteMap() {
               </List.Header>
             </List.Content>
           </List.Item>
+          <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/ability">Ability list</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/coverLetter">coverLetter list</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+          <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/educationType">Education type list</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+           <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/experience">Job experience list</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+           <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/socialMedia">social media list</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+            <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/systemEmployeeSignUp">system employee sign up page</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+           <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/languageInfo">language info</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+           <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/jobExperience">job experience info</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
+           <List.Item>
+            <List.Content>
+              <List.Header>
+                <Link to="/education">education</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
         </List>
       </Segment>
     </Container>

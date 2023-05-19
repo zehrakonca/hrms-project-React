@@ -3,43 +3,45 @@ import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } fr
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
-import PositionLevelService from '../../services/positionLevelService'
+import FacultyService from '../../services/facultyService'
 
-function PositionLevel() {
+function Faculty() {
 
-  const [positionLevels, setPositionLevels] = useState([]);
+  const [faculties, setFaculties] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let positionLevelService = new PositionLevelService();
+  let facultyService = new FacultyService();
 
   useEffect(() => {
-    let positionLevelService = new PositionLevelService();
+    let facultyService = new FacultyService();
 
-    positionLevelService.getAllPositionLevel().then((result => setPositionLevels(result.data.data)))
+    facultyService.getAllFaculty().then((result => setFaculties(result.data.data)))
   }, []);
 
   const initialValues = {
-    positionLevelName: "",
+    faculty: "",
   };
 
   const validationSchema = Yup.object({
-    positionLevelName: Yup.string().required("required field"),
+    faculty: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    positionLevelService.addPositionLevel(values);
+    facultyService.addFaculty(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
+    refreshPage()
   };
 
   const handleDelete = async (id) => {
-    let positionLevelService = new PositionLevelService();
+    let facultyService = new FacultyService();
     console.log(id);
-    positionLevelService.deletePositionLevel(id);
+    facultyService.deleteFaculty(id);
     handleModal(true);
+    refreshPage()
   }
 
   const formik = useFormik({
@@ -56,6 +58,10 @@ function PositionLevel() {
     formik.setFieldValue(fieldName, value);
   };
 
+  function refreshPage() {
+        window.location.reload();
+    }
+
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -70,14 +76,14 @@ function PositionLevel() {
               </Table.Header>
 
               <Table.Body>
-                {positionLevels.map((positionLevel) => (
+                {faculties.map((faculty) => (
                   <Table.Row>
-                    <Table.Cell>{positionLevel.positionLevelName}</Table.Cell>
+                    <Table.Cell>{faculty.facultyName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon basic color="orange">
+                    <Button icon inverted color="orange">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon basic color="orange" onClick={() => handleDelete(positionLevel.positionLevelId)}>
+                      <Button icon inverted color="orange" onClick={() => handleDelete(faculty.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -89,17 +95,17 @@ function PositionLevel() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='cogs' />  Add Position Level
+                <Icon name='pencil alternate' />  Add Faculty
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='positionLevel'
-                    placeholder='please enter position Level...'
-                    onChange={(event, data) => handleChange("positionLevelName", data.value)}
-                    value={formik.values.positionLevelName}
+                    name='faculty'
+                    placeholder='please enter faculty...'
+                    onChange={(event, data) => handleChange("faculty", data.value)}
+                    value={formik.values.faculty}
                   />
-                  {formik.errors.positionLevelName && formik.touched.positionLevelName && <span><Label basic pointing color="orange" content={formik.errors.positionLevelName} /><br /></span>}
+                  {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing color="orange" content={formik.errors.faculty} /><br /></span>}
                   <Button color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
@@ -112,4 +118,4 @@ function PositionLevel() {
   )
 }
 
-export default PositionLevel;
+export default Faculty;

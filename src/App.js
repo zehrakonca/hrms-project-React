@@ -1,7 +1,6 @@
 import Information from './layouts/Dashboard/Information';
 import 'semantic-ui-css/semantic.min.css'
 import {Route,Routes} from 'react-router-dom';
-import JobAdvertisement from './layouts/Dashboard/JobAdvertisement';
 import JobAdvertisementSearchList from './pages/JobAdvertisement/JobAdvertisementSearchList';
 import Navigation from './layouts/Navigation/Navigation';
 import Footer from './layouts/Footer/Footer';
@@ -11,17 +10,28 @@ import SectorList from './pages/Sector/SectorList';
 import Dashboard from './layouts/Dashboard/Dashboard';
 import SiteMap from './layouts/Dashboard/SiteMap';
 import JobList from './pages/Job/JobList';
-import Language from './pages/CvProps.js/Language';
-import Faculty from './pages/CvProps.js/Faculty';
-import PositionLevel from './pages/CvProps.js/PositionLevel';
-import ProgramInfo from './pages/CvProps.js/ProgramInfo';
-import MilitaryStatu from './pages/CvProps.js/MilitaryStatu';
-import University from './pages/CvProps.js/University';
-import TypeOfWork from './pages/CvProps.js/TypeOfWork'
-import HighSchoolType from './pages/CvProps.js/HighSchoolType'
-import City from './pages/CvProps.js/City'
-import JobSeeker from './pages/CvProps.js/JobSeeker'
+import Language from './pages/JobSeekerProps/Language';
+import Faculty from './pages/JobSeekerProps/Faculty';
+import PositionLevel from './pages/JobSeekerProps/PositionLevel';
+import ProgramInfo from './pages/JobSeekerProps/ProgramInfo';
+import MilitaryStatu from './pages/JobSeekerProps/MilitaryStatu';
+import University from './pages/JobSeekerProps/University';
+import TypeOfWork from './pages/JobSeekerProps/TypeOfWork'
+import HighSchoolType from './pages/JobSeekerProps/HighSchoolType'
+import City from './pages/JobSeekerProps/City'
+import JobSeeker from './pages/JobSeekerProps/JobSeeker'
 import Employer from './pages/Employer/Employer'
+import Ability from './pages/JobSeekerProps/Ability';
+import CoverLetter from './pages/JobSeekerProps/CoverLetter';
+import EducationType from './pages/JobSeekerProps/EducationType';
+import ExperienceType from './pages/JobSeekerProps/ExperienceType.js';
+import SocialMedia from './pages/JobSeekerProps/SocialMedia';
+import LanguageInfo from './pages/JobSeekerProps/LanguageInfo'
+import SystemEmployeeSignUp from './pages/SystemEmployee/SystemEmployeeSignUp';
+import JobExperience from './pages/JobSeekerProps/JobExperience';
+import Education from './pages/JobSeekerProps/Education';
+import JobAdvertisement from './pages/JobAdvertisement/JobAdvertisement';
+
 
 function App() {
   return (
@@ -50,6 +60,15 @@ function App() {
     <Route path='/cityList' element={<City/>}/>
     <Route path='/jobSeekerSignUp' element={<JobSeeker/>}/>
     <Route path='/employer' element={<Employer/>}/>
+    <Route path='/ability' element={<Ability/>} />
+    <Route path='/coverLetter' element={<CoverLetter/>} />
+    <Route path='/educationType' element={<EducationType/>} />
+    <Route path='/experience' element={<ExperienceType/>} />
+    <Route path='/socialMedia' element={<SocialMedia/>} />
+    <Route path='/systemEmployeeSignUp' element={<SystemEmployeeSignUp/>} />
+    <Route path='/languageInfo' element={<LanguageInfo/>} />
+    <Route path='/jobExperience' element={<JobExperience/>} />
+    <Route path='/education' element={<Education/>} />
     </Routes>
     <Footer/>
     </div>

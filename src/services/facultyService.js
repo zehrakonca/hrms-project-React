@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default class FacultyExperience{
+export default class FacultyService{
 
      getAllFaculty(){
         return axios.get(`http://localhost:8080/api/faculties/getAll`);

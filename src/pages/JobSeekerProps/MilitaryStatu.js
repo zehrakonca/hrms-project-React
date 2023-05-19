@@ -1,45 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
+import MilitaryStatuService from '../../services/militaryStatuService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
-import FacultyService from '../../services/facultyService'
 
-function Faculty() {
+function MilitaryStatu() {
 
-  const [faculties, setFaculties] = useState([]);
+  const [militaryStatus, setMilitaryStatus] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let facultyService = new FacultyService();
+  let militaryStatuService = new MilitaryStatuService();
 
   useEffect(() => {
-    let facultyService = new FacultyService();
+    let militaryStatuService = new MilitaryStatuService();
 
-    facultyService.getAllFaculty().then((result => setFaculties(result.data.data)))
+    militaryStatuService.getAllMilitaryStatu().then((result => setMilitaryStatus(result.data.data)))
   }, []);
 
   const initialValues = {
-    faculty: "",
+    militaryStatuName: "",
   };
 
   const validationSchema = Yup.object({
-    faculty: Yup.string().required("required field"),
+    militaryStatuName: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    facultyService.addFaculty(values);
+    militaryStatuService.addMilitaryStatu(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
+    refreshPage()
   };
 
   const handleDelete = async (id) => {
-    let facultyService = new FacultyService();
+    let militaryStatuService = new MilitaryStatuService();
     console.log(id);
-    facultyService.deleteFaculty(id);
+    militaryStatuService.deleteMilitaryStatu(id);
     handleModal(true);
+    refreshPage()
   }
 
   const formik = useFormik({
@@ -56,6 +58,10 @@ function Faculty() {
     formik.setFieldValue(fieldName, value);
   };
 
+  function refreshPage() {
+        window.location.reload();
+    }
+
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -70,14 +76,14 @@ function Faculty() {
               </Table.Header>
 
               <Table.Body>
-                {faculties.map((faculty) => (
+                {militaryStatus.map((militaryStatu) => (
                   <Table.Row>
-                    <Table.Cell>{faculty.facultyName}</Table.Cell>
+                    <Table.Cell>{militaryStatu.militaryStatuName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon basic color="orange">
+                      <Button icon inverted color="orange">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon basic color="orange" onClick={() => handleDelete(faculty.id)}>
+                      <Button icon inverted color="orange" onClick={() => handleDelete(militaryStatu.militaryStatuId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -89,17 +95,17 @@ function Faculty() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='pencil alternate' />  Add Faculty
+                <Icon name='fighter jet' />  Add military Statu
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='faculty'
-                    placeholder='please enter faculty...'
-                    onChange={(event, data) => handleChange("faculty", data.value)}
-                    value={formik.values.faculty}
+                    name='militaryStatuName'
+                    placeholder='please enter militaryStatu...'
+                    onChange={(event, data) => handleChange("militaryStatuName", data.value)}
+                    value={formik.values.militaryStatuName}
                   />
-                  {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing color="orange" content={formik.errors.faculty} /><br /></span>}
+                  {formik.errors.militaryStatuName && formik.touched.militaryStatuName && <span><Label basic pointing color="orange" content={formik.errors.militaryStatuName} /><br /></span>}
                   <Button color="orange" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
@@ -112,4 +118,4 @@ function Faculty() {
   )
 }
 
-export default Faculty;
+export default MilitaryStatu;

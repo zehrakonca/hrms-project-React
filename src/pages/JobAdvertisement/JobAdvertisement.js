@@ -7,11 +7,11 @@ export default function JobAdvertisement() {
   
   const [jobAdvertisements, setjobAdvertisements] = useState([])
   
+  let jobAdvertisementService = new JobAdvertisementService();
+
   useEffect(()=> {
-    let jobAdvertisementService = new JobAdvertisementService();
-    jobAdvertisementService
-      .getActiveAdvertisements()
-      .then(result=>setjobAdvertisements(result.data.data))},[])
+    jobAdvertisementService.getActiveAdvertisements().then(result=>setjobAdvertisements(result.data.data));
+  },[]);
 
   return (
     <Segment  style= {{margin:"2em"}}>
@@ -21,7 +21,8 @@ export default function JobAdvertisement() {
               <Icon name='recycle' size='massive' />
               <Item.Content>
               <Item.Header as='a' floated='left'>
-                  <Link to={`/advertisement/${jobAdvertisement.advertisementId}`}>
+                  <Link to={`/advertisement/${jobAdvertisement.advertisementId}`}
+                  style={{color:"black"}}>
                     {jobAdvertisement.advertisementName}
                   </Link>
                 </Item.Header>
@@ -33,8 +34,9 @@ export default function JobAdvertisement() {
                 <Item.Description floated='left'>{jobAdvertisement.jobDescription}</Item.Description>
                 <span>{jobAdvertisement.sectorName}, {jobAdvertisement.workTypeName}</span>
                 <Item.Extra>
-                  <Button color="orange" floated='right' as={NavLink}>
-                    <Link to={`/advertisement/${jobAdvertisement.advertisementId}`}>
+                  <Button inverted color="orange" floated='right' as={NavLink}>
+                    <Link to={`/advertisement/${jobAdvertisement.advertisementId}`}
+                    style={{color:"white"}}>
                       Apply
                       <Icon name='right chevron' />
                     </Link>

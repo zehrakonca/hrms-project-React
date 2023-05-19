@@ -18,11 +18,11 @@ export default class LanguageInfoService{
         return axios.post(`http://localhost:8080/api/languageInfos/add`,languageInfo);
     }
 
-    updateProgramInfo(languageInfo){
+    updateLanguageInfo(languageInfo){
         return axios.put(`http://localhost:8080/api/languageInfos/update`, languageInfo);
     }
 
-    deleteProgramInfo(id){
+    deleteLanguageInfo(id){
         return axios.delete(`http://localhost:8080/api/languageInfos/delete/{id}?id=${id}`);
     }
 }
