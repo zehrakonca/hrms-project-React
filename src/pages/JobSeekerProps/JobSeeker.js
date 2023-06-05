@@ -30,7 +30,7 @@ function JobSeeker() {
         nationalIdentity: Yup.string().required("required field"),
         date: Yup.string().required("required field. only year(for example:1996)"),
         password: Yup.string().required("required field"),
-        passwordRep: Yup.string().required("required field"),
+        passwordRep: Yup.string().oneOf([Yup.ref("password")], "password doesn't match."),
     });
 
     const onSubmit = (values, { resetForm }) => {

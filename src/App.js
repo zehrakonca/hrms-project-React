@@ -1,6 +1,6 @@
 import Information from './layouts/Dashboard/Information';
 import 'semantic-ui-css/semantic.min.css'
-import {Route,Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import JobAdvertisementSearchList from './pages/JobAdvertisement/JobAdvertisementSearchList';
 import Navigation from './layouts/Navigation/Navigation';
 import Footer from './layouts/Footer/Footer';
@@ -31,46 +31,59 @@ import SystemEmployeeSignUp from './pages/SystemEmployee/SystemEmployeeSignUp';
 import JobExperience from './pages/JobSeekerProps/JobExperience';
 import Education from './pages/JobSeekerProps/Education';
 import JobAdvertisement from './pages/JobAdvertisement/JobAdvertisement';
+import HighSchool from './pages/JobSeekerProps/HighSchool';
+import Image from './pages/JobSeekerProps/Image';
+import JobSeekerLogin from './pages/JobSeekerProps/JobSeekerLogin';
+import EmployerLogin from './pages/Employer/EmployerLogin';
+import UserProvider from './contexts/UserProvider';
 
 
 function App() {
+
+
   return (
     <div>
-    <Navigation/>
-     <Routes>
-    <Route path="/" element={<Information />} />
-    <Route path="/home" element={<Information/>} />
-    <Route path="/jobAdvertisement" element={<JobAdvertisement />} />
-      <Route path='/advertisement/:id' element={<JobAdvertisementDetail/>}/>
-    <Route path="/jobAdvertisementSearchList" element={<JobAdvertisementSearchList />} />
-      <Route path='/advertisement/:id'/>
-    <Route path="/advertisementPost" element={<JobAdvertisementPost/>}/>
-    <Route path='/sectorList' element={<SectorList/>} />
-    <Route path='/dashboard' element={<Dashboard/>}/>
-    <Route path='/sitemap' element={<SiteMap/>} />
-    <Route path='/jobList' element={<JobList/>}/>
-    <Route path='/languageList' element={<Language/>}/>
-    <Route path='/faculty' element={<Faculty/>}/>
-    <Route path='/positionLevel' element={<PositionLevel/>}/>
-    <Route path='/programInfo' element={<ProgramInfo/>}/>
-    <Route path='/militaryStatuInfo' element={<MilitaryStatu/>}/>
-    <Route path='/universityList' element={<University/>}/>
-    <Route path='/typeOfWork' element={<TypeOfWork/>}/>
-    <Route path='/highSchoolTypeList' element={<HighSchoolType/>}/>
-    <Route path='/cityList' element={<City/>}/>
-    <Route path='/jobSeekerSignUp' element={<JobSeeker/>}/>
-    <Route path='/employer' element={<Employer/>}/>
-    <Route path='/ability' element={<Ability/>} />
-    <Route path='/coverLetter' element={<CoverLetter/>} />
-    <Route path='/educationType' element={<EducationType/>} />
-    <Route path='/experience' element={<ExperienceType/>} />
-    <Route path='/socialMedia' element={<SocialMedia/>} />
-    <Route path='/systemEmployeeSignUp' element={<SystemEmployeeSignUp/>} />
-    <Route path='/languageInfo' element={<LanguageInfo/>} />
-    <Route path='/jobExperience' element={<JobExperience/>} />
-    <Route path='/education' element={<Education/>} />
-    </Routes>
-    <Footer/>
+      {/* <UserProvider> */}
+        <Navigation />
+      {/* </UserProvider> */}
+      <Routes>
+        <Route path="/" element={<Information />} />
+        <Route path="/home" element={<Information />} />
+        <Route path="/jobAdvertisement" element={<JobAdvertisement />} />
+        <Route path='/advertisement/:id' element={<JobAdvertisementDetail />} />
+        <Route path="/jobAdvertisementSearchList" element={<JobAdvertisementSearchList />} />
+        <Route path='/advertisement/:id' />
+        <Route path="/advertisementPost" element={<JobAdvertisementPost />} />
+        <Route path='/sectorList' element={<SectorList />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/sitemap' element={<SiteMap />} />
+        <Route path='/jobList' element={<JobList />} />
+        <Route path='/languageList' element={<Language />} />
+        <Route path='/faculty' element={<Faculty />} />
+        <Route path='/positionLevel' element={<PositionLevel />} />
+        <Route path='/programInfo' element={<ProgramInfo />} />
+        <Route path='/militaryStatuInfo' element={<MilitaryStatu />} />
+        <Route path='/universityList' element={<University />} />
+        <Route path='/typeOfWork' element={<TypeOfWork />} />
+        <Route path='/highSchoolTypeList' element={<HighSchoolType />} />
+        <Route path='/cityList' element={<City />} />
+        <Route path='/jobSeekerSignUp' element={<JobSeeker />} />
+        <Route path='/employer' element={<Employer />} />
+        <Route path='/ability' element={<Ability />} />
+        <Route path='/coverLetter' element={<CoverLetter />} />
+        <Route path='/educationType' element={<EducationType />} />
+        <Route path='/experience' element={<ExperienceType />} />
+        <Route path='/socialMedia' element={<SocialMedia />} />
+        <Route path='/systemEmployeeSignUp' element={<SystemEmployeeSignUp />} />
+        <Route path='/languageInfo' element={<LanguageInfo />} />
+        <Route path='/jobExperience' element={<JobExperience />} />
+        <Route path='/education' element={<Education />} />
+        <Route path='/highSchool' element={<HighSchool />} />
+        <Route path='/image' element={<Image />} />
+        <Route path='/jobSeekerLogin' element={<JobSeekerLogin />} />
+        <Route path='/employerLogin' element={<EmployerLogin />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

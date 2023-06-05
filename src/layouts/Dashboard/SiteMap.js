@@ -182,6 +182,13 @@ export default function SiteMap() {
               </List.Header>
             </List.Content>
           </List.Item>
+          <List.Item>
+           <List.Content>
+              <List.Header>
+                <Link to="/highSchool">High School</Link>
+              </List.Header>
+            </List.Content>
+          </List.Item>
         </List>
       </Segment>
     </Container>

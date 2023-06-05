@@ -117,7 +117,7 @@ export default function JobAdvertisementDetail() {
                                         </List.Item>
                                         <List.Item>
                                             <List.Icon name="dollar sign" />
-                                            <List.Content>offered fee : {jobAdvertisement.jobSalaryMin} - {jobAdvertisement.jobSalaryMax}</List.Content>
+                                            <List.Content>offered fee : {jobAdvertisement.jobSalary}</List.Content>
                                         </List.Item>
                                     </List>
                                 </Segment>

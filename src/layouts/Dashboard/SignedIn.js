@@ -7,12 +7,12 @@ export default function SignedIn({signOut}) {
     <div>
         <Menu.Item>
             <Image avatar spaced="right" src={accountAvatar} size='mini'/>
-            <Dropdown pointing="top left" text="zehra">
+            <Dropdown pointing="top left" text='zehra'>
                 <Dropdown.Menu>
                     <Dropdown.Item text="My Account" icon="info"/>
                     <Dropdown.Item text="Logout" icon="power off" onClick={signOut}/>
                 </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> 
         </Menu.Item>
     </div>
   )

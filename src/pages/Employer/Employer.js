@@ -31,7 +31,7 @@ function Employer() {
         telephone: Yup.string().required("required field"),
         email: Yup.string().required("required field. this email must be company owner's email."),
         password: Yup.string().required("required field"),
-        passwordRep: Yup.string().required("required field"),
+        passwordRep: Yup.string().oneOf([Yup.ref("password")], "password doesn't match."),
         companyName: Yup.string().required("required field"),
         companyDescription: Yup.string().required("required field"),
         companyMail: Yup.string().required("required field"),

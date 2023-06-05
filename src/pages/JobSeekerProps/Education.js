@@ -1,17 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import EducationTypeService from '../../services/educationTypeService';
-import UniversityService from '../../services/universityService';
-import ProgramInfoService from '../../services/programInfoService';
-import FacultyService from '../../services/facultyService';
-import EducationService from '../../services/educationService';
+import { Button, Container, Divider, Form, Grid, Icon, Label, Segment, Table } from 'semantic-ui-react'
+import EducationTypeService from '../../services/educationTypeService'
+import UniversityService from '../../services/universityService'
+import ProgramInfoService from '../../services/programInfoService'
+import FacultyService from '../../services/facultyService'
+import EducationService from '../../services/educationService'
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
 
-function Education() {
+
+export default function Education() {
 
     const [open, setOpen] = useState([])
+
     const [educationTypes, setEducationTypes] = useState([])
     const [universities, setUniversities] = useState([])
     const [programs, setPrograms] = useState([])
@@ -31,6 +32,7 @@ function Education() {
         facultyService.getAllFaculty().then((result) => setFaculties(result.data.data));
         educationService.getAllEducation().then((result) => setEducations(result.data.data));
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const educationTypeOptions = educationTypes.map((educationType) => ({
@@ -84,13 +86,13 @@ function Education() {
         console.log(values);
         educationService.addEducation({
             jobSeeker: values.jobSeekerId,
-            educationType: Number(values.education.educationTypeId),
+            educationType: Number(values.educationType.educationTypeId),
             university: Number(values.university.id),
             faculty: Number(values.faculty.id),
-            program: Number(values.program.id),
+            program: Number(values.program.programId),
             startedDate: values.startedDate,
             graduationDate: values.graduationDate,
-        });
+        })
         handleModal(true);
         setTimeout(() => {
             resetForm();
@@ -122,15 +124,11 @@ function Education() {
     return (
         <Container style={{ margin: "1em" }}>
             <Segment>
-                <Header as='h3' disabled dividing>
-                    <Icon name='graduation cap' />
-                    <Header.Content>Your Education Informations</Header.Content>
-                </Header>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
                             <Formik>
-                                <Form dividing onSubmit={formik.handleSubmit}>
+                                <Form onSubmit={formik.handleSubmit}>
                                     <Form.Group widths='equal'>
                                         <Form.Select
                                             name="educationType"
@@ -138,29 +136,29 @@ function Education() {
                                             placeholder='select education type'
                                             options={educationTypeOptions}
                                             onChange={(event, data) => handleChange("educationType", data.value)}
-                                            value={formik.values.educationType.id}
+                                            value={formik.values.educationType}
                                         />
-                                        
-                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing='above'  color="orange" content={formik.errors.educationType} /><br /></span>}
-                                        
+
+                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing='above' color="orange" content={formik.errors.educationType} /><br /></span>}
+
                                         <Form.Select
                                             name="university"
                                             label=" University"
                                             placeholder='select university'
                                             options={universityOptions}
                                             onChange={(event, data) => handleChange("university", data.value)}
-                                            value={formik.values.university.universityId}
+                                            value={formik.values.university}
                                         />
-                                        {formik.errors.university && formik.touched.university && <span><Label basic pointing='above'  color="orange" content={formik.errors.university} /><br /></span>}
+                                        {formik.errors.university && formik.touched.university && <span><Label basic pointing='above' color="orange" content={formik.errors.university} /><br /></span>}
                                         <Form.Select
                                             name="program"
                                             label="Program"
                                             placeholder='select program'
                                             options={programOptions}
                                             onChange={(event, data) => handleChange("program", data.value)}
-                                            value={formik.values.program.id}
+                                            value={formik.values.program}
                                         />
-                                        {formik.errors.program && formik.touched.program && <span><Label basic pointing='above'  color="orange" content={formik.errors.program} /><br /></span>}
+                                        {formik.errors.program && formik.touched.program && <span><Label basic pointing='above' color="orange" content={formik.errors.program} /><br /></span>}
                                     </Form.Group>
                                     <Divider />
                                     <Form.Group widths='equal'>
@@ -170,9 +168,9 @@ function Education() {
                                             placeholder='select faculty'
                                             options={facultyOptions}
                                             onChange={(event, data) => handleChange("faculty", data.value)}
-                                            value={formik.values.faculty.facultyId}
+                                            value={formik.values.faculty}
                                         />
-                                        {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing='above'  color="orange" content={formik.errors.faculty} /><br /></span>}
+                                        {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing='above' color="orange" content={formik.errors.faculty} /><br /></span>}
                                         <Form.Input
                                             name="startedDate"
                                             label="Started Date"
@@ -181,7 +179,7 @@ function Education() {
                                             onChange={(event, data) => handleChange("startedDate", data.value)}
                                             value={formik.values.startedDate}
                                         />
-                                        {formik.errors.startedDate && formik.touched.startedDate && <span><Label basic pointing='above'  color="orange" content={formik.errors.startedDate} /><br /></span>}
+                                        {formik.errors.startedDate && formik.touched.startedDate && <span><Label basic pointing='above' color="orange" content={formik.errors.startedDate} /><br /></span>}
                                         <Form.Input
                                             name="graduationDate"
                                             label="Graduation Date"
@@ -191,7 +189,7 @@ function Education() {
                                             value={formik.values.graduationDate}
                                         />
                                         {formik.errors.graduationDate && formik.touched.graduationDate && <span><Label basic pointing='above'
-                                     color="orange" content={formik.errors.graduationDate} /><br /></span>}
+                                            color="orange" content={formik.errors.graduationDate} /><br /></span>}
                                     </Form.Group>
                                     <Button animated='fade' inverted color='orange' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
@@ -213,7 +211,7 @@ function Education() {
                                 </Table.Header>
                                 <Table.Body>
                                     {educations.map((education) =>
-                                        <Table.Row>
+                                        <Table.Row key={education.educationId}>
                                             <Table.Cell>{education.jobSeekerId}</Table.Cell>
                                             <Table.Cell>{education.educationTypeName}</Table.Cell>
                                             <Table.Cell>{education.universityName}</Table.Cell>
@@ -238,7 +236,6 @@ function Education() {
                     </Grid.Row>
                 </Grid>
             </Segment>
-        </Container >
+        </Container>
     )
 }
-export default Education;

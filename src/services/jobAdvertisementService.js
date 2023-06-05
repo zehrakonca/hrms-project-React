@@ -35,7 +35,8 @@ export default class JobAdvertisementService{
     }
 
     addAdvertisement(jobAdvertisement){
-        return axios.post(`http://localhost:8080/api/jobAdvertisements/add"`,jobAdvertisement);
+        console.log('123')
+        return axios.post(`http://localhost:8080/api/jobAdvertisements/add`,jobAdvertisement);
     }
 
     makeActiveOrPassive(id, isActive) {

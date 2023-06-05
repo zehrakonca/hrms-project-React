@@ -1,10 +1,11 @@
 import React from 'react'
-import { Grid, Header, Segment } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment } from 'semantic-ui-react'
 
 const square = { width: 200, height: 200 }
 
 export default function Count() {
   return (
+    <Container textAlign='center'>
     <Grid verticalAlign='middle'>
         <Grid.Row columns={4}>
             <Grid.Column>
@@ -41,5 +42,6 @@ export default function Count() {
             </Grid.Column>
         </Grid.Row>
     </Grid>
+    </Container>
   )
 }
