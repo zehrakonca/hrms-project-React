@@ -43,9 +43,7 @@ function App() {
 
   return (
     <div>
-      {/* <UserProvider> */}
-        <Navigation />
-      {/* </UserProvider> */}
+      <Navigation />
       <Routes>
         <Route path="/" element={<Information />} />
         <Route path="/home" element={<Information />} />

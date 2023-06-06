@@ -6,9 +6,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserProvider';
 
-function JobSeekerLogin() {
+const JobSeekerLogin = () => {
     const { login } = useContext(UserContext);
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const handleSubmit = async (values) => {
         try {
@@ -16,10 +16,9 @@ function JobSeekerLogin() {
                 email: values.email,
                 password: values.password
             });
-
             const userData = response.data; // Kullanıcı bilgileri
             login(userData); // Kullanıcı oturumunu başlat
-            navigate('/'); // Profil sayfasına yönlendir
+            //navigate('/'); // Profil sayfasına yönlendir
         } catch (error) {
             console.log(error.response.data);
         }

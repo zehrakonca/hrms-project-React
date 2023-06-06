@@ -18,7 +18,7 @@ const Navigation = () => {
         <>
          <Menu.Item>
             <Image avatar spaced="right" icon='user' size='mini' />
-            <Dropdown pointing="top left" text={user.firstName}>
+            <Dropdown pointing="top left" text={user.data?.firstName || 'User'}>
               <Dropdown.Menu>
                 <Dropdown.Item text="My Account" icon="info" />
                 <Dropdown.Item text="Logout" icon="power off" onClick={logout} />
@@ -64,7 +64,7 @@ const Navigation = () => {
     <div>
     <Menu secondary inverted color='orange'>
       <Container>
-        <Menu.Item name='home'>
+        <Menu.Item>
           <Link to="/home">ihopefindjob</Link>
         </Menu.Item>
         <Menu.Item name='home' active={activeItem === 'home'} onClick={handleItemClick}>
