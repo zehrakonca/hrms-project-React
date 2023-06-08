@@ -8,7 +8,7 @@ import { UserContext } from '../../contexts/UserProvider';
 
 const JobSeekerLogin = () => {
     const { login } = useContext(UserContext);
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (values) => {
         try {
@@ -18,7 +18,7 @@ const JobSeekerLogin = () => {
             });
             const userData = response.data; // Kullanıcı bilgileri
             login(userData); // Kullanıcı oturumunu başlat
-            //navigate('/'); // Profil sayfasına yönlendir
+            navigate('/'); // Profil sayfasına yönlendir
         } catch (error) {
             console.log(error.response.data);
         }

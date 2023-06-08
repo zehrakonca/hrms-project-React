@@ -102,7 +102,7 @@ export default function JobExperience() {
     });
 
     return (
-        <Container style={{ margin: "1em" }}>
+        <Container>
             <Segment>
                 <Header as='h3' disabled dividing>
                     <Icon name='history' />

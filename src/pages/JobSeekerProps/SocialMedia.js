@@ -64,7 +64,7 @@ function SocialMedia() {
 
 
     return (
-        <Container style={{ margin: "1em" }}>
+        <Container>
             <Segment>
                 <Header as='h3' disabled dividing>
                     <Icon name='universal access' />

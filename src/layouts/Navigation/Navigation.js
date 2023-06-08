@@ -20,7 +20,7 @@ const Navigation = () => {
             <Image avatar spaced="right" icon='user' size='mini' />
             <Dropdown pointing="top left" text={user.data?.firstName || 'User'}>
               <Dropdown.Menu>
-                <Dropdown.Item text="My Account" icon="info" />
+                <Dropdown.Item as={Link}  to={`/profile/${user.data?.id}`}text="Profile" icon="info" />
                 <Dropdown.Item text="Logout" icon="power off" onClick={logout} />
               </Dropdown.Menu>
             </Dropdown>

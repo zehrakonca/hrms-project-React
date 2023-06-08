@@ -87,7 +87,7 @@ function HighSchool() {
     });
 
     return (
-        <Container style={{ margin: "1em" }}>
+        <Container>
             <Segment>
                 <Header as='h3' disabled dividing>
                     <Icon name='graduation cap' />
@@ -154,6 +154,7 @@ function HighSchool() {
                             </Formik>
                         </Grid.Column>
                     </Grid.Row>
+                    
                 </Grid>
             </Segment>
         </Container>

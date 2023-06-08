@@ -32,11 +32,12 @@ import JobExperience from './pages/JobSeekerProps/JobExperience';
 import Education from './pages/JobSeekerProps/Education';
 import JobAdvertisement from './pages/JobAdvertisement/JobAdvertisement';
 import HighSchool from './pages/JobSeekerProps/HighSchool';
-import Image from './pages/JobSeekerProps/Image';
+import ImageInfo from './pages/JobSeekerProps/ImageInfo';
 import JobSeekerLogin from './pages/JobSeekerProps/JobSeekerLogin';
 import EmployerLogin from './pages/Employer/EmployerLogin';
-import UserProvider from './contexts/UserProvider';
-
+import Profile from './pages/JobSeekerProps/Profile';
+import Resume from './pages/JobSeekerProps/Resume';
+import InformationPage from './pages/JobSeekerProps/InformationPage';
 
 function App() {
 
@@ -48,9 +49,9 @@ function App() {
         <Route path="/" element={<Information />} />
         <Route path="/home" element={<Information />} />
         <Route path="/jobAdvertisement" element={<JobAdvertisement />} />
-        <Route path='/advertisement/:id' element={<JobAdvertisementDetail />} />
+          <Route path='/advertisement/:id' element={<JobAdvertisementDetail />} />
         <Route path="/jobAdvertisementSearchList" element={<JobAdvertisementSearchList />} />
-        <Route path='/advertisement/:id' />
+          <Route path='/advertisement/:id' />
         <Route path="/advertisementPost" element={<JobAdvertisementPost />} />
         <Route path='/sectorList' element={<SectorList />} />
         <Route path='/dashboard' element={<Dashboard />} />
@@ -77,9 +78,15 @@ function App() {
         <Route path='/jobExperience' element={<JobExperience />} />
         <Route path='/education' element={<Education />} />
         <Route path='/highSchool' element={<HighSchool />} />
-        <Route path='/image' element={<Image />} />
+        <Route path='/image' element={<ImageInfo />} />
         <Route path='/jobSeekerLogin' element={<JobSeekerLogin />} />
+          <Route path='/profile/:id' element={<Profile/>}/>
         <Route path='/employerLogin' element={<EmployerLogin />} />
+          <Route path='/profile/:id' element={<Profile/>}/>
+            <Route path='/profile/:id/resume' element={<Resume/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/resume' element={<Resume/>}/>
+        <Route path='/informationPage' element={<InformationPage/>}/>
       </Routes>
       <Footer />
     </div>

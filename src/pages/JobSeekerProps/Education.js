@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Container, Divider, Form, Grid, Icon, Label, Segment, Table } from 'semantic-ui-react'
+import { Button, Container, Divider, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
 import EducationTypeService from '../../services/educationTypeService'
 import UniversityService from '../../services/universityService'
 import ProgramInfoService from '../../services/programInfoService'
@@ -122,9 +122,13 @@ export default function Education() {
 
 
     return (
-        <Container style={{ margin: "1em" }}>
+        <Container>
             <Segment>
-                <Grid>
+            <Header as='h3' disabled dividing>
+                    <Icon name='graduation' />
+                    <Header.Content>Your Education History</Header.Content>
+                </Header>
+                <Grid stackable>
                     <Grid.Row>
                         <Grid.Column>
                             <Formik>
@@ -206,7 +210,7 @@ export default function Education() {
                             <Table striped>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='2'>Your Job Experiences </Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'>Your Education History</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>

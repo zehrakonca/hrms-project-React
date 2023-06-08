@@ -61,7 +61,7 @@ function CoverLetter() {
     });
 
     return (
-        <Container style={{ margin: "1em" }}>
+        <Container>
             <Segment>
                 <Header as='h3' disabled dividing>
                     <Icon name='clipboard outline' />
@@ -103,7 +103,7 @@ function CoverLetter() {
                             <Table striped>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='2'>Your Abilities</Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'>Your Cover Letters</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
