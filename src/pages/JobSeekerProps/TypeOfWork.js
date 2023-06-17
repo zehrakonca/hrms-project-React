@@ -80,10 +80,10 @@ function TypeOfWork() {
                   <Table.Row>
                     <Table.Cell>{typeOfWork.typeOfWork}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon inverted color="orange">
+                      <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -105,8 +105,8 @@ function TypeOfWork() {
                     onChange={(event, data) => handleChange("typeOfWork", data.value)}
                     value={formik.values.typeOfWork}
                   />
-                  {formik.errors.typeOfWork && formik.touched.typeOfWork && <span><Label basic pointing color="orange" content={formik.errors.typeOfWork} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add" onClick={refreshPage}>Submit</Button>
+                  {formik.errors.typeOfWork && formik.touched.typeOfWork && <span><Label basic pointing color="red" content={formik.errors.typeOfWork} /><br /></span>}
+                  <Button color="red" type="submit" content="Add" onClick={refreshPage}>Submit</Button>
                 </Form>
               </Formik>
             </Segment>

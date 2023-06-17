@@ -170,7 +170,7 @@ function Employer() {
                                         value={formik.values.companyDescription}
                                     />
                                     <Container textAlign='right'>
-                                        <Button animated='fade' inverted color='orange' type ='submit'>
+                                        <Button animated='fade' inverted color='red' type ='submit'>
                                             <Button.Content visible>Next</Button.Content>
                                             <Button.Content hidden>
                                                 <Icon name='arrow right' />

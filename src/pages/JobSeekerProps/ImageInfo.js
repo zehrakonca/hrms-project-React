@@ -35,7 +35,7 @@ export default function ImageInfo() {
                         <Image src={previewUrl} size="small" rounded centered />
                     </Form.Field>
                 )}
-                <Button inverted color="orange" onClick={handleSubmit}>
+                <Button inverted color="red" onClick={handleSubmit}>
                     Submit
                 </Button>
             </Form>

@@ -79,10 +79,10 @@ function EducationType() {
                                         <Table.Row>
                                             <Table.Cell>{educationType.educationTypeName}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange" onClick={() => handleDelete(educationType.educationTypeId)}>
+                                                <Button icon inverted color="red" onClick={() => handleDelete(educationType.educationTypeId)}>
                                                     <Icon name='cancel' />
                                                 </Button>
                                             </Table.Cell>
@@ -104,8 +104,8 @@ function EducationType() {
                                             onChange={(event, data) => handleChange("educationType", data.value)}
                                             value={formik.values.educationType}
                                         />
-                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing color="orange" content={formik.errors.educationType} /><br /></span>}
-                                        <Button inverted color="orange" type="submit" content="Add">Submit</Button>
+                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing color="red" content={formik.errors.educationType} /><br /></span>}
+                                        <Button inverted color="red" type="submit" content="Add">Submit</Button>
                                     </Form>
                                 </Formik>
                             </Segment>

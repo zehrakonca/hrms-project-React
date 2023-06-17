@@ -97,7 +97,7 @@ function CoverLetter() {
                                         onChange={(event, data) => handleChange("coverLetterTitleName", data.value)}
                                         value={formik.values.coverLetterTitleName}
                                     />
-                                    {formik.errors.coverLetterTitleName && formik.touched.coverLetterTitleName && <span><Label basic pointing color="orange" content={formik.errors.coverLetterTitleName} /><br /></span>}
+                                    {formik.errors.coverLetterTitleName && formik.touched.coverLetterTitleName && <span><Label basic pointing color="red" content={formik.errors.coverLetterTitleName} /><br /></span>}
                                     <Form.TextArea
                                         label='Cover Letter'
                                         name='coverLetter'
@@ -105,8 +105,8 @@ function CoverLetter() {
                                         onChange={(event, data) => handleChange("coverLetter", data.value)}
                                         value={formik.values.coverLetter}
                                     />
-                                    {formik.errors.coverLetter && formik.touched.coverLetter && <span><Label basic pointing color="orange" content={formik.errors.coverLetter} /><br /></span>}
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    {formik.errors.coverLetter && formik.touched.coverLetter && <span><Label basic pointing color="red" content={formik.errors.coverLetter} /><br /></span>}
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='thumbtack' />
@@ -130,10 +130,10 @@ function CoverLetter() {
                                             <Table.Cell>{coverLetter.coverLetterTitleName}</Table.Cell>
                                             <Table.Cell>{coverLetter.coverLetter}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange"
+                                                <Button icon inverted color="red"
                                                     onClick={() => handleDelete(coverLetter.id)}>
                                                     <Icon name='cancel' />
                                                 </Button>

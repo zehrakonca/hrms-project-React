@@ -100,7 +100,7 @@ function SocialMedia() {
                                         onChange={(event, data) => handleChange("linkedinAccount", data.value)}
                                         value={formik.values.linkedinAccount}
                                     />
-                                    {formik.errors.linkedinAccount && formik.touched.linkedinAccount && <span><Label basic pointing color="orange" content={formik.errors.linkedinAccount} /><br /></span>}
+                                    {formik.errors.linkedinAccount && formik.touched.linkedinAccount && <span><Label basic pointing color="red" content={formik.errors.linkedinAccount} /><br /></span>}
                                     <Form.Input
                                         icon="github"
                                         label='Github Account'
@@ -109,7 +109,7 @@ function SocialMedia() {
                                         onChange={(event, data) => handleChange("githubAccount", data.value)}
                                         value={formik.values.githubAccount}
                                     />
-                                    {formik.errors.githubAccount && formik.touched.githubAccount && <span><Label basic pointing color="orange" content={formik.errors.githubAccount} /><br /></span>}
+                                    {formik.errors.githubAccount && formik.touched.githubAccount && <span><Label basic pointing color="red" content={formik.errors.githubAccount} /><br /></span>}
                                     <Form.Input
                                         icon="twitter"
                                         label='Twitter'
@@ -118,8 +118,8 @@ function SocialMedia() {
                                         onChange={(event, data) => handleChange("twitterAccount", data.value)}
                                         value={formik.values.twitterAccount}
                                     />
-                                    {formik.errors.twitterAccount && formik.touched.twitterAccount && <span><Label basic pointing color="orange" content={formik.errors.twitterAccount} /><br /></span>}
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    {formik.errors.twitterAccount && formik.touched.twitterAccount && <span><Label basic pointing color="red" content={formik.errors.twitterAccount} /><br /></span>}
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='thumbtack' />
@@ -141,24 +141,24 @@ function SocialMedia() {
                                         <Table.HeaderCell colSpan='2'></Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
-                                <Table.Body>
+                                {/* <Table.Body>
                                     {socialMedias.map((socialMedia) =>
                                         <Table.Row key={socialMedia.socialMediaId}>
                                             <Table.Cell>{socialMedia.linkedinAccount}</Table.Cell>
                                             <Table.Cell>{socialMedia.githubAccount}</Table.Cell>
                                             <Table.Cell>{socialMedia.twitterAccount}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange"
+                                                <Button icon inverted color="red"
                                                     onClick={() => handleDelete(socialMedia.socialMediaId)}>
                                                     <Icon name='cancel' />
                                                 </Button>
                                             </Table.Cell>
                                         </Table.Row>
                                     )}
-                                </Table.Body>
+                                </Table.Body> */}
                             </Table>
                         </Grid.Column>
                     </Grid.Row>

@@ -80,10 +80,10 @@ function JobList() {
                                         <Table.Row style={{ margin: "1em" }}>
                                             <Table.Cell>{job.job}</Table.Cell>
                                             <Table.Cell textAlign='center'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange" onClick={() => handleDelete(job.id)}>
+                                                <Button icon inverted color="red" onClick={() => handleDelete(job.id)}>
                                                     <Icon name='cancel' />
                                                 </Button>
                                             </Table.Cell>
@@ -105,8 +105,8 @@ function JobList() {
                                             onChange={(event, data) => handleChange("jobName", data.value)}
                                             value={formik.values.jobName}
                                         />
-                                        {formik.errors.jobName && formik.touched.jobName && <span><Label basic pointing color="orange" content={formik.errors.jobName} /><br /></span>}
-                                        <Button inverted color="orange" type="submit">Submit</Button>
+                                        {formik.errors.jobName && formik.touched.jobName && <span><Label basic pointing color="red" content={formik.errors.jobName} /><br /></span>}
+                                        <Button inverted color="red" type="submit">Submit</Button>
                                     </Form>
                                 </Formik>
                             </Segment>

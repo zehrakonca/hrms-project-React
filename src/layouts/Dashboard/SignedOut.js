@@ -5,7 +5,7 @@ import { Link, NavLink } from 'react-router-dom'
 export default function SignedOut() {
   return (
     <Popup
-      trigger={<Button content="Sign In / Login" color='orange' />}
+      trigger={<Button content="Sign In / Login" color='red' />}
       on="click"
       position="bottom center"
 
@@ -13,10 +13,10 @@ export default function SignedOut() {
       <Popup.Content>
         <Header as='h5'>Are you looking for job?</Header>
         <Button.Group>
-          <Button inverted color='orange'
+          <Button inverted color='red'
             as={Link} to='/jobSeekerLogin'>Login
           </Button>
-          <Button color='orange'
+          <Button color='red'
             as={Link}
             to='/jobSeekerSignUp'>Sign Up
           </Button>

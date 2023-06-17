@@ -79,10 +79,10 @@ function HighSchoolType() {
                   <Table.Row>
                     <Table.Cell>{highSchoolType.highSchoolType}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon inverted color="orange">
+                      <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(highSchoolType.id)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(highSchoolType.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -104,8 +104,8 @@ function HighSchoolType() {
                     onChange={(event, data) => handleChange("highSchoolType", data.value)}
                     value={formik.values.highSchoolType}
                   />
-                  {formik.errors.highSchoolType && formik.touched.highSchoolType && <span><Label basic pointing color="orange" content={formik.errors.highSchoolType} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.highSchoolType && formik.touched.highSchoolType && <span><Label basic pointing color="red" content={formik.errors.highSchoolType} /><br /></span>}
+                  <Button color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

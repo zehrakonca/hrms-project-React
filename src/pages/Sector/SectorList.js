@@ -79,7 +79,7 @@ function SectorList() {
                   <Table.Row>
                     <Table.Cell>{sector.sector}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="orange" onClick={() => handleDelete(sector.id)}>
+                      <Button icon basic color="red" onClick={() => handleDelete(sector.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -101,8 +101,8 @@ function SectorList() {
                     onChange={(event, data) => handleChange("sector", data.value)}
                     value={formik.values.sector}
                   />
-                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="orange" content={formik.errors.sector} /><br /></span>}
-                  <Button inverted color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="red" content={formik.errors.sector} /><br /></span>}
+                  <Button inverted color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

@@ -84,7 +84,7 @@ function JobSeeker() {
                                         onChange={(event, data) => handleChange("firstName", data.value)}
                                         value={formik.values.firstName}
                                     />
-                                    {formik.errors.firstName && formik.touched.firstName && <span><Label size basic pointing='left' color="orange" content={formik.errors.firstName} /><br /><br /></span>}
+                                    {formik.errors.firstName && formik.touched.firstName && <span><Label size basic pointing='left' color="red" content={formik.errors.firstName} /><br /><br /></span>}
                                     <Form.Input
                                         name="lastName"
                                         label="lastname"
@@ -92,7 +92,7 @@ function JobSeeker() {
                                         onChange={(event, data) => handleChange("lastName", data.value)}
                                         value={formik.values.lastName}
                                     />
-                                    {formik.errors.lastName && formik.touched.lastName && <span><Label basic pointing='left' color="orange" content={formik.errors.lastName} /><br /><br /></span>}
+                                    {formik.errors.lastName && formik.touched.lastName && <span><Label basic pointing='left' color="red" content={formik.errors.lastName} /><br /><br /></span>}
                                 </Form.Group>
                                 <Form.Input
                                     name="email"
@@ -101,7 +101,7 @@ function JobSeeker() {
                                     onChange={(event, data) => handleChange("email", data.value)}
                                     value={formik.values.email}
                                 />
-                                {formik.errors.email && formik.touched.email && <span><Label basic pointing color="orange" content={formik.errors.email} /><br /><br /></span>}
+                                {formik.errors.email && formik.touched.email && <span><Label basic pointing color="red" content={formik.errors.email} /><br /><br /></span>}
                                 <Form.Group widths='equal'>
                                     <Form.Input
                                         name="password"
@@ -111,7 +111,7 @@ function JobSeeker() {
                                         onChange={(event, data) => handleChange("password", data.value)}
                                         value={formik.values.password}
                                     />
-                                    {formik.errors.password && formik.touched.password && <span><Label basic pointing='left' color="orange" content={formik.errors.password} /><br /><br /></span>}
+                                    {formik.errors.password && formik.touched.password && <span><Label basic pointing='left' color="red" content={formik.errors.password} /><br /><br /></span>}
                                     <Form.Input
                                         name='passwordRep'
                                         label='password repeat'
@@ -122,7 +122,7 @@ function JobSeeker() {
                                         value={formik.values.passwordRep}
                                     />
                                     {formik.errors.passwordRep && formik.touched.passwordRep && (
-                                        <Label basic pointing='left' color="orange" content={formik.errors.passwordRep} />
+                                        <Label basic pointing='left' color="red" content={formik.errors.passwordRep} />
                                     )}
 
                                 </Form.Group>
@@ -133,7 +133,7 @@ function JobSeeker() {
                                     onChange={(event, data) => handleChange("telephone", data.value)}
                                     value={formik.values.telephone}
                                 />
-                                {formik.errors.telephone && formik.touched.telephone && <span><Label basic pointing color="orange" content={formik.errors.telephone} /><br /><br /></span>}
+                                {formik.errors.telephone && formik.touched.telephone && <span><Label basic pointing color="red" content={formik.errors.telephone} /><br /><br /></span>}
                                 <Form.Input
                                     name='nationalIdentity'
                                     label='national identity'
@@ -141,7 +141,7 @@ function JobSeeker() {
                                     onChange={(event, data) => handleChange("nationalIdentity", data.value)}
                                     value={formik.values.nationalIdentity}
                                 />
-                                {formik.errors.nationalIdentity && formik.touched.nationalIdentity && <span><Label basic pointing color="orange" content={formik.errors.nationalIdentity} /><br /><br /></span>}
+                                {formik.errors.nationalIdentity && formik.touched.nationalIdentity && <span><Label basic pointing color="red" content={formik.errors.nationalIdentity} /><br /><br /></span>}
                                 <Form.Input
                                     name='date'
                                     label='date'
@@ -149,9 +149,9 @@ function JobSeeker() {
                                     onChange={(event, data) => handleChange("date", data.value)}
                                     value={formik.values.date}
                                 />
-                                {formik.errors.date && formik.touched.date && <span><Label basic pointing color="orange" content={formik.errors.date} /><br /><br /></span>}
+                                {formik.errors.date && formik.touched.date && <span><Label basic pointing color="red" content={formik.errors.date} /><br /><br /></span>}
                                 <Form.Checkbox label='I agree to the Terms and Conditions' />
-                                <Button color="orange" type='submit'>Sign Up</Button>
+                                <Button color="red" type='submit'>Sign Up</Button>
                             </Form>
                         </Formik>
                     </Grid.Column>

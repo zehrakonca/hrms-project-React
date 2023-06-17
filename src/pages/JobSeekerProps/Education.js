@@ -159,7 +159,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("educationType", data.value)}
                                             value={formik.values.educationType}
                                         />
-                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing='above' color="orange" content={formik.errors.educationType} /><br /></span>}
+                                        {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing='above' color="red" content={formik.errors.educationType} /><br /></span>}
                                         <Form.Select
                                             name="university"
                                             label=" University"
@@ -168,7 +168,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("university", data.value)}
                                             value={formik.values.university}
                                         />
-                                        {formik.errors.university && formik.touched.university && <span><Label basic pointing='above' color="orange" content={formik.errors.university} /><br /></span>}
+                                        {formik.errors.university && formik.touched.university && <span><Label basic pointing='above' color="red" content={formik.errors.university} /><br /></span>}
                                         <Form.Select
                                             name="program"
                                             label="Program"
@@ -177,7 +177,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("program", data.value)}
                                             value={formik.values.program}
                                         />
-                                        {formik.errors.program && formik.touched.program && <span><Label basic pointing='above' color="orange" content={formik.errors.program} /><br /></span>}
+                                        {formik.errors.program && formik.touched.program && <span><Label basic pointing='above' color="red" content={formik.errors.program} /><br /></span>}
                                     </Form.Group>
                                     <Divider />
                                     <Form.Group widths='equal'>
@@ -189,7 +189,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("faculty", data.value)}
                                             value={formik.values.faculty}
                                         />
-                                        {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing='above' color="orange" content={formik.errors.faculty} /><br /></span>}
+                                        {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing='above' color="red" content={formik.errors.faculty} /><br /></span>}
                                         <Form.Input
                                             name="startedDate"
                                             label="Started Date"
@@ -198,7 +198,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("startedDate", data.value)}
                                             value={formik.values.startedDate}
                                         />
-                                        {formik.errors.startedDate && formik.touched.startedDate && <span><Label basic pointing='above' color="orange" content={formik.errors.startedDate} /><br /></span>}
+                                        {formik.errors.startedDate && formik.touched.startedDate && <span><Label basic pointing='above' color="red" content={formik.errors.startedDate} /><br /></span>}
                                         <Form.Input
                                             name="graduationDate"
                                             label="Graduation Date"
@@ -207,9 +207,9 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("graduationDate", data.value)}
                                             value={formik.values.graduationDate}
                                         />
-                                        {formik.errors.graduationDate && formik.touched.graduationDate && <span><Label basic pointing='above' color="orange" content={formik.errors.graduationDate} /><br /></span>}
+                                        {formik.errors.graduationDate && formik.touched.graduationDate && <span><Label basic pointing='above' color="red" content={formik.errors.graduationDate} /><br /></span>}
                                     </Form.Group>
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='thumbtack' />
@@ -239,10 +239,10 @@ export default function Education() {
                                     <Table.Cell>{education.startedDate}</Table.Cell>
                                     <Table.Cell>{education.graduationDate}</Table.Cell>
                                     <Table.Cell textAlign='right'>
-                                        <Button icon inverted color="orange">
+                                        <Button icon inverted color="red">
                                             <Icon name='pencil' />
                                         </Button>
-                                        <Button icon inverted color="orange" onClick={() => handleDelete(education.educationId)}>
+                                        <Button icon inverted color="red" onClick={() => handleDelete(education.educationId)}>
                                             <Icon name='cancel' />
                                         </Button>
                                     </Table.Cell>

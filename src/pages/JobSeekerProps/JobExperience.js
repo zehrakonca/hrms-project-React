@@ -195,7 +195,7 @@ export default function JobExperience() {
                                             value={formik.values.sector.sectorId}
                                         />
                                     </Form.Group>
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='thumbtack' />
@@ -224,13 +224,13 @@ export default function JobExperience() {
                                             <Table.Cell>{jobExperience.endDate}</Table.Cell>
                                             <Table.Cell>{jobExperience.sectorName}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
                                                 <Button
                                                     icon
                                                     inverted
-                                                    color="orange"
+                                                    color="red"
                                                     onClick={() => handleDelete(jobExperience.experienceId)}
                                                 >
                                                     <Icon name='cancel' />

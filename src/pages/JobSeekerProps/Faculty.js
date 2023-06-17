@@ -80,10 +80,10 @@ function Faculty() {
                   <Table.Row>
                     <Table.Cell>{faculty.facultyName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon inverted color="orange">
+                    <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(faculty.id)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(faculty.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -105,8 +105,8 @@ function Faculty() {
                     onChange={(event, data) => handleChange("faculty", data.value)}
                     value={formik.values.faculty}
                   />
-                  {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing color="orange" content={formik.errors.faculty} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing color="red" content={formik.errors.faculty} /><br /></span>}
+                  <Button color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

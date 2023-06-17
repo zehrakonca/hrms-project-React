@@ -97,8 +97,8 @@ return (
                                     onChange={(event, data) => handleChange("abilityName", data.value)}
                                     value={formik.values.abilityName}
                                 />
-                                {formik.errors.abilityName && formik.touched.abilityName && <span><Label basic pointing color="orange" content={formik.errors.abilityName} /><br /></span>}
-                                <Button animated='fade' inverted color='orange' type='submit'>
+                                {formik.errors.abilityName && formik.touched.abilityName && <span><Label basic pointing color="red" content={formik.errors.abilityName} /><br /></span>}
+                                <Button animated='fade' inverted color='red' type='submit'>
                                     <Button.Content visible>Add</Button.Content>
                                     <Button.Content hidden>
                                         <Icon name='thumbtack' />
@@ -121,10 +121,10 @@ return (
                                     <Table.Row>
                                         <Table.Cell>{ability.abilityName}</Table.Cell>
                                         <Table.Cell textAlign='right'>
-                                            <Button icon inverted color="orange">
+                                            <Button icon inverted color="red">
                                                 <Icon name='pencil' />
                                             </Button>
-                                            <Button icon inverted color="orange"
+                                            <Button icon inverted color="red"
                                                 onClick={() => handleDelete(ability.id)}>
                                                 <Icon name='cancel' />
                                             </Button>

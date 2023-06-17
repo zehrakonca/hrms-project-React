@@ -45,7 +45,7 @@ export default function JobAdvertisementDetail() {
                         size="medium"
                         circular
                         floated="right"
-                        inverted color="orange">Apply now!
+                        inverted color="red">Apply now!
                     </Button>
                 </Grid.Column>
             </Grid.Row>
@@ -68,7 +68,7 @@ export default function JobAdvertisementDetail() {
                         {jobAdvertisement.jobDescription}
                         </p>
                         <Card.Group>
-                            <Card fluid color='orange'>
+                            <Card fluid color='red'>
                                 <Card.Content>
                                     <Header as="h3"> <Icon name='info' />candidate criteria</Header>
                                 </Card.Content>
@@ -89,7 +89,7 @@ export default function JobAdvertisementDetail() {
                                     </List>
                                 </Segment>
                             </Card>
-                            <Card fluid color='orange'>
+                            <Card fluid color='red'>
                                 <Card.Content>
                                     <Header as="h3"> <Icon name='info' />job information</Header>
                                 </Card.Content>
@@ -140,7 +140,7 @@ export default function JobAdvertisementDetail() {
                                     <Button.Group
                                         size="mini"
                                         style={{ marginRight: '0.5em' }}
-                                        inverted color="orange">
+                                        inverted color="red">
                                         <Button>Google it!</Button>
                                         <Button>Company Profile</Button>
                                         <Button>Open Positions</Button>
@@ -149,7 +149,7 @@ export default function JobAdvertisementDetail() {
                             </Grid.Row>
                             <Grid.Row>
                                 <Grid.Column>
-                                    <Segment basic color="orange">
+                                    <Segment basic color="red">
                                         Last Date: {jobAdvertisement.applicationDate}
                                     </Segment>
                                 </Grid.Column>

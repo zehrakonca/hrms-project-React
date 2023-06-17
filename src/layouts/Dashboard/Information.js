@@ -45,7 +45,7 @@ export default function Information() {
                 <Icon name='users' />
                 Join as employer
               </Header>
-              <Button color='orange' as={Link} to='/employer'>Join</Button>
+              <Button color='red' as={Link} to='/employer'>Join</Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

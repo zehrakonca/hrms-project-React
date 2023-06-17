@@ -84,7 +84,7 @@ export default function PersonalInformation() {
                         value={formik.values.email}
                     />
                 </Form.Group>
-                <Form.Button inverted color='orange' type="submit">Save</Form.Button>
+                <Form.Button inverted color='red' type="submit">Save</Form.Button>
             </Form>
             </Formik>
         </Container>

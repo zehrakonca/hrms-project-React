@@ -27,7 +27,7 @@ export default function JobAdvertisement() {
   }, []);
 
   return (
-    <Segment style={{ margin: "2em" }}>
+    <Segment style={{ margin: "2em" }}  size='mini'>
       {jobAdvertisements.map((jobAdvertisement) => (
         <Item.Group dividing key={jobAdvertisement.id}>
           <Item>
@@ -47,14 +47,14 @@ export default function JobAdvertisement() {
               <Item.Description floated='left'>{jobAdvertisement.jobDescription}</Item.Description>
               <span>{jobAdvertisement.sectorName}, {jobAdvertisement.workTypeName}</span>
               <Item.Extra>
-                <Button inverted color="orange" floated='right' as={NavLink}>
+                <Button inverted color="red" floated='right' as={NavLink}>
                   <Link to={`/advertisement/${jobAdvertisement.advertisementId}`}
                     style={{ color: "white" }}>
                     Apply
                     <Icon name='right chevron' />
                   </Link>
                 </Button>
-                <Button icon inverted  floated='right' color="orange">
+                <Button icon inverted  floated='right' color="red">
                   <Icon name='heart outline' />
                 </Button>
               </Item.Extra>

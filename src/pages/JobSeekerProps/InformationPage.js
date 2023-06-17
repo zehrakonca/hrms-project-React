@@ -42,7 +42,7 @@ export default function InformationPage() {
               <Card.Content header='About Personal Info' />
               <Card.Content description={description} />
               <Card.Content extra>
-                <Button inverted color='orange' as={Link} onClick={() => handleMenuItemClick('/personalInformation')}>
+                <Button inverted color='red' as={Link} onClick={() => handleMenuItemClick('/personalInformation')}>
                 <Icon name='arrow right'></Icon>
                 </Button>
               </Card.Content>
@@ -54,7 +54,7 @@ export default function InformationPage() {
               <Card.Content header='About Password' />
               <Card.Content description={description} />
               <Card.Content extra>
-                <Button inverted color='orange'>
+                <Button inverted color='red'>
                 <Icon name='arrow right'></Icon>
                 </Button>
               </Card.Content>
@@ -66,7 +66,7 @@ export default function InformationPage() {
               <Card.Content header='About Telephone' />
               <Card.Content description={description} />
               <Card.Content extra>
-                <Button inverted color='orange'>
+                <Button inverted color='red'>
                   <Icon name='arrow right'></Icon>
                 </Button>
               </Card.Content>

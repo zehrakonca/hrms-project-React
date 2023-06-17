@@ -81,10 +81,10 @@ function Language() {
                                         <Table.Row>
                                             <Table.Cell>{language.language}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange" onClick={() => handleDelete(language.languageId)}>
+                                                <Button icon inverted color="red" onClick={() => handleDelete(language.languageId)}>
                                                     <Icon name='cancel' />
                                                 </Button>
                                             </Table.Cell>
@@ -106,8 +106,8 @@ function Language() {
                                             onChange={(event, data) => handleChange("language", data.value)}
                                             value={formik.values.language}
                                         />
-                                        {formik.errors.language && formik.touched.language && <span><Label basic pointing color="orange" content={formik.errors.language} /><br /></span>}
-                                        <Button color="orange" type="submit" content="Add">Submit</Button>
+                                        {formik.errors.language && formik.touched.language && <span><Label basic pointing color="red" content={formik.errors.language} /><br /></span>}
+                                        <Button color="red" type="submit" content="Add">Submit</Button>
                                     </Form>
                                 </Formik>
                             </Segment>

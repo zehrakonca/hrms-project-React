@@ -77,7 +77,7 @@ function SystemEmployeeSignUp() {
                                             onChange={(event, data) => handleChange("firstName", data.value)}
                                             value={formik.values.firstName}
                                         />
-                                        {formik.errors.firstName && formik.touched.firstName && <span><Label basic pointing='left' color="orange" content={formik.errors.firstName} /><br /></span>}
+                                        {formik.errors.firstName && formik.touched.firstName && <span><Label basic pointing='left' color="red" content={formik.errors.firstName} /><br /></span>}
                                         <Form.Input
                                             name="lastName"
                                             label='Last Name'
@@ -85,7 +85,7 @@ function SystemEmployeeSignUp() {
                                             onChange={(event, data) => handleChange("lastName", data.value)}
                                             value={formik.values.lastName}
                                         />
-                                         {formik.errors.lastName && formik.touched.lastName && <span><Label basic pointing='left'  color="orange" content={formik.errors.lastName} /><br /></span>}
+                                         {formik.errors.lastName && formik.touched.lastName && <span><Label basic pointing='left'  color="red" content={formik.errors.lastName} /><br /></span>}
                                     </Form.Group>
                                     <Divider />
                                     <Form.Group widths='equal'>
@@ -96,7 +96,7 @@ function SystemEmployeeSignUp() {
                                             onChange={(event, data) => handleChange("email", data.value)}
                                             value={formik.values.email}
                                         />
-                                         {formik.errors.email && formik.touched.email && <span><Label basic pointing='left' color="orange" content={formik.errors.email} /><br /></span>}
+                                         {formik.errors.email && formik.touched.email && <span><Label basic pointing='left' color="red" content={formik.errors.email} /><br /></span>}
                                          <Form.Input
                                             name='telephone'
                                             label='Telephone'
@@ -104,7 +104,7 @@ function SystemEmployeeSignUp() {
                                             onChange={(event, data) => handleChange("telephone", data.value)}
                                             value={formik.values.telephone}
                                         />
-                                         {formik.errors.telephone && formik.touched.telephone && <span><Label basic pointing='left' color="orange" content={formik.errors.telephone} /><br /></span>}
+                                         {formik.errors.telephone && formik.touched.telephone && <span><Label basic pointing='left' color="red" content={formik.errors.telephone} /><br /></span>}
                                     </Form.Group>
                                     <Divider /><br />
                                     <Form.Group widths='equal'>
@@ -116,7 +116,7 @@ function SystemEmployeeSignUp() {
                                             onChange={(event, data) => handleChange("password", data.value)}
                                             value={formik.values.password}
                                         />
-                                         {formik.errors.password && formik.touched.password && <span><Label basic pointing='left'color="orange" content={formik.errors.password} /><br /></span>}
+                                         {formik.errors.password && formik.touched.password && <span><Label basic pointing='left'color="red" content={formik.errors.password} /><br /></span>}
                                         <Form.Input
                                             name='passwordRep'
                                             label='Re-Password'
@@ -125,13 +125,13 @@ function SystemEmployeeSignUp() {
                                             onChange={(event, data) => handleChange("passwordRep", data.value)}
                                             value={formik.values.passwordRep}
                                         />
-                                         {formik.errors.passwordRep && formik.touched.passwordRep && <span><Label basic pointing='left' color="orange" content={formik.errors.passwordRep} /><br /></span>}
+                                         {formik.errors.passwordRep && formik.touched.passwordRep && <span><Label basic pointing='left' color="red" content={formik.errors.passwordRep} /><br /></span>}
                                     </Form.Group><br />
-                                    {/* <Button inverted color='orange'>
+                                    {/* <Button inverted color='red'>
                                         Create Password
                                     </Button> */}
                                     <Container textAlign='right'>
-                                        <Button animated='fade' inverted color='orange' type='submit'>
+                                        <Button animated='fade' inverted color='red' type='submit'>
                                             <Button.Content visible>Next</Button.Content>
                                             <Button.Content hidden>
                                                 <Icon name='arrow right' />

@@ -81,10 +81,10 @@ function refreshPage() {
                   <Table.Row>
                     <Table.Cell>{positionLevel.positionLevelName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon inverted color="orange">
+                    <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(positionLevel.positionLevelId)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(positionLevel.positionLevelId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -106,8 +106,8 @@ function refreshPage() {
                     onChange={(event, data) => handleChange("positionLevelName", data.value)}
                     value={formik.values.positionLevelName}
                   />
-                  {formik.errors.positionLevelName && formik.touched.positionLevelName && <span><Label basic pointing color="orange" content={formik.errors.positionLevelName} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.positionLevelName && formik.touched.positionLevelName && <span><Label basic pointing color="red" content={formik.errors.positionLevelName} /><br /></span>}
+                  <Button color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

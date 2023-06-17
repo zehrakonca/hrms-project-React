@@ -68,7 +68,7 @@ export default function Login() {
                                     value={formik.values.password}
                                     error={formik.touched.password && formik.errors.password}
                                 />
-                                <Button type='submit' content='Login' inverted color='orange' />
+                                <Button type='submit' content='Login' inverted color='red' />
                             </Form>
                             <Divider horizontal>OR</Divider>
                             Sign UP!

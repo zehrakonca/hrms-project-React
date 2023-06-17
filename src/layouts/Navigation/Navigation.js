@@ -16,76 +16,82 @@ const Navigation = () => {
   const renderLoginButtons = () => {
     if (user) {
       return (
-        <>
-         <Menu.Item>
-            <Image avatar spaced="right" icon='user' size='mini' />
-            <Dropdown pointing="top left" text={user.data?.firstName}>
-              <Dropdown.Menu>
-                <Dropdown.Item as={Link}  to={`/profile/${user.data?.id}`}text="Profile" icon="info" />
-                <Dropdown.Item text="Logout" icon="power off" onClick={logout} to='/home' as={Link} />
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Item>
-        </>
+        <Menu.Menu position="right">
+          <Dropdown item text={user.data?.firstName}>
+            <Dropdown.Menu>
+              {user.data?.userStatu?.typeId === 1 && (
+                <Dropdown.Item as={Link} to={`/employerProfile/${user.data?.id}`} text="Profile" icon="info" />
+              )}
+              {user.data?.userStatu?.typeId === 2 && (
+                <Dropdown.Item as={Link} to={`/profile/${user.data?.id}`} text="Profile" icon="info" />
+              )}
+              <Dropdown.Item as={Link} to="/home" onClick={logout} text="Logout" icon="power off" />
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
       );
     } else {
       return (
-        <>
-           <Popup
-            trigger={<Button content="Sign Up / Login" color='orange' />}
+        <Menu.Menu position="right">
+          <Popup
+            trigger={<Button content="Sign Up / Login" color="red" />}
             on="click"
             position="bottom center"
+            hideOnScroll
           >
             <Popup.Content>
-              <Header as='h5'>Are you looking for a job?</Header>
+              <Header as="h5">Are you looking for a job?</Header>
               <Button.Group>
-                <Button inverted color='orange' as={Link} to='/jobSeekerLogin'>
+                <Button inverted color="red" as={Link} to="/jobSeekerLogin">
                   Login
                 </Button>
-                <Button color='orange' as={Link} to='/jobSeekerSignUp'>
+                <Button color="red" as={Link} to="/jobSeekerSignUp">
                   Sign Up
                 </Button>
               </Button.Group>
               <Divider horizontal>OR</Divider>
-              <Header as='h5'>Are you an employer?</Header>
-              <NavLink to='/employerLogin' style={{ color: "orangered" }}>
+              <Header as="h5">Are you an employer?</Header>
+              <NavLink to="/employerLogin" style={{ color: "red" }}>
                 Login as an Employer
-              </NavLink><br />
-              <NavLink to='/employer' style={{ color: "orangered" }}>
+              </NavLink>
+              <br />
+              <NavLink to="/employer" style={{ color: "red" }}>
                 Sign Up as an Employer
               </NavLink>
             </Popup.Content>
           </Popup>
-        </>
+        </Menu.Menu>
       );
     }
   };
 
+
+
   return (
     <div>
-    <Menu secondary inverted color='orange'>
-      <Container>
-        <Menu.Item>
-          <Link to="/home">ihopefindjob</Link>
-        </Menu.Item>
-        <Menu.Item name='home' active={activeItem === 'home'} onClick={handleItemClick}>
-          <NavLink exact to="/home">Home</NavLink>
-        </Menu.Item>
-        <Menu.Item name='jobAdvertisementSearchList' active={activeItem === 'jobAdvertisementSearchList'} onClick={handleItemClick}>
-          <NavLink to="/jobAdvertisementSearchList">Job Advertisements</NavLink>
-        </Menu.Item>
-        <Menu.Item name='advertisementPost' active={activeItem === 'advertisementPost'} onClick={handleItemClick}>
-          <NavLink to="/advertisementPost">Advertisement post</NavLink>
-        </Menu.Item>
-        <Menu.Item name='sitemap' active={activeItem === 'sitemap'} onClick={handleItemClick}>
-          <NavLink to="/sitemap">siteMap</NavLink>
-        </Menu.Item>
-        <Menu.Item position='right'>
-          {renderLoginButtons()}
-        </Menu.Item>
-      </Container>
-    </Menu>
-  </div>
+      <Menu secondary inverted color='red'>
+        <Container>
+          <Menu.Item>
+            <Link to="/home">ihopefindjob</Link>
+          </Menu.Item>
+          <Menu.Item name='home' active={activeItem === 'home'} onClick={handleItemClick}>
+            <NavLink exact to="/home">Home</NavLink>
+          </Menu.Item>
+          <Menu.Item name='jobAdvertisementSearchList' active={activeItem === 'jobAdvertisementSearchList'} onClick={handleItemClick}>
+            <NavLink to="/jobAdvertisementSearchList">Job Advertisements</NavLink>
+          </Menu.Item>
+          <Menu.Item name='advertisementPost' active={activeItem === 'advertisementPost'} onClick={handleItemClick}>
+            <NavLink to="/advertisementPost">Advertisement post</NavLink>
+          </Menu.Item>
+          <Menu.Item name='sitemap' active={activeItem === 'sitemap'} onClick={handleItemClick}>
+            <NavLink to="/sitemap">siteMap</NavLink>
+          </Menu.Item>
+          <Menu.Item position='right'>
+            {renderLoginButtons()}
+          </Menu.Item>
+        </Container>
+      </Menu>
+    </div>
   );
 }
 

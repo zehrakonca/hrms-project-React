@@ -14,7 +14,7 @@ export default function Resume() {
             <Grid>
                 <Grid.Row>
                     <Grid.Column verticalAlign='right'>
-                    <Button animated='fade' inverted color='orange' type='submit'>
+                    <Button animated='fade' inverted color='red' type='submit'>
                         <Button.Content visible>Get PDF</Button.Content>
                         <Button.Content hidden>
                             <Icon name='file pdf outline' />

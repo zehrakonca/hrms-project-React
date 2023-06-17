@@ -109,8 +109,8 @@ function Ability() {
                                         onChange={(event, data) => handleChange("language", data.value)}
                                         value={formik.values.language}
                                     />
-                                    {formik.errors.language && formik.touched.language && <span><Label basic pointing color="orange" content={formik.dirtyerrors.language} /><br /></span>}
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    {formik.errors.language && formik.touched.language && <span><Label basic pointing color="red" content={formik.dirtyerrors.language} /><br /></span>}
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='thumbtack' />
@@ -133,10 +133,10 @@ function Ability() {
                                         <Table.Row>
                                             <Table.Cell>{languageInfo.language}</Table.Cell>
                                             <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
+                                                <Button icon inverted color="red">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange"
+                                                <Button icon inverted color="red"
                                                     onClick={() => handleDelete(languageInfo.languageInfoId)}>
                                                     <Icon name='cancel' />
                                                 </Button>

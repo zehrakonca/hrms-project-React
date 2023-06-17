@@ -40,6 +40,10 @@ import Resume from './pages/JobSeekerProps/Resume';
 import InformationPage from './pages/JobSeekerProps/InformationPage';
 import PersonalInformation from './pages/JobSeekerProps/PersonalInformation';
 import EmployerProfile from './pages/Employer/EmployerProfile';
+import EmployerInformation from './pages/Employer/EmployerInformation';
+import EmployerPersonalInformation from './pages/Employer/EmployerPersonalInformation';
+import EmployersAdvertisements from './pages/Employer/EmployersAdvertisements';
+import Advertisement from './pages/Employer/Advertisement';
 
 function App() {
 
@@ -90,6 +94,11 @@ function App() {
         <Route path='/informationPage' element={<InformationPage/>}/>
         <Route path='/personalInformation' element={<PersonalInformation/>}/>
         <Route path='/employerProfile' element={<EmployerProfile/>}/>
+          <Route path='/employerProfile/:id' element={<EmployerProfile/>}/>
+        <Route path='/employerInformation' element={<EmployerInformation/>}/>
+        <Route path='/employerPersonalInformation' element={<EmployerPersonalInformation/>}/>
+        <Route path='/employersAdvertisements' element={<EmployersAdvertisements/>}/>
+        <Route path='/advertisement' element={<Advertisement/>}/>
       </Routes>
       <Footer />
     </div>

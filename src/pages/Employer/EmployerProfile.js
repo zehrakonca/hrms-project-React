@@ -1,50 +1,95 @@
-import React from 'react'
-import { Container, Grid, Header, Image, Input, Menu, Segment } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { Container, Grid, Header, Icon, Image, Input, Menu, Segment } from 'semantic-ui-react'
+import EmployerPersonalInformation from './EmployerPersonalInformation'
+import EmployersAdvertisements from './EmployersAdvertisements';
+import JobAdvertisementPost from '../JobAdvertisement/JobAdvertisementPost';
+import EmployerInformation from './EmployerInformation';
 
 export default function EmployerProfile() {
 
+    const [activeMenuItem, setActiveMenuItem] = useState(null);
+
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString(undefined, options);
+
+    const handleMenuItemClick = (item) => {
+        setActiveMenuItem(item);
+    };
+
+    const renderContent = () => {
+        if (activeMenuItem === '/employerInformation') {
+            return <EmployerPersonalInformation />;
+        } else if (activeMenuItem === '/employersAdvertisements') {
+            return <EmployersAdvertisements />;
+        } else if (activeMenuItem === '/advertisementPost') {
+            return <JobAdvertisementPost />;
+        } else if (activeMenuItem === '/employerPersonalInformation') {
+            return <EmployerInformation />;
+        } else {
+            return (
+                <h4>
+                    <Icon name='bolt'></Icon>
+                    selected page will be published here.  <br /><br />
+                </h4>
+            );
+        }
+    };
+
     return (
-        <Container style={{ margin: "1em", marginBottom:"12em"}}>
+        <Container style={{ margin: "1em", marginBottom: "12em" }}>
             <Segment raised>
                 <Header as='h2' attached='top'>
                     Hanooğ evrinyan! -company-
+                    Welcome Back, com. How are you today?
                 </Header>
                 <Segment attached>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.
+                    {formattedDate}
+                    <br />
                 </Segment>
-                <br/>
+                <br />
                 <Grid>
                     <Grid.Column width={4}>
                         <Menu fluid vertical tabular>
                             <Menu.Item
-                                name='Profile'
-                                icon='user'
-                            // active={activeItem === 'bio'}
-                            // onClick={this.handleItemClick}
-                            />
+                                name='profile'
+                                active={activeMenuItem === 'profile'}
+                                onClick={() => handleMenuItemClick('/employerInformation')}
+                            >
+                                <Icon name='user'></Icon>
+                                Profile
+                            </Menu.Item>
                             <Menu.Item
-                                name='Your Advertisements'
+                                name='yourAdvertisements'
                                 icon='unordered list'
-
-                            />
+                                active={activeMenuItem === 'yourAdvertisements'}
+                                onClick={() => handleMenuItemClick('/employersAdvertisements')}
+                            >
+                                <Icon name='unordered list'></Icon>
+                                Your Advertisements
+                            </Menu.Item>
                             <Menu.Item
-                                name='Add Advertisements'
-                                icon='plug'
-
-                            />
+                                name='addAdvertisement'
+                                active={activeMenuItem === 'addAdvertisement'}
+                                onClick={() => handleMenuItemClick('/advertisementPost')}
+                            >
+                                <Icon name='plug'></Icon>
+                                Add Advertisement
+                            </Menu.Item>
                             <Menu.Item
-                                name='Settings'
-                                icon='setting'
-
-                            />
+                                name='settings'
+                                active={activeMenuItem === 'settings'}
+                                onClick={() => handleMenuItemClick('/employerPersonalInformation')}
+                            >
+                                <Icon name='setting'></Icon>
+                                Settings
+                            </Menu.Item>
                         </Menu>
                     </Grid.Column>
 
                     <Grid.Column stretched width={12}>
                         <Segment>
-                            This is an stretched grid column. This segment will always match the
-                            tab height
+                            {renderContent()}
                         </Segment>
                     </Grid.Column>
                 </Grid>

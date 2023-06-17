@@ -184,7 +184,7 @@ export default function JobAdvertisementPost() {
     });
 
     return (
-        <Container style={{ margin: "1em" }}>
+        <Container>
             <Segment raised>
                 <Header as='h3' dividing>
                     <Icon name='plug' />  Job Advertisement Posting
@@ -332,7 +332,7 @@ export default function JobAdvertisementPost() {
                                         />
                                     </Form.Group>
                                     <Divider />
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Post Advertisement</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='plug' />

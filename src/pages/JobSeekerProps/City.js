@@ -78,10 +78,10 @@ function City() {
                   <Table.Row>
                     <Table.Cell>{cityName.cityName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon inverted color="orange">
+                      <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(cityName.cityId)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(cityName.cityId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -103,8 +103,8 @@ function City() {
                     onChange={(event, data) => handleChange("cityName", data.value)}
                     value={formik.values.cityName}
                   />
-                  {formik.errors.cityName && formik.touched.cityName && <span><Label basic pointing color="orange" content={formik.errors.cityName} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.cityName && formik.touched.cityName && <span><Label basic pointing color="red" content={formik.errors.cityName} /><br /></span>}
+                  <Button color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

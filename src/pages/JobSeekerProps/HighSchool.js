@@ -164,7 +164,7 @@ function HighSchool() {
                                             value={formik.values.graduationDate}
                                         />
                                     </Form.Group>
-                                    <Button animated='fade' inverted color='orange' type='submit'>
+                                    <Button animated='fade' inverted color='red' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
                                         <Button.Content hidden>
                                             <Icon name='thumbtack' />
@@ -184,7 +184,7 @@ function HighSchool() {
                                         </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
-                                <Table.Body>
+                                {/* <Table.Body>
                                     {highSchools.map((highSchool) => 
                                     <Table.Row key={highSchool.highSchoolId}>
                                         <Table.Cell>{highSchool.highSchoolName}</Table.Cell>
@@ -194,7 +194,7 @@ function HighSchool() {
                                         <Table.Cell>{highSchool.graduationDate}</Table.Cell>
                                     </Table.Row>
                                     )}
-                                </Table.Body>
+                                </Table.Body> */}
                             </Table>
                         </Grid.Column>
                     </Grid.Row>

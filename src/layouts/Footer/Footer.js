@@ -4,7 +4,7 @@ import { Container, Segment, Grid, Header, List, Search } from 'semantic-ui-reac
 
 export default function Footer() {
   return (
-    <Segment inverted vertical style={{ padding: '5em 0em' }} color="orange">
+    <Segment inverted vertical style={{ padding: '5em 0em' }} color="red">
       <Container>
         <Grid divided inverted stackable>
           <Grid.Row>

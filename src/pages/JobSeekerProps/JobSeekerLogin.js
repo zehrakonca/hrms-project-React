@@ -82,7 +82,7 @@ const JobSeekerLogin = () => {
                                     onChange={formik.handleChange}
                                     required
                                 />
-                                <Button type='submit' content='Login' inverted color='orange' />
+                                <Button type='submit' content='Login' inverted color='red' />
                             </Form>
                             <Divider horizontal>OR</Divider>
                             <NavLink to='/jobSeekerSignUp' style={{ color: 'orangered' }}>

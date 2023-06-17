@@ -80,10 +80,10 @@ function MilitaryStatu() {
                   <Table.Row>
                     <Table.Cell>{militaryStatu.militaryStatuName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon inverted color="orange">
+                      <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(militaryStatu.militaryStatuId)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(militaryStatu.militaryStatuId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -105,8 +105,8 @@ function MilitaryStatu() {
                     onChange={(event, data) => handleChange("militaryStatuName", data.value)}
                     value={formik.values.militaryStatuName}
                   />
-                  {formik.errors.militaryStatuName && formik.touched.militaryStatuName && <span><Label basic pointing color="orange" content={formik.errors.militaryStatuName} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.militaryStatuName && formik.touched.militaryStatuName && <span><Label basic pointing color="red" content={formik.errors.militaryStatuName} /><br /></span>}
+                  <Button color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>

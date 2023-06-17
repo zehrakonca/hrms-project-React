@@ -75,10 +75,10 @@ function ExperienceType() {
                       <Table.Row>
                         <Table.Cell>{experience.experienceName}</Table.Cell>
                         <Table.Cell textAlign='right'>
-                        <Button icon inverted color="orange">
+                        <Button icon inverted color="red">
                             <Icon name='pencil' />
                           </Button>
-                          <Button icon inverted color="orange" onClick={() => handleDelete(experience.experienceTypeId)}>
+                          <Button icon inverted color="red" onClick={() => handleDelete(experience.experienceTypeId)}>
                             <Icon name='cancel' />
                           </Button>
                         </Table.Cell>
@@ -100,8 +100,8 @@ function ExperienceType() {
                         onChange={(event, data) => handleChange("experienceName", data.value)}
                         value={formik.values.experienceName}
                       />
-                      {formik.errors.experienceName && formik.touched.experienceName && <span><Label basic pointing color="orange" content={formik.errors.experienceName} /><br /></span>}
-                      <Button inverted color="orange" type="submit" content="Add">Add</Button>
+                      {formik.errors.experienceName && formik.touched.experienceName && <span><Label basic pointing color="red" content={formik.errors.experienceName} /><br /></span>}
+                      <Button inverted color="red" type="submit" content="Add">Add</Button>
                     </Form>
                   </Formik>
                 </Segment>

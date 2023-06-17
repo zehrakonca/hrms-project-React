@@ -80,10 +80,10 @@ function ProgramInfo() {
                   <Table.Row>
                     <Table.Cell>{program.program}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon inverted color="orange">
+                    <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="orange" onClick={() => handleDelete(program.programId)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(program.programId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -105,8 +105,8 @@ function ProgramInfo() {
                     onChange={(event, data) => handleChange("program", data.value)}
                     value={formik.values.program}
                   />
-                  {formik.errors.program && formik.touched.program && <span><Label basic pointing color="orange" content={formik.errors.program} /><br /></span>}
-                  <Button color="orange" type="submit" content="Add">Submit</Button>
+                  {formik.errors.program && formik.touched.program && <span><Label basic pointing color="red" content={formik.errors.program} /><br /></span>}
+                  <Button color="red" type="submit" content="Add">Submit</Button>
                 </Form>
               </Formik>
             </Segment>
