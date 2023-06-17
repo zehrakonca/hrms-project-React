@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Segment, Table } from 'semantic-ui-react'
 import JobExperienceService from '../../services/jobExperienceService'
 import CityService from '../../services/cityService';
 import SectorService from '../../services/sectorService';
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
+import { UserContext } from '../../contexts/UserProvider';
 
 
 export default function JobExperience() {
@@ -13,17 +14,34 @@ export default function JobExperience() {
     const [cities, setCities] = useState([]);
     const [sectors, setSectors] = useState([]);
     const [open, setOpen] = useState([])
+    const [jobSeeker, setJobSeeker] = useState([])
+    const { user } = useContext(UserContext);
 
     let jobExperienceService = new JobExperienceService();
     let cityService = new CityService();
     let sectorService = new SectorService();
 
     useEffect(() => {
-        jobExperienceService.getAllJobExperience().then((result) => setJobExperiences(result.data.data));
         cityService.getAllCity().then((result) => setCities(result.data.data));
         sectorService.getSectors().then((result) => setSectors(result.data.data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
+        const fetchUser = async () => {
+            try {
+                const response = await jobExperienceService.getByJobSeekerId(user?.data?.id).then((result) => setJobExperiences(result.data.data));
+                setJobSeeker(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const userId = user?.data?.id;
+
+        if (userId) {
+            fetchUser();
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.data?.id]);
 
     const sectorOptions = sectors.map((sector) => ({
         key: sector.id,
@@ -45,7 +63,7 @@ export default function JobExperience() {
         startedDate: "",
         endDate: "",
         sector: "",
-        jobSeekerId: 22,
+        jobSeekerId: (user?.data?.id),
     };
 
     const validationSchema = Yup.object({
@@ -65,7 +83,7 @@ export default function JobExperience() {
     const onSubmit = (values, { resetForm }) => {
         console.log(values);
         jobExperienceService.addJobExperience({
-            jobSeeker: values.jobSeekerId, 
+            jobSeeker: values.jobSeekerId,
             companyName: values.companyName,
             position: values.position,
             jobDescription: values.jobDescription,
@@ -118,7 +136,7 @@ export default function JobExperience() {
                                             name='companyName'
                                             label='Company Name'
                                             icon='industry'
-                                            placeholder='company name(exp: kodlama.io)'
+                                            placeholder='company name (exp: kodlama.io)'
                                             onChange={(event, data) => handleChange("companyName", data.value)}
                                             value={formik.values.companyName}
                                         />
@@ -126,7 +144,7 @@ export default function JobExperience() {
                                             name='position'
                                             label='Position'
                                             icon='sitemap'
-                                            placeholder='company name(exp: java developer)'
+                                            placeholder='position (exp: java developer)'
                                             onChange={(event, data) => handleChange("position", data.value)}
                                             value={formik.values.position}
                                         />
@@ -136,7 +154,7 @@ export default function JobExperience() {
                                             name='jobDescription'
                                             label='Job Description'
                                             icon='chess board'
-                                            placeholder='job description(exp: what did you do in company? or what is your role?)'
+                                            placeholder='job description (exp: what did you do in the company? or what is your role?)'
                                             onChange={(event, data) => handleChange("jobDescription", data.value)}
                                             value={formik.values.jobDescription}
                                         />
@@ -146,7 +164,7 @@ export default function JobExperience() {
                                             name='startedDate'
                                             label='Started-Day'
                                             icon='cogs'
-                                            placeholder='(exp: yyyy-mm-dd)'
+                                            placeholder='started date (exp: yyyy-mm-dd)'
                                             onChange={(event, data) => handleChange("startedDate", data.value)}
                                             value={formik.values.startedDate}
                                         />
@@ -154,7 +172,7 @@ export default function JobExperience() {
                                             name='endDate'
                                             label='End-Day'
                                             icon='cog'
-                                            placeholder='(exp: yyyy-mm-dd)'
+                                            placeholder='end date (exp: yyyy-mm-dd)'
                                             onChange={(event, data) => handleChange("endDate", data.value)}
                                             value={formik.values.endDate}
                                         />
@@ -163,7 +181,7 @@ export default function JobExperience() {
                                         <Form.Select
                                             name='city'
                                             label='City'
-                                            placeholder='select city.'
+                                            placeholder='select city'
                                             options={cityOptions}
                                             onChange={(event, data) => handleChange("city", data.value)}
                                             value={formik.values.city.cityId}
@@ -171,7 +189,7 @@ export default function JobExperience() {
                                         <Form.Select
                                             name='sector'
                                             label='Sector'
-                                            placeholder='select sector.'
+                                            placeholder='select sector'
                                             options={sectorOptions}
                                             onChange={(event, data) => handleChange("sector", data.value)}
                                             value={formik.values.sector.sectorId}
@@ -192,31 +210,34 @@ export default function JobExperience() {
                             <Table striped>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='2'>Your Job Experiences </Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='8'>Your Job Experiences</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    {jobExperiences.map((jobExperience) =>
-                                        <Table.Row>
-                                            <Table.Cell>{jobExperience.jobSeekerId}</Table.Cell>
+                                    {jobExperiences.map((jobExperience) => (
+                                        <Table.Row key={jobExperience.experienceId}>
                                             <Table.Cell>{jobExperience.companyName}</Table.Cell>
                                             <Table.Cell>{jobExperience.position}</Table.Cell>
                                             <Table.Cell>{jobExperience.jobDescription}</Table.Cell>
                                             <Table.Cell>{jobExperience.cityName}</Table.Cell>
                                             <Table.Cell>{jobExperience.startedDate}</Table.Cell>
-                                             <Table.Cell>{jobExperience.endDate}</Table.Cell>
-                                              <Table.Cell>{jobExperience.sectorName}</Table.Cell>
+                                            <Table.Cell>{jobExperience.endDate}</Table.Cell>
+                                            <Table.Cell>{jobExperience.sectorName}</Table.Cell>
                                             <Table.Cell textAlign='right'>
                                                 <Button icon inverted color="orange">
                                                     <Icon name='pencil' />
                                                 </Button>
-                                                <Button icon inverted color="orange"
-                                                    onClick={() => handleDelete(jobExperience.experienceId)}>
+                                                <Button
+                                                    icon
+                                                    inverted
+                                                    color="orange"
+                                                    onClick={() => handleDelete(jobExperience.experienceId)}
+                                                >
                                                     <Icon name='cancel' />
                                                 </Button>
                                             </Table.Cell>
                                         </Table.Row>
-                                    )}
+                                    ))}
                                 </Table.Body>
                             </Table>
                         </Grid.Column>
@@ -224,5 +245,6 @@ export default function JobExperience() {
                 </Grid>
             </Segment>
         </Container>
+
     )
 }

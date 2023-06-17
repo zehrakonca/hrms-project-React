@@ -1,110 +1,82 @@
-import { useFormik } from 'formik';
-import React, { useContext, useEffect, useState } from 'react'
-import { Form } from 'semantic-ui-react';
-import { UserContext } from '../../contexts/UserProvider';
-import JobSeekerService from '../../services/jobSeekerService';
+import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Button, Card, Container, Grid, Header, Icon, Segment } from 'semantic-ui-react'
+import PersonalInformation from './PersonalInformation';
+
 
 export default function InformationPage() {
 
-  const { user } = useContext(UserContext);
-  const [jobSeeker, setJobSeeker] = useState(null);
-  const [open, setOpen] = useState([])
-
-  let jobSeekerService = new JobSeekerService();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await jobSeekerService.getById(user.data?.id);
-        setJobSeeker(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchUser();
-  }, []);
-
-
-  const formik = useFormik({
-    initialValues: {
-      id : user && user.data ? user.data.id : '',
-      firstName: user && user.data ? user.data.firstName : 'none',
-      lastName: user && user.data ? user.data.lastName : 'none',
-      telephone: user && user.data ? user.data.telephone : 'none',
-      email: user && user.data ? user.data.email : 'none',
-      password: user && user.data ? user.data.password : 'none',
-      passwordRep: user && user.data ? user.data.passwordRep : 'none',
-    },
-    onSubmit: (values) => {
-      console.log(values);
-      jobSeekerService.updateJobSeeker(values);
-      //window.location.reload()
-    }
-  });
-
-  const handleModal = (value) => {
-    setOpen(value);
+  const [activeMenuItem, setActiveMenuItem] = useState(null);
+  const handleMenuItemClick = (item) => {
+    setActiveMenuItem(item);
   };
 
-  const handleChange = (fieldName, value) => {
-    formik.setFieldValue(fieldName, value);
+  const description = [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+  ].join(' ')
+
+  const renderContent = () => {
+    if (activeMenuItem === '/personalInformation') {
+      return <PersonalInformation />;
+    }
+    else {
+      return (
+        <Segment>
+
+        </Segment>
+      );
+    }
   };
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
-      <Form.Group widths='equal'>
-        <Form.Input
-          name="firstName"
-          label='First Name'
-          placeholder='First Name'
-          onChange={(event, data) => handleChange("firstName", data.value)}
-          value={formik.values.firstName}
-        />
-        <Form.Input
-          name="lastName"
-          label='Last Name'
-          placeholder='Last Name'
-          onChange={(event, data) => handleChange("lastName", data.value)}
-          value={formik.values.lastName}
-        />
-      </Form.Group>
-      <Form.Group widths='equal'>
-        <Form.Input
-          name="telephone"
-          label='Telephone'
-          placeholder='Telephone'
-          onChange={(event, data) => handleChange("telephone", data.value)}
-          value={formik.values.telephone}
-        />
-      </Form.Group>
-      <Form.Group widths='equal'>
-        <Form.Input
-          name="email"
-          label='Email'
-          placeholder='Email'
-          onChange={(event, data) => handleChange("email", data.value)}
-          value={formik.values.email}
-        />
-      </Form.Group>
-      <Form.Group widths='equal'>
-        <Form.Input
-          name="password"
-          label='Password'
-          placeholder='Password'
-          type='password'
-          onChange={(event, data) => handleChange("password", data.value)}
-          value={formik.values.password}
-        />
-        <Form.Input
-          name="passwordRep"
-          label='Password Repeat'
-          placeholder='Password Repeat'
-          type='password'
-          onChange={(event, data) => handleChange("passwordRep", data.value)}
-          value={formik.values.passwordRep}
-        />
-      </Form.Group>
-      <Form.Button inverted color='orange' type="submit">Save</Form.Button>
-    </Form>
-  );
+    <Container>
+      <Header as='h4' disabled dividing>
+        <Icon name='setting' />
+        <Header.Content>What do you want to change?</Header.Content>
+      </Header>
+
+      <Grid stackable columns={3}>
+        <Grid.Row>
+          <Grid.Column>
+            <Card>
+              <Card.Content header='About Personal Info' />
+              <Card.Content description={description} />
+              <Card.Content extra>
+                <Button inverted color='orange' as={Link} onClick={() => handleMenuItemClick('/personalInformation')}>
+                <Icon name='arrow right'></Icon>
+                </Button>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+
+          <Grid.Column>
+            <Card>
+              <Card.Content header='About Password' />
+              <Card.Content description={description} />
+              <Card.Content extra>
+                <Button inverted color='orange'>
+                <Icon name='arrow right'></Icon>
+                </Button>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+
+          <Grid.Column>
+            <Card>
+              <Card.Content header='About Telephone' />
+              <Card.Content description={description} />
+              <Card.Content extra>
+                <Button inverted color='orange'>
+                  <Icon name='arrow right'></Icon>
+                </Button>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+      <Segment>
+        {renderContent()}
+      </Segment>
+    </Container>
+  )
 }

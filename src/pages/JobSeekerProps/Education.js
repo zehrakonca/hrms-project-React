@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
 import EducationTypeService from '../../services/educationTypeService'
 import UniversityService from '../../services/universityService'
@@ -7,17 +7,20 @@ import FacultyService from '../../services/facultyService'
 import EducationService from '../../services/educationService'
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
+import { UserContext } from '../../contexts/UserProvider'
 
 
 export default function Education() {
 
     const [open, setOpen] = useState([])
+    const { user } = useContext(UserContext);
 
     const [educationTypes, setEducationTypes] = useState([])
     const [universities, setUniversities] = useState([])
     const [programs, setPrograms] = useState([])
     const [faculties, setFaculties] = useState([])
     const [educations, setEducations] = useState([])
+    const [jobSeeker, setJobSeeker] = useState([])
 
     let educationTypeService = new EducationTypeService()
     let universityService = new UniversityService()
@@ -30,10 +33,24 @@ export default function Education() {
         universityService.getUniversity().then((result) => setUniversities(result.data.data));
         programInfoService.getAllProgramInfo().then((result) => setPrograms(result.data.data));
         facultyService.getAllFaculty().then((result) => setFaculties(result.data.data));
-        educationService.getAllEducation().then((result) => setEducations(result.data.data));
+
+        const fetchUser = async () => {
+            try {
+                const response = educationService.getByJobSeekerId(user?.data?.id).then((result) => setEducations(result.data.data));
+                setJobSeeker(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const userId = user?.data?.id;
+
+        if (userId) {
+            fetchUser();
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [user?.data?.id]);
 
     const educationTypeOptions = educationTypes.map((educationType) => ({
         key: educationType.educationTypeId,
@@ -66,7 +83,7 @@ export default function Education() {
         program: "",
         startedDate: "",
         graduationDate: "",
-        jobSeekerId: 22,
+        jobSeekerId: (user?.data?.id),
     }
 
     const validationSchema = Yup.object({
@@ -77,10 +94,6 @@ export default function Education() {
         startedDate: Yup.date().required("required field"),
         graduationDate: Yup.date(),
     })
-
-    function refreshPage() {
-        window.location.reload();
-    }
 
     const onSubmit = (values, { resetForm }) => {
         console.log(values);
@@ -97,14 +110,19 @@ export default function Education() {
         setTimeout(() => {
             resetForm();
         }, 100);
-        //refreshPage();
+        refreshPage()
     };
+
+    function refreshPage() {
+        window.location.reload();
+    }
 
     const handleDelete = async (id) => {
         console.log(id);
-        educationService.deleteEducation(id);
+        const response = await educationService.deleteEducation(id);
+        console.log(response.message);
         refreshPage();
-    }
+    };
 
     const handleModal = (value) => {
         setOpen(value);
@@ -120,11 +138,10 @@ export default function Education() {
         onSubmit: onSubmit,
     });
 
-
     return (
         <Container>
             <Segment>
-            <Header as='h3' disabled dividing>
+                <Header as='h3' disabled dividing>
                     <Icon name='graduation' />
                     <Header.Content>Your Education History</Header.Content>
                 </Header>
@@ -142,9 +159,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("educationType", data.value)}
                                             value={formik.values.educationType}
                                         />
-
                                         {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing='above' color="orange" content={formik.errors.educationType} /><br /></span>}
-
                                         <Form.Select
                                             name="university"
                                             label=" University"
@@ -192,8 +207,7 @@ export default function Education() {
                                             onChange={(event, data) => handleChange("graduationDate", data.value)}
                                             value={formik.values.graduationDate}
                                         />
-                                        {formik.errors.graduationDate && formik.touched.graduationDate && <span><Label basic pointing='above'
-                                            color="orange" content={formik.errors.graduationDate} /><br /></span>}
+                                        {formik.errors.graduationDate && formik.touched.graduationDate && <span><Label basic pointing='above' color="orange" content={formik.errors.graduationDate} /><br /></span>}
                                     </Form.Group>
                                     <Button animated='fade' inverted color='orange' type='submit'>
                                         <Button.Content visible>Add</Button.Content>
@@ -205,41 +219,39 @@ export default function Education() {
                             </Formik>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Table striped>
-                                <Table.Header>
-                                    <Table.Row>
-                                        <Table.HeaderCell colSpan='2'>Your Education History</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-                                <Table.Body>
-                                    {educations.map((education) =>
-                                        <Table.Row key={education.educationId}>
-                                            <Table.Cell>{education.jobSeekerId}</Table.Cell>
-                                            <Table.Cell>{education.educationTypeName}</Table.Cell>
-                                            <Table.Cell>{education.universityName}</Table.Cell>
-                                            <Table.Cell>{education.programName}</Table.Cell>
-                                            <Table.Cell>{education.facultyName}</Table.Cell>
-                                            <Table.Cell>{education.startedDate}</Table.Cell>
-                                            <Table.Cell>{education.graduationDate}</Table.Cell>
-                                            <Table.Cell textAlign='right'>
-                                                <Button icon inverted color="orange">
-                                                    <Icon name='pencil' />
-                                                </Button>
-                                                <Button icon inverted color="orange"
-                                                    onClick={() => handleDelete(education.educationId)}>
-                                                    <Icon name='cancel' />
-                                                </Button>
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    )}
-                                </Table.Body>
-                            </Table>
-                        </Grid.Column>
-                    </Grid.Row>
                 </Grid>
             </Segment>
+            <Grid.Row>
+                <Grid.Column>
+                    <Table striped>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell colSpan='7'>Your Education History</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {educations.map((education) =>
+                                <Table.Row key={education.educationId}>
+                                    <Table.Cell>{education.educationTypeName}</Table.Cell>
+                                    <Table.Cell>{education.universityName}</Table.Cell>
+                                    <Table.Cell>{education.programName}</Table.Cell>
+                                    <Table.Cell>{education.facultyName}</Table.Cell>
+                                    <Table.Cell>{education.startedDate}</Table.Cell>
+                                    <Table.Cell>{education.graduationDate}</Table.Cell>
+                                    <Table.Cell textAlign='right'>
+                                        <Button icon inverted color="orange">
+                                            <Icon name='pencil' />
+                                        </Button>
+                                        <Button icon inverted color="orange" onClick={() => handleDelete(education.educationId)}>
+                                            <Icon name='cancel' />
+                                        </Button>
+                                    </Table.Cell>
+                                </Table.Row>
+                            )}
+                        </Table.Body>
+                    </Table>
+                </Grid.Column>
+            </Grid.Row>
         </Container>
     )
 }

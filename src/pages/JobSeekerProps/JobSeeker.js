@@ -19,7 +19,7 @@ function JobSeeker() {
         nationalIdentity: "",
         date: "",
         password: "",
-        passwordRep: ""
+        passwordRep: "",
     };
 
     const validationSchema = Yup.object({
@@ -35,12 +35,17 @@ function JobSeeker() {
 
     const onSubmit = (values, { resetForm }) => {
         console.log(values);
-        jobSeekerService.addJobSeeker(values);
-        handleModal(true);
-        setTimeout(() => {
-            resetForm();
-        }, 100);
-        refreshPage();
+        if (values.password === values.passwordRep) {
+            jobSeekerService.addJobSeeker(values)
+            handleModal(true)
+            setTimeout(() => {
+                resetForm();
+            }, 100);
+            //refreshPage();
+        }
+        else {
+            console.log("your password doesn't match.")
+        }
     };
 
     function refreshPage() {
@@ -112,10 +117,14 @@ function JobSeeker() {
                                         label='password repeat'
                                         placeholder='your password repeat'
                                         type='password'
-                                        onChange={(event, data) => handleChange("passwordRep", data.value)}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
                                         value={formik.values.passwordRep}
                                     />
-                                    {formik.errors.passwordRep && formik.touched.passwordRep && <span><Label basic pointing='left' color="orange" content={formik.errors.passwordRep} /><br /><br /></span>}
+                                    {formik.errors.passwordRep && formik.touched.passwordRep && (
+                                        <Label basic pointing='left' color="orange" content={formik.errors.passwordRep} />
+                                    )}
+
                                 </Form.Group>
                                 <Form.Input
                                     name='telephone'

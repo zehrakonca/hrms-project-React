@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useContext } from 'react';
 import { Menu, Container, Popup, Button, Header, Divider, Image, Dropdown } from 'semantic-ui-react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './navigation.css';
 import { UserContext } from '../../contexts/UserProvider';
 
 const Navigation = () => {
   const [activeItem, setActiveItem] = useState('home');
   const { user, logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleItemClick = useCallback((e, { name }) => {
     setActiveItem(name);
@@ -18,10 +19,10 @@ const Navigation = () => {
         <>
          <Menu.Item>
             <Image avatar spaced="right" icon='user' size='mini' />
-            <Dropdown pointing="top left" text={user.data?.firstName || 'User'}>
+            <Dropdown pointing="top left" text={user.data?.firstName}>
               <Dropdown.Menu>
                 <Dropdown.Item as={Link}  to={`/profile/${user.data?.id}`}text="Profile" icon="info" />
-                <Dropdown.Item text="Logout" icon="power off" onClick={logout} />
+                <Dropdown.Item text="Logout" icon="power off" onClick={logout} to='/home' as={Link} />
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>

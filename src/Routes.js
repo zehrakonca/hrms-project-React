@@ -1,9 +1,5 @@
-import Information from './layouts/Dashboard/Information';
-import 'semantic-ui-css/semantic.min.css'
-import { Route, Routes } from 'react-router-dom';
+import { Route} from "react-router";
 import JobAdvertisementSearchList from './pages/JobAdvertisement/JobAdvertisementSearchList';
-import Navigation from './layouts/Navigation/Navigation';
-import Footer from './layouts/Footer/Footer';
 import JobAdvertisementDetail from './pages/JobAdvertisement/JobAdvertisementDetail';
 import JobAdvertisementPost from './pages/JobAdvertisement/JobAdvertisementPost';
 import SectorList from './pages/Sector/SectorList';
@@ -38,22 +34,18 @@ import EmployerLogin from './pages/Employer/EmployerLogin';
 import Profile from './pages/JobSeekerProps/Profile';
 import Resume from './pages/JobSeekerProps/Resume';
 import InformationPage from './pages/JobSeekerProps/InformationPage';
-import PersonalInformation from './pages/JobSeekerProps/PersonalInformation';
-import EmployerProfile from './pages/Employer/EmployerProfile';
+import Information from './layouts/Dashboard/Information';
 
-function App() {
-
-
+const Routes = () => {
   return (
     <div>
-      <Navigation />
       <Routes>
         <Route path="/" element={<Information />} />
         <Route path="/home" element={<Information />} />
         <Route path="/jobAdvertisement" element={<JobAdvertisement />} />
-          <Route path='/advertisement/:id' element={<JobAdvertisementDetail />} />
+        <Route path='/advertisement/:id' element={<JobAdvertisementDetail />} />
         <Route path="/jobAdvertisementSearchList" element={<JobAdvertisementSearchList />} />
-          <Route path='/advertisement/:id' />
+        <Route path='/advertisement/:id' />
         <Route path="/advertisementPost" element={<JobAdvertisementPost />} />
         <Route path='/sectorList' element={<SectorList />} />
         <Route path='/dashboard' element={<Dashboard />} />
@@ -82,18 +74,16 @@ function App() {
         <Route path='/highSchool' element={<HighSchool />} />
         <Route path='/image' element={<ImageInfo />} />
         <Route path='/jobSeekerLogin' element={<JobSeekerLogin />} />
-          <Route path='/profile/:id' element={<Profile/>}/>
+        <Route path='/profile/:id' element={<Profile />} />
         <Route path='/employerLogin' element={<EmployerLogin />} />
-            <Route path='/profile/:id/resume' element={<Resume/>}/>
-        <Route path='/profile' element={<Profile/>}/>
-        <Route path='/resume' element={<Resume/>}/>
-        <Route path='/informationPage' element={<InformationPage/>}/>
-        <Route path='/personalInformation' element={<PersonalInformation/>}/>
-        <Route path='/employerProfile' element={<EmployerProfile/>}/>
+        <Route path='/profile/:id' element={<Profile />} />
+        <Route path='/profile/:id/resume' element={<Resume />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/resume' element={<Resume />} />
+        <Route path='/informationPage' element={<InformationPage />} />
       </Routes>
-      <Footer />
     </div>
   );
-}
+};
 
-export default App;
+export default Routes;

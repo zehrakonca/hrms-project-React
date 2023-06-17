@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Divider, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,20 +9,28 @@ import { UserContext } from '../../contexts/UserProvider';
 const JobSeekerLogin = () => {
     const { login } = useContext(UserContext);
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', {
-                email: values.email,
-                password: values.password
-            });
-            const userData = response.data; // Kullanıcı bilgileri
-            login(userData); // Kullanıcı oturumunu başlat
-            navigate('/'); // Profil sayfasına yönlendir
+          const response = await axios.post('http://localhost:8080/api/auth/login', {
+            email: values.email,
+            password: values.password
+          });
+          const { success, message } = response.data;
+          if (success) {
+            setIsLoggedIn(true);
+            login(response.data); // Kullanıcı bilgilerini kaydedin
+            navigate('/');
+          } else {
+            setError(message);
+          }
         } catch (error) {
-            console.log(error.response.data);
+          console.log(error.response.data);
+          setError('Bir hata oluştu');
         }
-    };
+      };
 
     const initialValues = {
         email: '',

@@ -17,23 +17,43 @@ export default function Profile() {
     setActiveMenuItem(item);
   };
 
-  useEffect(() => {
-    let jobSeekerService = new JobSeekerService();
-    const fetchUser = async () => {
-      try {
-        const response = await jobSeekerService.getById(user?.data?.id);
-        setJobSeeker(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   let jobSeekerService = new JobSeekerService();
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await jobSeekerService.getById(user?.data?.id);
+  //       setJobSeeker(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
   
-    const userId = user?.data?.id;
+  //   const userId = user?.data?.id;
   
-    if (userId) {
-      fetchUser();
+  //   if (userId) {
+  //     fetchUser();
+  //   }
+  
+  // }, [user?.data?.id]);
+
+  const refreshData = async () => {
+    try {
+      let jobSeekerService = new JobSeekerService();
+      const response = await jobSeekerService.getById(user?.data?.id);
+      setJobSeeker(response.data);
+    } catch (error) {
+      console.log(error);
     }
-  
+  };
+
+  useEffect(() => {
+    if (user?.data?.id) {
+      refreshData(); // Sayfa yüklendiğinde verileri güncelleyin
+      const refreshInterval = setInterval(refreshData, 60000);
+      return () => {
+        clearInterval(refreshInterval);
+      };
+    }
   }, [user?.data?.id]);
   
 

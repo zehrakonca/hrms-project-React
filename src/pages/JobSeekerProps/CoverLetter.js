@@ -1,24 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
 import CoverLetterService from '../../services/coverLetterService';
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
+import { UserContext } from '../../contexts/UserProvider';
 
 function CoverLetter() {
 
     const [coverLetters, setCoverLetters] = useState([])
     const [open, setOpen] = useState([])
+    const { user } = useContext(UserContext)
+    const [jobSeeker, setJobSeeker] = useState([])
 
     let coverLetterService = new CoverLetterService();
 
     useEffect(() => {
-        coverLetterService.getAllCoverLetter().then((result) => setCoverLetters(result.data.data));
-    }, []);
+        const fetchUser = async () => {
+            try {
+                const response = await coverLetterService.getByJobSeekerId(user?.data?.id).then((result) => setCoverLetters(result.data.data));
+                setJobSeeker(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const userId = user?.data?.id;
+
+        if (userId) {
+            fetchUser();
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.data?.id]);
 
     const initialValues = {
         coverLetterTitleName:"",
         coverLetter: "",
-        jobSeekerId: 22,
+        jobSeekerId: (user?.data?.id),
     }
 
     const validationSchema = Yup.object({
@@ -37,7 +55,7 @@ function CoverLetter() {
         setTimeout(() => {
             resetForm();
         }, 100);
-        refreshPage();
+        //refreshPage();
     };
 
     const handleDelete = async (id) => {
@@ -103,7 +121,7 @@ function CoverLetter() {
                             <Table striped>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='2'>Your Cover Letters</Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='3'>Your Cover Letters</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
@@ -111,7 +129,6 @@ function CoverLetter() {
                                         <Table.Row>
                                             <Table.Cell>{coverLetter.coverLetterTitleName}</Table.Cell>
                                             <Table.Cell>{coverLetter.coverLetter}</Table.Cell>
-                                              <Table.Cell>{coverLetter.jobSeekerId}</Table.Cell>
                                             <Table.Cell textAlign='right'>
                                                 <Button icon inverted color="orange">
                                                     <Icon name='pencil' />

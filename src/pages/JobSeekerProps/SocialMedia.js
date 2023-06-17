@@ -1,25 +1,43 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
 import SocialMediaService from '../../services/socialMediaService';
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
+import { UserContext } from '../../contexts/UserProvider';
 
 function SocialMedia() {
 
     const [socialMedias, setSocialMedias] = useState([])
     const [open, setOpen] = useState([])
+    const { user } = useContext(UserContext)
+    const [jobSeeker, setJobSeeker] = useState([])
 
     let socialMediaService = new SocialMediaService();
 
     useEffect(() => {
-        socialMediaService.getAllSocialMedia().then((result) => setSocialMedias(result.data.data));
-    }, []);
+        const fetchUser = async () => {
+            try {
+                const response = socialMediaService.getByJobSeekerId(user?.data?.id).then((result) => setSocialMedias(result.data.data));
+                setJobSeeker(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const userId = user?.data?.id;
+
+        if (userId) {
+            fetchUser();
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.data?.id]);
 
     const initialValues = {
-        linkedinAccount: "",
-        githubAccount: "",
-        twitterAccount: "",
-        jobSeekerId: 22,
+        linkedinAccount: '',
+        githubAccount: '',
+        twitterAccount: '',
+        jobSeekerId: (user?.data?.id),
     }
 
     const validationSchema = Yup.object({
@@ -39,7 +57,6 @@ function SocialMedia() {
         setTimeout(() => {
             resetForm();
         }, 100);
-        refreshPage();
     };
 
     const handleDelete = async (id) => {
@@ -118,18 +135,18 @@ function SocialMedia() {
                                 <Table.Header>
                                     <Table.Row>
                                         <Table.HeaderCell colSpan='5'>Your Social Media Accounts</Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='3'>Linkedin</Table.HeaderCell>
+                                        <Table.HeaderCell>Github</Table.HeaderCell>
+                                        <Table.HeaderCell>Twitter</Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'></Table.HeaderCell>
                                     </Table.Row>
-                                    <Table.HeaderCell>Linkedin</Table.HeaderCell>
-                                    <Table.HeaderCell>Github</Table.HeaderCell>
-                                    <Table.HeaderCell colSpan='3'>Twitter</Table.HeaderCell>
                                 </Table.Header>
                                 <Table.Body>
                                     {socialMedias.map((socialMedia) =>
-                                        <Table.Row>
+                                        <Table.Row key={socialMedia.socialMediaId}>
                                             <Table.Cell>{socialMedia.linkedinAccount}</Table.Cell>
                                             <Table.Cell>{socialMedia.githubAccount}</Table.Cell>
                                             <Table.Cell>{socialMedia.twitterAccount}</Table.Cell>
-                                            <Table.Cell>{socialMedia.jobSeekerId}</Table.Cell>
                                             <Table.Cell textAlign='right'>
                                                 <Button icon inverted color="orange">
                                                     <Icon name='pencil' />

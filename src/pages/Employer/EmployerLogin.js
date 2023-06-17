@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Divider, Form, Grid, Image, Segment } from 'semantic-ui-react';
 import loginPhoto from '../../img/meeting.jpg';
 import AuthService from '../../services/authService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { UserContext } from '../../contexts/UserProvider';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 
 export default function Login() {
 
-    const authService = new AuthService();
+    const { login } = useContext(UserContext);
+    const navigate = useNavigate();
+    const [error, setError] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const initialValues = { 
+    const initialValues = {
         email: '',
         password: '',
     };
@@ -20,16 +27,24 @@ export default function Login() {
         password: Yup.string().required('Required field'),
     });
 
-    const handleSubmit = (values) => {
-        console.log(values);
-        authService.login(values.email, values.password)
-            .then((response) => {
-                console.log("welcome")
-                //history.push('/');
-            })
-            .catch((error) => {
-                console.log("try again")
+    const handleSubmit = async (values) => {
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/login', {
+                email: values.email,
+                password: values.password
             });
+            const { success, message } = response.data;
+            if (success) {
+                setIsLoggedIn(true);
+                login(response.data); // Kullanıcı bilgilerini kaydedin
+                navigate('/');
+            } else {
+                setError(message);
+            }
+        } catch (error) {
+            console.log(error.response.data);
+            setError('Bir hata oluştu');
+        }
     };
 
     const formik = useFormik({
@@ -71,7 +86,9 @@ export default function Login() {
                                 <Button type='submit' content='Login' inverted color='orange' />
                             </Form>
                             <Divider horizontal>OR</Divider>
-                            Sign UP!
+                            <NavLink to='/employerLogin' style={{ color: "orangered" }}>
+                                SIGN UP!
+                            </NavLink><br />
                         </Grid.Column>
                         <Grid.Column>
                             <Image src={loginPhoto} />

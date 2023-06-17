@@ -1,24 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react';
 import LanguageInfoService from '../../services/languageInfoService';
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik';
 import LanguageService from '../../services/languageService';
+import { UserContext } from '../../contexts/UserProvider';
 
 function Ability() {
 
+    const { user } = useContext(UserContext)
     const [languageInfos, setLanguageInfos] = useState([])
     const [languages, setLanguages] = useState([])
     const [open, setOpen] = useState([])
+    const [jobSeeker, setJobSeeker] = useState([])
 
     let languageInfoService = new LanguageInfoService();
     let languageService = new LanguageService();
 
     useEffect(() => {
-        languageInfoService.getAllLanguageInfo().then((result) => setLanguageInfos(result.data.data));
         languageService.getAllLanguage().then((result) => setLanguages(result.data.data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        const fetchUser = async () => {
+            try {
+                const response = await languageInfoService.getByJobSeekerId(user?.data?.id).then((result) => setLanguageInfos(result.data.data));
+                setJobSeeker(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const userId = user?.data?.id;
+
+        if (userId) {
+            fetchUser();
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.data?.id]);
 
     const languageOptions = languages.map((language) => ({
         key: language.languageId,
@@ -28,7 +45,7 @@ function Ability() {
 
     const initialValues = {
         language: "",
-        jobSeekerId: 22,
+        jobSeekerId: (user?.data?.id),
     }
 
     const validationSchema = Yup.object({
@@ -114,7 +131,6 @@ function Ability() {
                                 <Table.Body>
                                     {languageInfos.map((languageInfo) =>
                                         <Table.Row>
-                                            <Table.Cell>{languageInfo.jobSeekerId}</Table.Cell>
                                             <Table.Cell>{languageInfo.language}</Table.Cell>
                                             <Table.Cell textAlign='right'>
                                                 <Button icon inverted color="orange">

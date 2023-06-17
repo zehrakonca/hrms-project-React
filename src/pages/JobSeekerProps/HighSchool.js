@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Container, Form, Grid, Header, Icon, Segment } from 'semantic-ui-react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Button, Container, Form, Grid, Header, Icon, Segment, Table } from 'semantic-ui-react'
 import HighSchoolTypeService from '../../services/highSchoolTypeService'
 import ProgramInfoService from '../../services/programInfoService'
 import HighSchoolService from '../../services/highSchoolService'
 import * as Yup from "yup";
 import { Formik, useFormik } from 'formik'
+import { UserContext } from '../../contexts/UserProvider'
 
 function HighSchool() {
 
+    const { user } = useContext(UserContext)
     const [open, setOpen] = useState([])
     const [highSchoolTypes, setHighSchoolTypes] = useState([])
+    const [highSchools, setHighSchools] = useState([])
     const [programs, setPrograms] = useState([])
+    const [jobSeeker, setJobSeeker] = useState([])
 
     let highSchoolTypeService = new HighSchoolTypeService()
     let programInfoService = new ProgramInfoService()
@@ -19,8 +23,24 @@ function HighSchool() {
     useEffect(() => {
         highSchoolTypeService.getAllHighSchoolType().then((result) => setHighSchoolTypes(result.data.data));
         programInfoService.getAllProgramInfo().then((result) => setPrograms(result.data.data));
+
+        const fetchUser = async () => {
+            try {
+                const response = await highSchoolService.getByJobSeekerId(user?.data?.id).then((result) => setHighSchools(result.data.data));
+                setJobSeeker(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        const userId = user?.data?.id;
+
+        if (userId) {
+            fetchUser();
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [user?.data?.id]);
 
     const programOptions = programs.map((program) => ({
         key: program.programId,
@@ -35,7 +55,7 @@ function HighSchool() {
     }));
 
     const initialValues = {
-        jobSeekerId: 22,
+        jobSeekerId: (user?.data?.id),
         highSchoolName: "",
         highSchoolType: "",
         program: "",
@@ -58,7 +78,7 @@ function HighSchool() {
     const onSubmit = (values, { resetForm }) => {
         console.log(values);
         highSchoolService.addHighSchoolInfo({
-            jobSeeker: values.jobSeekerId,
+            jobSeekerId: values.jobSeekerId,
             highSchoolName: values.highSchoolName,
             highSchoolType: Number(values.highSchoolType.id),
             program: Number(values.program.programId),
@@ -154,7 +174,30 @@ function HighSchool() {
                             </Formik>
                         </Grid.Column>
                     </Grid.Row>
-                    
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Table striped>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell collSpan='6'>
+                                            Your High School History
+                                        </Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+                                <Table.Body>
+                                    {highSchools.map((highSchool) => 
+                                    <Table.Row key={highSchool.highSchoolId}>
+                                        <Table.Cell>{highSchool.highSchoolName}</Table.Cell>
+                                        <Table.Cell>{highSchool.highSchoolType}</Table.Cell>
+                                        <Table.Cell>{highSchool.program}</Table.Cell>
+                                        <Table.Cell>{highSchool.startedDate}</Table.Cell>
+                                        <Table.Cell>{highSchool.graduationDate}</Table.Cell>
+                                    </Table.Row>
+                                    )}
+                                </Table.Body>
+                            </Table>
+                        </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </Segment>
         </Container>
