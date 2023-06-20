@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Divider, Grid, Header, Icon, Image, Search, Segment } from 'semantic-ui-react';
 import bannerPicture from '../../img/meeting2.jpg';
 import 'semantic-ui-css/semantic.min.css';
 import UserCount from "../Dashboard/UserCount";
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserProvider';
 
 const HomepageHeading = ({ mobile }) => (
   <Container>
@@ -26,27 +27,31 @@ const HomepageHeading = ({ mobile }) => (
 );
 
 export default function Information() {
+
+  const { user } = useContext(UserContext);
+
   return (
-    <Container style={{margin: '1em'}}>
+    <Container style={{ margin: '1em' }}>
       <HomepageHeading />
       <Segment placeholder>
         <Grid columns={2} stackable textAlign='center'>
-          <Divider vertical>Or</Divider>
           <Grid.Row verticalAlign='middle'>
             <Grid.Column>
               <Header icon>
                 <Icon name='search' />
-                Find job
+                Search job
               </Header>
               <Search placeholder='Search jobs...' />
             </Grid.Column>
-            <Grid.Column>
-              <Header icon>
-                <Icon name='users' />
-                Join as employer
-              </Header>
-              <Button color='red' as={Link} to='/employer'>Join</Button>
-            </Grid.Column>
+            {!user && (
+              <Grid.Column>
+                <Header icon>
+                  <Icon name='users' />
+                  Join as employer
+                </Header>
+                <Button color='red' as={Link} to='/employer'>Join</Button>
+              </Grid.Column>
+            )}
           </Grid.Row>
         </Grid>
       </Segment>
@@ -95,6 +100,6 @@ export default function Information() {
         </Segment>
         <UserCount />
       </Container>
-      </Container>
+    </Container>
   )
 }

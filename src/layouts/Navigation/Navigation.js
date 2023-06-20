@@ -17,7 +17,10 @@ const Navigation = () => {
     if (user) {
       return (
         <Menu.Menu position="right">
-          <Dropdown item text={user.data?.firstName}>
+          <Dropdown 
+          item 
+          text={user.data?.firstName}
+           style={{fontWeight: 'bold'}}>
             <Dropdown.Menu>
               {user.data?.userStatu?.typeId === 1 && (
                 <Dropdown.Item as={Link} to={`/employerProfile/${user.data?.id}`} text="Profile" icon="info" />
@@ -72,19 +75,16 @@ const Navigation = () => {
       <Menu secondary inverted color='red'>
         <Container>
           <Menu.Item>
-            <Link to="/home">ihopefindjob</Link>
+            <Link to="/home" style={{fontWeight: 'bold'}}>ihopefindjob</Link>
           </Menu.Item>
           <Menu.Item name='home' active={activeItem === 'home'} onClick={handleItemClick}>
-            <NavLink exact to="/home">Home</NavLink>
+            <NavLink exact to="/home" style={{fontWeight: 'bold'}}>Home</NavLink>
           </Menu.Item>
           <Menu.Item name='jobAdvertisementSearchList' active={activeItem === 'jobAdvertisementSearchList'} onClick={handleItemClick}>
-            <NavLink to="/jobAdvertisementSearchList">Job Advertisements</NavLink>
-          </Menu.Item>
-          <Menu.Item name='advertisementPost' active={activeItem === 'advertisementPost'} onClick={handleItemClick}>
-            <NavLink to="/advertisementPost">Advertisement post</NavLink>
+            <NavLink to="/jobAdvertisementSearchList" style={{fontWeight: 'bold'}}>Job Advertisements</NavLink>
           </Menu.Item>
           <Menu.Item name='sitemap' active={activeItem === 'sitemap'} onClick={handleItemClick}>
-            <NavLink to="/sitemap">siteMap</NavLink>
+            <NavLink to="/sitemap"style={{fontWeight: 'bold'}}>siteMap</NavLink>
           </Menu.Item>
           <Menu.Item position='right'>
             {renderLoginButtons()}

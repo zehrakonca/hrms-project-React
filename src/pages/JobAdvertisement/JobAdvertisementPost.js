@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 import { Formik, useFormik } from "formik";
 import SectorService from '../../services/sectorService';
@@ -13,8 +13,11 @@ import JobAdvertisementService from '../../services/jobAdvertisementService';
 import moment from 'moment';
 import * as Yup from 'yup';
 import MessageModal from '../../layouts/Dashboard/MessageModal';
+import { UserContext } from '../../contexts/UserProvider';
 
 export default function JobAdvertisementPost() {
+
+    const { user } = useContext(UserContext)
 
     const [sectors, setSectors] = useState([]);
     const [positionLevels, setPositionLevels] = useState([]);
@@ -110,7 +113,7 @@ export default function JobAdvertisementPost() {
         sector: "",
         job: "",
         city: "",
-        employerId: 9,
+        employerId: (user?.data?.id),
         numberOfVacancies: "",
         jobDescription: "",
         jobSalary: "",

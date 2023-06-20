@@ -1,49 +1,49 @@
-import Information from './layouts/Dashboard/Information';
-import 'semantic-ui-css/semantic.min.css'
 import { Route, Routes } from 'react-router-dom';
-import JobAdvertisementSearchList from './pages/JobAdvertisement/JobAdvertisementSearchList';
-import Navigation from './layouts/Navigation/Navigation';
+import 'semantic-ui-css/semantic.min.css';
+import Dashboard from './layouts/Dashboard/Dashboard';
+import Information from './layouts/Dashboard/Information';
+import SiteMap from './layouts/Dashboard/SiteMap';
 import Footer from './layouts/Footer/Footer';
+import Navigation from './layouts/Navigation/Navigation';
+import Employer from './pages/Employer/Employer';
+import EmployerInformation from './pages/Employer/EmployerInformation';
+import EmployerLogin from './pages/Employer/EmployerLogin';
+import EmployerPersonalInformation from './pages/Employer/EmployerPersonalInformation';
+import EmployerProfile from './pages/Employer/EmployerProfile';
+import EmployersAdvertisements from './pages/Employer/EmployersAdvertisements';
+import JobList from './pages/Job/JobList';
+import JobAdvertisement from './pages/JobAdvertisement/JobAdvertisement';
 import JobAdvertisementDetail from './pages/JobAdvertisement/JobAdvertisementDetail';
 import JobAdvertisementPost from './pages/JobAdvertisement/JobAdvertisementPost';
-import SectorList from './pages/Sector/SectorList';
-import Dashboard from './layouts/Dashboard/Dashboard';
-import SiteMap from './layouts/Dashboard/SiteMap';
-import JobList from './pages/Job/JobList';
-import Language from './pages/JobSeekerProps/Language';
-import Faculty from './pages/JobSeekerProps/Faculty';
-import PositionLevel from './pages/JobSeekerProps/PositionLevel';
-import ProgramInfo from './pages/JobSeekerProps/ProgramInfo';
-import MilitaryStatu from './pages/JobSeekerProps/MilitaryStatu';
-import University from './pages/JobSeekerProps/University';
-import TypeOfWork from './pages/JobSeekerProps/TypeOfWork'
-import HighSchoolType from './pages/JobSeekerProps/HighSchoolType'
-import City from './pages/JobSeekerProps/City'
-import JobSeeker from './pages/JobSeekerProps/JobSeeker'
-import Employer from './pages/Employer/Employer'
+import JobAdvertisementSearchList from './pages/JobAdvertisement/JobAdvertisementSearchList';
 import Ability from './pages/JobSeekerProps/Ability';
+import City from './pages/JobSeekerProps/City';
 import CoverLetter from './pages/JobSeekerProps/CoverLetter';
+import Education from './pages/JobSeekerProps/Education';
 import EducationType from './pages/JobSeekerProps/EducationType';
 import ExperienceType from './pages/JobSeekerProps/ExperienceType.js';
-import SocialMedia from './pages/JobSeekerProps/SocialMedia';
-import LanguageInfo from './pages/JobSeekerProps/LanguageInfo'
-import SystemEmployeeSignUp from './pages/SystemEmployee/SystemEmployeeSignUp';
-import JobExperience from './pages/JobSeekerProps/JobExperience';
-import Education from './pages/JobSeekerProps/Education';
-import JobAdvertisement from './pages/JobAdvertisement/JobAdvertisement';
+import Faculty from './pages/JobSeekerProps/Faculty';
 import HighSchool from './pages/JobSeekerProps/HighSchool';
+import HighSchoolType from './pages/JobSeekerProps/HighSchoolType';
 import ImageInfo from './pages/JobSeekerProps/ImageInfo';
-import JobSeekerLogin from './pages/JobSeekerProps/JobSeekerLogin';
-import EmployerLogin from './pages/Employer/EmployerLogin';
-import Profile from './pages/JobSeekerProps/Profile';
-import Resume from './pages/JobSeekerProps/Resume';
 import InformationPage from './pages/JobSeekerProps/InformationPage';
+import JobExperience from './pages/JobSeekerProps/JobExperience';
+import JobSeeker from './pages/JobSeekerProps/JobSeeker';
+import JobSeekerLogin from './pages/JobSeekerProps/JobSeekerLogin';
+import Language from './pages/JobSeekerProps/Language';
+import LanguageInfo from './pages/JobSeekerProps/LanguageInfo';
+import MilitaryStatu from './pages/JobSeekerProps/MilitaryStatu';
 import PersonalInformation from './pages/JobSeekerProps/PersonalInformation';
-import EmployerProfile from './pages/Employer/EmployerProfile';
-import EmployerInformation from './pages/Employer/EmployerInformation';
-import EmployerPersonalInformation from './pages/Employer/EmployerPersonalInformation';
-import EmployersAdvertisements from './pages/Employer/EmployersAdvertisements';
-import Advertisement from './pages/Employer/Advertisement';
+import PositionLevel from './pages/JobSeekerProps/PositionLevel';
+import Profile from './pages/JobSeekerProps/Profile';
+import ProgramInfo from './pages/JobSeekerProps/ProgramInfo';
+import Resume from './pages/JobSeekerProps/Resume';
+import SocialMedia from './pages/JobSeekerProps/SocialMedia';
+import TypeOfWork from './pages/JobSeekerProps/TypeOfWork';
+import University from './pages/JobSeekerProps/University';
+import SectorList from './pages/Sector/SectorList';
+import SystemEmployeeSignUp from './pages/SystemEmployee/SystemEmployeeSignUp';
+import PasswordOperations from './pages/Employer/PasswordOperations';
 
 function App() {
 
@@ -98,7 +98,7 @@ function App() {
         <Route path='/employerInformation' element={<EmployerInformation/>}/>
         <Route path='/employerPersonalInformation' element={<EmployerPersonalInformation/>}/>
         <Route path='/employersAdvertisements' element={<EmployersAdvertisements/>}/>
-        <Route path='/advertisement' element={<Advertisement/>}/>
+        <Route path='/passwordChangeOperation' element={<PasswordOperations/>}/>
       </Routes>
       <Footer />
     </div>
