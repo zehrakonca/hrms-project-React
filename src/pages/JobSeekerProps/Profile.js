@@ -6,12 +6,19 @@ import CoverLetter from './CoverLetter'
 import InformationPage from './InformationPage'
 import { UserContext } from '../../contexts/UserProvider';
 import JobSeekerService from '../../services/jobSeekerService';
+import FavoriteJobAdvertisements from './FavoriteJobAdvertisements';
+import JobApplication from './JobApplication';
+import ImageService from '../../services/imageService';
 
 export default function Profile() {
 
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const { user } = useContext(UserContext);
   const [jobSeeker, setJobSeeker] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  let imageService = new ImageService()
 
   const handleMenuItemClick = (item) => {
     setActiveMenuItem(item);
@@ -27,13 +34,13 @@ export default function Profile() {
   //       console.log(error);
   //     }
   //   };
-  
+
   //   const userId = user?.data?.id;
-  
+
   //   if (userId) {
   //     fetchUser();
   //   }
-  
+
   // }, [user?.data?.id]);
 
   const refreshData = async () => {
@@ -48,14 +55,34 @@ export default function Profile() {
 
   useEffect(() => {
     if (user?.data?.id) {
-      refreshData(); // Sayfa yüklendiğinde verileri güncelleyin
+      refreshData();
+      imageById();
       const refreshInterval = setInterval(refreshData, 60000);
       return () => {
         clearInterval(refreshInterval);
       };
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.data?.id]);
-  
+
+  const imageById = async () => {
+    try {
+      try {
+        const response = await imageService.getByJobSeekerId(user?.data?.id);
+        const selectedFile = response.data.data;
+        setSelectedFile(selectedFile);
+
+        const fetchedImageUrl = selectedFile.url;
+        setImageUrl(fetchedImageUrl);
+      } catch (error) {
+        console.log(error);
+      }
+
+    } catch (error) {
+
+    }
+  }
+
 
   const today = new Date();
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -66,10 +93,10 @@ export default function Profile() {
       return <InformationPage />;
     } else if (activeMenuItem === '/resume') {
       return <Resume />;
-    } else if (activeMenuItem === 'My Applications') {
-      return <div>My Applications Content</div>;
-    } else if (activeMenuItem === 'My Favorite Ads') {
-      return <div>My Favorite Ads Content</div>;
+    } else if (activeMenuItem === '/yourJobApplications') {
+      return <JobApplication />;
+    } else if (activeMenuItem === '/favoriteJobAdvertisements') {
+      return <FavoriteJobAdvertisements />;
     } else if (activeMenuItem === '/coverLetter') {
       return <CoverLetter />;
     } else {
@@ -101,7 +128,9 @@ export default function Profile() {
             <Grid.Column width={4}>
               <Menu vertical>
                 <Menu.Item>
-                  <Image src={avatar} size="small" circular verticalAlign='middle' />
+                  {imageUrl && (
+                    <Image src={imageUrl} size="small" circular verticalAlign='middle' />
+                  )}
                 </Menu.Item>
                 <h4 style={{ margin: '1em' }}>{user?.data?.firstName || 'FirstName'} {user?.data?.lastName || 'LastName'}</h4>
                 <Menu.Item onClick={() => handleMenuItemClick('/informationPage')}>
@@ -110,10 +139,10 @@ export default function Profile() {
                 <Menu.Item onClick={() => handleMenuItemClick('/resume')}>
                   My Resume
                 </Menu.Item>
-                <Menu.Item as="a" onClick={() => handleMenuItemClick('My Applications')}>
+                <Menu.Item as="a" onClick={() => handleMenuItemClick('/yourJobApplications')}>
                   My Applications
                 </Menu.Item>
-                <Menu.Item onClick={() => handleMenuItemClick('My Favorite Ads')}>
+                <Menu.Item onClick={() => handleMenuItemClick('/favoriteJobAdvertisements')}>
                   My Favorite Ads
                 </Menu.Item>
                 <Menu.Item onClick={() => handleMenuItemClick('/coverLetter')}>

@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
+import CityService from '../../services/cityService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
-import HighSchoolTypeService from '../../services/highSchoolTypeService';
 
-function HighSchoolType() {
+function City() {
 
-  const [highSchoolTypes, setHighSchools] = useState([]);
+  const [cities, setCities] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let highSchoolTypeService = new HighSchoolTypeService();
+  let cityService = new CityService();
 
   useEffect(() => {
-    let highSchoolTypeService = new HighSchoolTypeService();
+    let cityService = new CityService();
 
-    highSchoolTypeService.getAllHighSchoolType().then((result => setHighSchools(result.data.data)))
+    cityService.getAllCity().then((result => setCities(result.data.data)))
   }, []);
 
   const initialValues = {
-    highSchoolType: "",
+    cityName: "",
   };
 
   const validationSchema = Yup.object({
-    highSchoolType: Yup.string().required("required field"),
+    cityName: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    highSchoolTypeService.addHighSchoolType(values);
+    cityService.addCity(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
@@ -37,9 +37,8 @@ function HighSchoolType() {
   };
 
   const handleDelete = async (id) => {
-    let highSchoolTypeService = new HighSchoolTypeService();
     console.log(id);
-    highSchoolTypeService.deleteHighSchoolType(id);
+    cityService.deleteCity(id);
     handleModal(true);
     refreshPage();
   }
@@ -75,14 +74,14 @@ function HighSchoolType() {
               </Table.Header>
 
               <Table.Body>
-                {highSchoolTypes.map((highSchoolType) => (
+                {cities.map((cityName) => (
                   <Table.Row>
-                    <Table.Cell>{highSchoolType.highSchoolType}</Table.Cell>
+                    <Table.Cell>{cityName.cityName}</Table.Cell>
                     <Table.Cell textAlign='right'>
                       <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="red" onClick={() => handleDelete(highSchoolType.id)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(cityName.cityId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -94,18 +93,18 @@ function HighSchoolType() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='graduation cap' />  Add high School Type
+                <Icon name='map pin' /> Add City
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='highSchoolType'
-                    placeholder='please enter highSchoolType...'
-                    onChange={(event, data) => handleChange("highSchoolType", data.value)}
-                    value={formik.values.highSchoolType}
+                    name='cityName'
+                    placeholder='please enter city...'
+                    onChange={(event, data) => handleChange("cityName", data.value)}
+                    value={formik.values.cityName}
                   />
-                  {formik.errors.highSchoolType && formik.touched.highSchoolType && <span><Label basic pointing color="red" content={formik.errors.highSchoolType} /><br /></span>}
-                  <Button color="red" type="submit" content="Add">Submit</Button>
+                  {formik.errors.cityName && formik.touched.cityName && <span><Label basic pointing color="red" content={formik.errors.cityName} /><br /></span>}
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -117,4 +116,4 @@ function HighSchoolType() {
   )
 }
 
-export default HighSchoolType;
+export default City;

@@ -95,7 +95,7 @@ function ProgramInfo() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='book' />  Add program info
+                <Icon name='book' />  Add Program Info
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
@@ -106,7 +106,7 @@ function ProgramInfo() {
                     value={formik.values.program}
                   />
                   {formik.errors.program && formik.touched.program && <span><Label basic pointing color="red" content={formik.errors.program} /><br /></span>}
-                  <Button color="red" type="submit" content="Add">Submit</Button>
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>

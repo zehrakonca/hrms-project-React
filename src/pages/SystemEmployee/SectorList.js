@@ -1,47 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import UniversityService from '../../services/universityService';
+import SectorService from '../../services/sectorService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
 
-function University() {
+function SectorList() {
 
-  const [universities, setUniversities] = useState([]);
+  const [sectors, setSectors] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let universityService = new UniversityService();
+  let sectorService = new SectorService();
 
   useEffect(() => {
-    let universityService = new UniversityService();
+    let sectorService = new SectorService();
 
-    universityService.getUniversity().then((result => setUniversities(result.data.data)))
+    sectorService.getSectors().then((result => setSectors(result.data.data)))
   }, []);
 
   const initialValues = {
-    university: "",
+    sector: "",
   };
 
   const validationSchema = Yup.object({
-    university: Yup.string().required("required field"),
+    sector: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    universityService.addUniversity(values);
+    sectorService.addSector(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
-    refreshPage()
+    refreshPage();
   };
 
   const handleDelete = async (id) => {
-    let universityService = new UniversityService();
+    let sectorService = new SectorService();
     console.log(id);
-    universityService.deleteUniversity(id);
+    sectorService.deleteSector(id);
     handleModal(true);
-    refreshPage()
+    refreshPage();
   }
 
   const formik = useFormik({
@@ -61,7 +61,6 @@ function University() {
   function refreshPage() {
     window.location.reload();
   }
-
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -76,14 +75,11 @@ function University() {
               </Table.Header>
 
               <Table.Body>
-                {universities.map((university) => (
+                {sectors.map((sector) => (
                   <Table.Row>
-                    <Table.Cell>{university.universityName}</Table.Cell>
+                    <Table.Cell>{sector.sector}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon inverted color="red">
-                        <Icon name='pencil' />
-                      </Button>
-                      <Button icon inverted color="red" onClick={() => handleDelete(university.id)}>
+                      <Button icon basic color="red" onClick={() => handleDelete(sector.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -95,18 +91,18 @@ function University() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='graduation' />  Add university
+                <Icon name='archive' />  Add Sector
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='university'
-                    placeholder='please enter university...'
-                    onChange={(event, data) => handleChange("university", data.value)}
-                    value={formik.values.university}
+                    name='sector'
+                    placeholder='please enter sector...'
+                    onChange={(event, data) => handleChange("sector", data.value)}
+                    value={formik.values.sector}
                   />
-                  {formik.errors.university && formik.touched.university && <span><Label basic pointing color="red" content={formik.errors.university} /><br /></span>}
-                  <Button color="red" type="submit" content="Add">Submit</Button>
+                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="red" content={formik.errors.sector} /><br /></span>}
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -118,4 +114,4 @@ function University() {
   )
 }
 
-export default University;
+export default SectorList;

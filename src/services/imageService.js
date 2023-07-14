@@ -14,8 +14,8 @@ export default class ImageService{
         return axios.get(`http://localhost:8080/api/images/getByUserId?id=${jobSeekerId}`);
     }
 
-    addImage(userId, fileUrl){
-        return axios.post(`http://localhost:8080/api/images/add?url=${fileUrl}&user=${userId}`);
+    addImage(userId){
+        return axios.post(`http://localhost:8080/api/images/add?userId=${userId}`);
     }
 
     updateImage(languageInfo){

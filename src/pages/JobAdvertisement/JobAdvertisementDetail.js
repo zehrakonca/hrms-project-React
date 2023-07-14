@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Header, Segment, Icon, Grid, Button, GridColumn, Divider, Card, List, Container } from 'semantic-ui-react';
 import JobAdvertisementService from '../../services/jobAdvertisementService';
 import FavoriteJobAdvertisementService from '../../services/favoriteJobAdvertisementService';
+import JobApplicationService from '../../services/jobApplicationService'
 import { UserContext } from '../../contexts/UserProvider';
 import { useFormik } from 'formik';
+import moment from 'moment';
 
 export default function JobAdvertisementDetail() {
 
@@ -12,13 +14,18 @@ export default function JobAdvertisementDetail() {
     const { user } = useContext(UserContext)
     const [jobAdvertisement, setJobAdvertisement] = useState([]);
     const [employer, setEmployer] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isApplied, setIsApplied] = useState(false);
+
 
     let jobAdvertisementService = new JobAdvertisementService()
     let favoriteJobAdvertisementService = new FavoriteJobAdvertisementService()
+    let jobApplicationService = new JobApplicationService()
 
     useEffect(() => {
         jobAdvertisementService.getByAdvertisementId(id).then((result => setJobAdvertisement(result.data.data))
         )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const isEmployer = user && user.data?.userStatu.typeId === 1;
@@ -45,12 +52,29 @@ export default function JobAdvertisementDetail() {
                     }
                 );
                 console.log("advertisement has been added to your list successfully.");
+                setIsFavorite(true);
             } catch (error) {
                 console.error("Error adding favorite job advertisement:", error);
                 console.log("An error occurred while adding the advertisement to your list.");
+                setIsFavorite(false);
             }
         }
     })
+
+    const handleJobApplication = async (values) => {
+        try {
+            console.log(values)
+            await jobApplicationService.addJobApplication({
+                advertisementId: id,
+                jobSeekerId: (user.data?.id),
+                applicationDate: moment().format("YYYY-MM-DD"),
+            });
+            console.log("advertisement has been added to your list successfully.");
+        } catch (error) {
+            console.error("Error adding favorite job advertisement:", error);
+            console.log("An error occurred while adding the advertisement to your list.");
+        }
+    }
     return (
         <div style={{ margin: '1em' }}>
             <Container>
@@ -81,11 +105,13 @@ export default function JobAdvertisementDetail() {
                                             color="red"
                                             onClick={() => handleDelete(jobAdvertisement.id)}>Delete
                                         </Button>
+                                        <Link to="/seeApplicants">
                                         <Button
                                             size="medium"
                                             floated="right"
                                             inverted color="red">See Applicants
                                         </Button>
+                                        </Link>
                                     </div>
                                 ) : (
                                     <div>
@@ -93,16 +119,19 @@ export default function JobAdvertisementDetail() {
                                             size="medium"
                                             circular
                                             floated="right"
-                                            inverted color="red">Apply now!
+                                            inverted color="red"
+                                            onClick={handleJobApplication}
+                                        >
+                                            {isApplied ? "Applied" : "Apply now!"}
                                         </Button>
                                         <Button
-                                            icon
                                             inverted
                                             floated='right'
-                                            color="red"
+                                            color='red'
                                             circular
-                                            onClick={() => formik.handleSubmit()}>
-                                            <Icon name='heart outline' />
+                                            onClick={formik.handleSubmit}
+                                        >
+                                            <Icon name={isFavorite ? 'heart' : 'heart outline'} />
                                         </Button>
                                     </div>
                                 )}

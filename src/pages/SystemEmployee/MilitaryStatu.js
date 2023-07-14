@@ -106,7 +106,7 @@ function MilitaryStatu() {
                     value={formik.values.militaryStatuName}
                   />
                   {formik.errors.militaryStatuName && formik.touched.militaryStatuName && <span><Label basic pointing color="red" content={formik.errors.militaryStatuName} /><br /></span>}
-                  <Button color="red" type="submit" content="Add">Submit</Button>
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>

@@ -107,7 +107,7 @@ function refreshPage() {
                     value={formik.values.positionLevelName}
                   />
                   {formik.errors.positionLevelName && formik.touched.positionLevelName && <span><Label basic pointing color="red" content={formik.errors.positionLevelName} /><br /></span>}
-                  <Button color="red" type="submit" content="Add">Submit</Button>
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>

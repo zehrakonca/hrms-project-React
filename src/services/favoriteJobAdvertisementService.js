@@ -11,7 +11,7 @@ export default class FavoriteJobAdvertisementService{
     }
 
     getByJobSeekerId(jobSeekerId){
-        return axios.get(`ttp://localhost:8080/api/favoriteJobAdvertisements/getByJobSeekerId?jobSeekerId=${jobSeekerId}`);
+        return axios.get(`http://localhost:8080/api/favoriteJobAdvertisements/getByJobSeekerId?jobSeekerId=${jobSeekerId}`);
     }
 
     addFavoriteJobAdvertisement(jobAdvertisement){

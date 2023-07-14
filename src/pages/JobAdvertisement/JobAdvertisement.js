@@ -4,19 +4,21 @@ import JobAdvertisementService from '../../services/jobAdvertisementService';
 // import FavoriteJobAdvertisementService from '../../services/favoriteJobAdvertisementService';
 import { Link, NavLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserProvider';
+import { AdvertisementContext } from './JobAdvertisementSearchList';
 
 export default function JobAdvertisement() {
 
   const [jobAdvertisements, setjobAdvertisements] = useState([])
   const { user } = useContext(UserContext);
+  const searchValue = useContext(AdvertisementContext);
 
 
   let jobAdvertisementService = new JobAdvertisementService();
 
   useEffect(() => {
-    jobAdvertisementService.getActiveAdvertisements().then(result => setjobAdvertisements(result.data.data));
+    jobAdvertisementService.getByAdvertisementName(searchValue).then(result => setjobAdvertisements(result.data.data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchValue]);
 
   return (
     <Segment style={{ margin: "2em" }} size='mini'>

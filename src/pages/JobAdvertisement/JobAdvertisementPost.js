@@ -142,9 +142,6 @@ export default function JobAdvertisementPost() {
         educationType: Yup.object().required("educatiion level is cannot be blank"),
         militaryStatu: Yup.object(),
     })
-    function refreshPage() {
-        window.location.reload();
-    }
 
     const onSubmit = async (values, { resetForm }) => {
         console.log(values);

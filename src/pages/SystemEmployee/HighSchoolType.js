@@ -3,45 +3,45 @@ import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } fr
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
-import FacultyService from '../../services/facultyService'
+import HighSchoolTypeService from '../../services/highSchoolTypeService';
 
-function Faculty() {
+function HighSchoolType() {
 
-  const [faculties, setFaculties] = useState([]);
+  const [highSchoolTypes, setHighSchools] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let facultyService = new FacultyService();
+  let highSchoolTypeService = new HighSchoolTypeService();
 
   useEffect(() => {
-    let facultyService = new FacultyService();
+    let highSchoolTypeService = new HighSchoolTypeService();
 
-    facultyService.getAllFaculty().then((result => setFaculties(result.data.data)))
+    highSchoolTypeService.getAllHighSchoolType().then((result => setHighSchools(result.data.data)))
   }, []);
 
   const initialValues = {
-    faculty: "",
+    highSchoolType: "",
   };
 
   const validationSchema = Yup.object({
-    faculty: Yup.string().required("required field"),
+    highSchoolType: Yup.string().required("required field"),
   });
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    facultyService.addFaculty(values);
+    highSchoolTypeService.addHighSchoolType(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
-    refreshPage()
+    refreshPage();
   };
 
   const handleDelete = async (id) => {
-    let facultyService = new FacultyService();
+    let highSchoolTypeService = new HighSchoolTypeService();
     console.log(id);
-    facultyService.deleteFaculty(id);
+    highSchoolTypeService.deleteHighSchoolType(id);
     handleModal(true);
-    refreshPage()
+    refreshPage();
   }
 
   const formik = useFormik({
@@ -59,9 +59,8 @@ function Faculty() {
   };
 
   function refreshPage() {
-        window.location.reload();
-    }
-
+    window.location.reload();
+  }
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -76,14 +75,14 @@ function Faculty() {
               </Table.Header>
 
               <Table.Body>
-                {faculties.map((faculty) => (
+                {highSchoolTypes.map((highSchoolType) => (
                   <Table.Row>
-                    <Table.Cell>{faculty.facultyName}</Table.Cell>
+                    <Table.Cell>{highSchoolType.highSchoolType}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                    <Button icon inverted color="red">
+                      <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="red" onClick={() => handleDelete(faculty.id)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(highSchoolType.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -95,18 +94,18 @@ function Faculty() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='pencil alternate' />  Add Faculty
+                <Icon name='graduation cap' />  Add High School Type
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='faculty'
-                    placeholder='please enter faculty...'
-                    onChange={(event, data) => handleChange("faculty", data.value)}
-                    value={formik.values.faculty}
+                    name='highSchoolType'
+                    placeholder='please enter highSchoolType...'
+                    onChange={(event, data) => handleChange("highSchoolType", data.value)}
+                    value={formik.values.highSchoolType}
                   />
-                  {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing color="red" content={formik.errors.faculty} /><br /></span>}
-                  <Button color="red" type="submit" content="Add">Submit</Button>
+                  {formik.errors.highSchoolType && formik.touched.highSchoolType && <span><Label basic pointing color="red" content={formik.errors.highSchoolType} /><br /></span>}
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -118,4 +117,4 @@ function Faculty() {
   )
 }
 
-export default Faculty;
+export default HighSchoolType;

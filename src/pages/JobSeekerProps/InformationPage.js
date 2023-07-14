@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, Container, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 import PersonalInformation from './PersonalInformation';
+import ImageInfo from './ImageInfo';
 
 
 export default function InformationPage() {
@@ -18,6 +19,9 @@ export default function InformationPage() {
   const renderContent = () => {
     if (activeMenuItem === '/personalInformation') {
       return <PersonalInformation />;
+    }
+    if (activeMenuItem === '/image') {
+      return <ImageInfo />;
     }
     else {
       return (
@@ -63,10 +67,10 @@ export default function InformationPage() {
 
           <Grid.Column>
             <Card>
-              <Card.Content header='About Telephone' />
+              <Card.Content header='About Picture' />
               <Card.Content description={description} />
               <Card.Content extra>
-                <Button inverted color='red'>
+              <Button inverted color='red' as={Link} onClick={() => handleMenuItemClick('/image')}>
                   <Icon name='arrow right'></Icon>
                 </Button>
               </Card.Content>

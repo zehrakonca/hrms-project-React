@@ -1,38 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import WorkTypeService from '../../services/workTypeService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
+import FacultyService from '../../services/facultyService'
 
-function TypeOfWork() {
+function Faculty() {
 
-  const [typeOfWorks, setTypeOfWorks] = useState([]);
+  const [faculties, setFaculties] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let workTypeService = new WorkTypeService();
+  let facultyService = new FacultyService();
 
   useEffect(() => {
-    let workTypeService = new WorkTypeService();
+    let facultyService = new FacultyService();
 
-    workTypeService.getAllWorkType().then((result => setTypeOfWorks(result.data.data)))
+    facultyService.getAllFaculty().then((result => setFaculties(result.data.data)))
   }, []);
 
   const initialValues = {
-    typeOfWork: "",
+    faculty: "",
   };
 
   const validationSchema = Yup.object({
-    typeOfWork: Yup.string().required("required field"),
+    faculty: Yup.string().required("required field"),
   });
-
-  function refreshPage() {
-    window.location.reload();
-  }
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    workTypeService.addWorkType(values);
+    facultyService.addFaculty(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
@@ -41,9 +37,9 @@ function TypeOfWork() {
   };
 
   const handleDelete = async (id) => {
-    let workTypeService = new WorkTypeService();
+    let facultyService = new FacultyService();
     console.log(id);
-    workTypeService.deleteWorkType(id);
+    facultyService.deleteFaculty(id);
     handleModal(true);
     refreshPage()
   }
@@ -62,6 +58,10 @@ function TypeOfWork() {
     formik.setFieldValue(fieldName, value);
   };
 
+  function refreshPage() {
+        window.location.reload();
+    }
+
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -76,14 +76,14 @@ function TypeOfWork() {
               </Table.Header>
 
               <Table.Body>
-                {typeOfWorks.map((typeOfWork) => (
+                {faculties.map((faculty) => (
                   <Table.Row>
-                    <Table.Cell>{typeOfWork.typeOfWork}</Table.Cell>
+                    <Table.Cell>{faculty.facultyName}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon inverted color="red">
+                    <Button icon inverted color="red">
                         <Icon name='pencil' />
                       </Button>
-                      <Button icon inverted color="red" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
+                      <Button icon inverted color="red" onClick={() => handleDelete(faculty.id)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -95,18 +95,18 @@ function TypeOfWork() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='world' />  Add type OfWork
+                <Icon name='pencil alternate' />  Add Faculty
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='typeOfWork'
-                    placeholder='please enter typeOfWork...'
-                    onChange={(event, data) => handleChange("typeOfWork", data.value)}
-                    value={formik.values.typeOfWork}
+                    name='faculty'
+                    placeholder='please enter faculty...'
+                    onChange={(event, data) => handleChange("faculty", data.value)}
+                    value={formik.values.faculty}
                   />
-                  {formik.errors.typeOfWork && formik.touched.typeOfWork && <span><Label basic pointing color="red" content={formik.errors.typeOfWork} /><br /></span>}
-                  <Button color="red" type="submit" content="Add" onClick={refreshPage}>Submit</Button>
+                  {formik.errors.faculty && formik.touched.faculty && <span><Label basic pointing color="red" content={formik.errors.faculty} /><br /></span>}
+                  <Button inverted color="red" type="submit" content="Add">Add</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -118,4 +118,4 @@ function TypeOfWork() {
   )
 }
 
-export default TypeOfWork;
+export default Faculty;

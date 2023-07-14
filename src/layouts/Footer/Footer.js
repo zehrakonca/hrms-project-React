@@ -11,7 +11,7 @@ export default function Footer() {
             <Grid.Column width={4}>
               <Header inverted as='h4' content='About' />
               <List link inverted>
-                <List.Item as={Link} to="/sitemap">Sitemap</List.Item>
+                <List.Item as={Link} to="#">Sitemap</List.Item>
                 <List.Item as='a'>Contact Us</List.Item>
                 <List.Item as='a'>Religious Ceremonies</List.Item>
                 <List.Item as='a'>Gazebo Plans</List.Item>
@@ -39,7 +39,7 @@ export default function Footer() {
                 Search
               </Header>
               <h5>
-                <Search placeholder='Write the job you are looking for.' size='mini' />
+                <Search placeholder='Write the sentence what you are looking for.' size='mini' />
               </h5>
             </Grid.Column>
           </Grid.Row>

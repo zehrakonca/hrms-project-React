@@ -58,7 +58,7 @@ function ExperienceType() {
     });
 
     return (
-        <Container style={{ margin: "1em", marginBottom:"20em" }}>
+        <Container style={{ margin: "1em"}}>
           <Grid>
             <Grid.Row>
               <Grid.Column width={8}>

@@ -61,7 +61,7 @@ function EducationType() {
     }
 
     return (
-        <Container style={{ margin: '1em', marginBottom:"25em" }}>
+        <Container style={{ margin: '1em'}}>
             <Container style={{ margin: "1em" }}>
                 <Grid>
                     <Grid.Row>
@@ -105,7 +105,7 @@ function EducationType() {
                                             value={formik.values.educationType}
                                         />
                                         {formik.errors.educationType && formik.touched.educationType && <span><Label basic pointing color="red" content={formik.errors.educationType} /><br /></span>}
-                                        <Button inverted color="red" type="submit" content="Add">Submit</Button>
+                                        <Button inverted color="red" type="submit" content="Add">Add</Button>
                                     </Form>
                                 </Formik>
                             </Segment>

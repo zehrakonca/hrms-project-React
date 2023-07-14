@@ -1,47 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, Grid, Header, Icon, Label, Segment, Table } from 'semantic-ui-react'
-import SectorService from '../../services/sectorService';
+import WorkTypeService from '../../services/workTypeService';
 import { Formik, useFormik } from 'formik';
 import * as Yup from "yup";
 import MessageModal from '../../layouts/Dashboard/MessageModal';
 
-function SectorList() {
+function TypeOfWork() {
 
-  const [sectors, setSectors] = useState([]);
+  const [typeOfWorks, setTypeOfWorks] = useState([]);
   const [open, setOpen] = useState(false);
 
-  let sectorService = new SectorService();
+  let workTypeService = new WorkTypeService();
 
   useEffect(() => {
-    let sectorService = new SectorService();
+    let workTypeService = new WorkTypeService();
 
-    sectorService.getSectors().then((result => setSectors(result.data.data)))
+    workTypeService.getAllWorkType().then((result => setTypeOfWorks(result.data.data)))
   }, []);
 
   const initialValues = {
-    sector: "",
+    typeOfWork: "",
   };
 
   const validationSchema = Yup.object({
-    sector: Yup.string().required("required field"),
+    typeOfWork: Yup.string().required("required field"),
   });
+
+  function refreshPage() {
+    window.location.reload();
+  }
 
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
-    sectorService.addSector(values);
+    workTypeService.addWorkType(values);
     handleModal(true);
     setTimeout(() => {
       resetForm();
     }, 100);
-    refreshPage();
+    refreshPage()
   };
 
   const handleDelete = async (id) => {
-    let sectorService = new SectorService();
+    let workTypeService = new WorkTypeService();
     console.log(id);
-    sectorService.deleteSector(id);
+    workTypeService.deleteWorkType(id);
     handleModal(true);
-    refreshPage();
+    refreshPage()
   }
 
   const formik = useFormik({
@@ -58,9 +62,6 @@ function SectorList() {
     formik.setFieldValue(fieldName, value);
   };
 
-  function refreshPage() {
-    window.location.reload();
-  }
   return (
     <Container style={{ margin: "1em" }}>
       <Grid>
@@ -75,11 +76,14 @@ function SectorList() {
               </Table.Header>
 
               <Table.Body>
-                {sectors.map((sector) => (
+                {typeOfWorks.map((typeOfWork) => (
                   <Table.Row>
-                    <Table.Cell>{sector.sector}</Table.Cell>
+                    <Table.Cell>{typeOfWork.typeOfWork}</Table.Cell>
                     <Table.Cell textAlign='right'>
-                      <Button icon basic color="red" onClick={() => handleDelete(sector.id)}>
+                      <Button icon inverted color="red">
+                        <Icon name='pencil' />
+                      </Button>
+                      <Button icon inverted color="red" onClick={() => handleDelete(typeOfWork.typeOfWorkId)}>
                         <Icon name='cancel' />
                       </Button>
                     </Table.Cell>
@@ -91,18 +95,18 @@ function SectorList() {
           <Grid.Column width={8}>
             <Segment>
               <Header as='h3' dividing>
-                <Icon name='archive' />  Add Sector
+                <Icon name='world' />  Add Type Of Work
               </Header>
               <Formik>
                 <Form onSubmit={formik.handleSubmit}>
                   <Form.Input
-                    name='sector'
-                    placeholder='please enter sector...'
-                    onChange={(event, data) => handleChange("sector", data.value)}
-                    value={formik.values.sector}
+                    name='typeOfWork'
+                    placeholder='please enter typeOfWork...'
+                    onChange={(event, data) => handleChange("typeOfWork", data.value)}
+                    value={formik.values.typeOfWork}
                   />
-                  {formik.errors.sector && formik.touched.sector && <span><Label basic pointing color="red" content={formik.errors.sector} /><br /></span>}
-                  <Button inverted color="red" type="submit" content="Add">Submit</Button>
+                  {formik.errors.typeOfWork && formik.touched.typeOfWork && <span><Label basic pointing color="red" content={formik.errors.typeOfWork} /><br /></span>}
+                  <Button inverted color="red" type="submit" content="Add" onClick={refreshPage}>Add</Button>
                 </Form>
               </Formik>
             </Segment>
@@ -114,4 +118,4 @@ function SectorList() {
   )
 }
 
-export default SectorList;
+export default TypeOfWork;

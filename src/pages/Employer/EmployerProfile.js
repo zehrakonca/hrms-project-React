@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Container, Grid, Header, Icon, Image, Input, Menu, Segment } from 'semantic-ui-react'
+    import React, { useState } from 'react'
+import { Container, Grid, Header, Icon, Menu, Segment } from 'semantic-ui-react'
 import EmployerPersonalInformation from './EmployerPersonalInformation'
 import EmployersAdvertisements from './EmployersAdvertisements';
 import JobAdvertisementPost from '../JobAdvertisement/JobAdvertisementPost';
@@ -40,8 +40,7 @@ export default function EmployerProfile() {
         <Container style={{ margin: "1em", marginBottom: "12em" }}>
             <Segment raised>
                 <Header as='h2' attached='top'>
-                    Hanooğ evrinyan! -company-
-                    Welcome Back, com. How are you today?
+                    Welcome Back,How are you today?
                 </Header>
                 <Segment attached>
                     {formattedDate}

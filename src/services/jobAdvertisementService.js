@@ -17,6 +17,10 @@ export default class JobAdvertisementService{
     getByCityAndWorkType(cityId, workTypeId){
         return axios.get(`http://localhost:8080/api/jobAdvertisements/getByCityAndWorkType?cityId=${cityId}&workTypeId=${workTypeId}`);
     }
+
+   getBySectorAndCity(sectorId, cityId){
+        return axios.get(`http://localhost:8080/api/jobAdvertisements/getBySectorAndCityId?sectorId=${sectorId}&cityId=${cityId}`)
+   }
     
     getByAdvertisementId(advertisementId){
         return axios.get(`http://localhost:8080/api/jobAdvertisements/getById/{id}?id=${advertisementId}`);

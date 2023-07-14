@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
-import { Button, Container, Divider, Grid, Header, Icon, Image, Search, Segment } from 'semantic-ui-react';
-import bannerPicture from '../../img/meeting2.jpg';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
-import UserCount from "../Dashboard/UserCount";
-import { Link } from 'react-router-dom';
+import { Button, Container, Grid, Header, Icon, Image, List, Search, Segment } from 'semantic-ui-react';
 import { UserContext } from '../../contexts/UserProvider';
+import bannerPicture from '../../img/meeting2.jpg';
+import UserCount from "../Dashboard/UserCount";
+import JobAdvertisementService from '../../services/jobAdvertisementService';
+import companyAvatar from '../../img/company.png';
 
 const HomepageHeading = ({ mobile }) => (
   <Container>
@@ -19,7 +21,7 @@ const HomepageHeading = ({ mobile }) => (
           </Container>
         </Grid.Column>
         <Grid.Column>
-          <Image src={bannerPicture} size="large" color="grey" floated='right' />
+          <Image src={bannerPicture} size="large" color="red" floated='right' />
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -29,6 +31,13 @@ const HomepageHeading = ({ mobile }) => (
 export default function Information() {
 
   const { user } = useContext(UserContext);
+  const [jobAdvertisements, setJobAdvertisements] = useState([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    let jobAdvertisementService = new JobAdvertisementService()
+    jobAdvertisementService.getActiveAdvertisements().then(result => setJobAdvertisements(result.data.data))
+  }, [])
 
   return (
     <Container style={{ margin: '1em' }}>
@@ -37,11 +46,27 @@ export default function Information() {
         <Grid columns={2} stackable textAlign='center'>
           <Grid.Row verticalAlign='middle'>
             <Grid.Column>
-              <Header icon>
-                <Icon name='search' />
-                Search job
-              </Header>
-              <Search placeholder='Search jobs...' />
+              <Segment>
+                <List divided style={{ textAlign: 'left' }}>
+                  {jobAdvertisements.map((jobAdvertisement) => (
+                    <List.Item key={jobAdvertisement.advertisementId} style={{ display: 'flex', alignItems: 'flex-start' }}>
+                      <Icon name='bullhorn' size='large' style={{ marginTop: '13px' }} />
+                      <List.Content>
+                        <List.Header as='a' onClick={() => navigate(`/advertisement/${jobAdvertisement.advertisementId}`)}>
+                            {jobAdvertisement.advertisementName}
+                        </List.Header>
+                        <List.Description>
+                          {jobAdvertisement.cityName}
+                        </List.Description>
+                        <List.Description>
+                          {jobAdvertisement.companyName}
+                        </List.Description>
+                      </List.Content>
+                    </List.Item>
+                  ))}
+                </List>
+
+              </Segment>
             </Grid.Column>
             {!user && (
               <Grid.Column>

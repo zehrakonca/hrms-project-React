@@ -107,7 +107,7 @@ function Language() {
                                             value={formik.values.language}
                                         />
                                         {formik.errors.language && formik.touched.language && <span><Label basic pointing color="red" content={formik.errors.language} /><br /></span>}
-                                        <Button color="red" type="submit" content="Add">Submit</Button>
+                                        <Button inverted color="red" type="submit" content="Add">Add</Button>
                                     </Form>
                                 </Formik>
                             </Segment>
